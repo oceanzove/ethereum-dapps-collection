@@ -5,8 +5,6 @@
 Для запуска кошельков команда: 
 ```
 node_modules/.bin/ganache-cli
-
-node_modules/.bin/solcjs --bin --abi Voting.sol
 ```
 
 Затем откройте новый терминал (не закрывая старый) и введите следующие команды:
