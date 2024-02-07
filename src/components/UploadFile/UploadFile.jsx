@@ -3,7 +3,7 @@ import Web3 from 'web3';
 
 import styles from './UploadFile.module.css';
 
-function UploadFile() {
+function UploadFile(props) {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileChange = (e) => {
@@ -11,23 +11,14 @@ function UploadFile() {
         setSelectedFile(file);
     };
 
-    const [account, setAccount] = useState(null); // явно указываем начальное значение
+    let onUploadClick = () => {
+        const userName = document.getElementById('owner-name').value;
 
-    useEffect(() => {
-        async function load() {
-            try {
-                const web3 = new Web3(window.ethereum || 'http://localhost:7545');
-                const accounts = await web3.eth.getAccounts(); // Получаем кошельки Ethereum
+        props.uploadFile(userName);
 
-                // Устанавливаем аккаунт в состояние
-                setAccount(accounts[0]);
-            } catch (error) {
-                console.error('Error loading account:', error);
-            }
-        }
+    }
 
-        load();
-    }, []);
+
 
     return (
         <div className={styles.content}>
@@ -49,13 +40,12 @@ function UploadFile() {
             </div>
 
             <div className={styles.buttonsContainer}> {/* Контейнер для кнопок */}
-                <button className={styles.button}>Отправить </button>
+                <button className={styles.button} onClick={onUploadClick}>Отправить </button>
                 <button className={styles.button}>Получить информацию</button>
             </div>
             <div className={styles.transactionStatus}>
                 <div>Статус транзакции: </div>
             </div>
-            Your account is: {account}
         </div>
     );
 }
