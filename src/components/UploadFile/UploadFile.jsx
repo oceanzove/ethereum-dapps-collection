@@ -29,18 +29,18 @@ const UploadFile = (props) => {
         init()
     }, []);
 
+    const [fileStorageContract, setFileStorageContract] = useState(null);
+    const [web3, setWeb3] = useState(null);
+
     let onNewOwnerChange = (e) => {
         let text = e.target.value;
         props.updateNewOwnerText(text);
-
     }
     let onNewFileHashChange = (e) => {
         const file = e.target.files[0];
         const name = e.target.files[0].name;
         getHashFile(file).then(fileHash => props.updateNewFile(fileHash, name))
-        console.log(props.uploadFilePage.newFileName)
     }
-
     const getHashFile = (file) => {
         return new Promise((resolve, reject) => {
             try {
@@ -53,40 +53,27 @@ const UploadFile = (props) => {
                 };
                 fileReader.readAsArrayBuffer(file);
             } catch (error) {
-                console.error('File hash error', error);
                 reject(error);
             }
         });
+
     }
 
+
     const [selectedFile, setSelectedFile] = useState(null);
-    const [transactionHash, setTransactionHash] = useState('');
-
     const [fileInfo, setFileInfo] = useState(null);
-    // remove this
-    const [ownerName, setOwnerName] = useState('');
-    const [web3, setWeb3] = useState(null);
-
-    const [fileStorageContract, setFileStorageContract] = useState(null);
 
 
     const handleUploadButtonClick = async () => {
-        if (!selectedFile || !ownerName || !web3 || !fileStorageContract) return;
-
         try {
-            const fileReader = new FileReader();
-            fileReader.onloadend = async () => {
-                const arrayBuffer = fileReader.result;
-                const fileBytes = new Uint8Array(arrayBuffer);
-                const accounts = await web3.eth.getAccounts();
-
-                // Увеличьте значение gasLimit для выполнения транзакции
-                const gasLimit = 2000000; // Установите желаемое значение газа
-
-                const fileHash = await fileStorageContract.methods.uploadFile(fileBytes, ownerName, selectedFile.name).send({ from: accounts[0], gas: gasLimit });
-                setTransactionHash(fileHash.transactionHash);
-            };
-            fileReader.readAsArrayBuffer(selectedFile);
+            const fileHash = props.uploadFilePage.newFileHash;
+            const ownerName = props.uploadFilePage.newOwnerText;
+            const fileName = props.uploadFilePage.newFileName;
+            const accounts = await web3.eth.getAccounts();
+            const gasLimit = 2000000; // Установите желаемое значение газа
+            const {transactionHash} = await fileStorageContract.methods.uploadFile(fileHash, ownerName, fileName).send({ from: accounts[0], gas: gasLimit });
+            props.updateTransactionHash(transactionHash);
+            props.uploadFile(ownerName, fileName, fileHash);
         } catch (error) {
             console.error(error);
         }
@@ -133,12 +120,14 @@ const UploadFile = (props) => {
             </div>
 
             <div className={styles.buttonsContainer}>
-                <button className={styles.button} onClick={handleUploadButtonClick}>Отправить</button>
+                <button className={styles.button} disabled={!props.uploadFilePage.newOwnerText
+                    || !props.uploadFilePage.newFileName}
+                        onClick={handleUploadButtonClick}>Отправить</button>
                 <button className={styles.button} onClick={handleGetInfoButtonClick}>Получить информацию</button>
             </div>
 
             <div className={styles.transactionStatus}>
-                <div>Хэш транзакции: {transactionHash}</div>
+                <div>Хэш транзакции: {props.uploadFilePage.currentTransactionHash === '' ? '' :  props.uploadFilePage.currentTransactionHash}</div>
             </div>
 
             <div className={styles.fileInfo}>
