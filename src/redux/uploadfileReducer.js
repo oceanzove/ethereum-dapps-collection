@@ -10,7 +10,7 @@ let initialState = {
     newFileHash: '',
     currentTransactionHash: '',
     uploadFiles: [
-        {fileOwner: 'Влад', fileName: 'Великий Шиверфолд.docx', fileHash: '0x4c42d89f7cb5571fe5e70fc99abe5a8c1b008aa40bbebfc8e2c92b3e46454d0e'}
+        {fileOwner: 'Влад', fileName: 'Великий Шиверфолд.docx', fileHash: '0x4c42d89f7cb5571fe5e70fc99abe5a8c1b008aa40bbebfc8e2c92b3e46454d0e', uploadTime: ''}
     ],
     transactionHash: '',
 }
@@ -35,7 +35,7 @@ const uploadFileReducer = (state = initialState, action) => {
                 currentTransactionHash: action.newTransactionHash
             }
         case UPLOAD_FILE:
-            let newFile = {fileOwner: action.fileOwner, fileName: action.fileName, fileHash: action.fileHash}
+            let newFile = {fileOwner: action.fileOwner, fileName: action.fileName, fileHash: action.fileHash, uploadTime: action.uploadTime}
             return {
                 ...state,
                 uploadFiles: [...state.uploadFiles, newFile],
@@ -60,8 +60,8 @@ export const updateTransactionHashAC = (hash) => (
     {type: UPDATE_CURRENT_TRANSACTION_HASH, newTransactionHash: hash}
 )
 
-export const uploadFileAC = (owner, name, hash) => (
-    {type: UPLOAD_FILE, fileOwner: owner, fileName: name, fileHash: hash }
+export const uploadFileAC = (owner, name, hash, uploadTime) => (
+    {type: UPLOAD_FILE, fileOwner: owner, fileName: name, fileHash: hash, uploadTime: uploadTime}
 )
 
 

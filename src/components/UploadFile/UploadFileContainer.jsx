@@ -27,8 +27,8 @@ const  mapDispatchToProps = (dispatch) => {
             let action = updateTransactionHashAC(hash);
             dispatch(action);
         },
-        uploadFile: (owner, name, hash) => {
-            let action = uploadFileAC(owner, name, hash);
+        uploadFile: (owner, name, hash, uploadTime) => {
+            let action = uploadFileAC(owner, name, hash, uploadTime);
             dispatch(action);
         }
     }

@@ -14,13 +14,13 @@ contract FileStorage {
     event FileUploaded(bytes32 indexed fileHash, uint256 timestamp, string uploader, string fileName);
 
     // TODO Сделай чтобы timestamp работал коректно, и не возращлся hash
-    function uploadFile(bytes32 fileHash, string memory userName, string memory fileName) public returns (bytes32) {
+    function uploadFile(bytes32 fileHash, string memory userName, string memory fileName, uint256 timestamp) public returns (bytes32) {
         require(fileInfos[fileHash].timestamp == 0, "File already exists");
 
-        FileInfo memory newFileInfo = FileInfo(block.timestamp, userName, fileName, fileHash);
+        FileInfo memory newFileInfo = FileInfo(timestamp, userName, fileName, fileHash);
         fileInfos[fileHash] = newFileInfo;
 
-        emit FileUploaded(fileHash, block.timestamp, userName, fileName);
+        emit FileUploaded(fileHash, timestamp, userName, fileName);
 
         return fileHash;
     }

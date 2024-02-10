@@ -69,11 +69,13 @@ const UploadFile = (props) => {
             const fileHash = props.uploadFilePage.newFileHash;
             const ownerName = props.uploadFilePage.newOwnerText;
             const fileName = props.uploadFilePage.newFileName;
+            const uploadTime = Date.now();
             const accounts = await web3.eth.getAccounts();
             const gasLimit = 2000000; // Установите желаемое значение газа
-            const {transactionHash} = await fileStorageContract.methods.uploadFile(fileHash, ownerName, fileName).send({ from: accounts[0], gas: gasLimit });
+            const {transactionHash} = await fileStorageContract.methods.uploadFile(fileHash, ownerName, fileName, uploadTime).send({ from: accounts[0], gas: gasLimit });
             props.updateTransactionHash(transactionHash);
-            props.uploadFile(ownerName, fileName, fileHash);
+            props.uploadFile(ownerName, fileName, fileHash, uploadTime);
+
         } catch (error) {
             console.error(error);
         }
@@ -97,6 +99,8 @@ const UploadFile = (props) => {
         } catch (error) {
             console.error(error);
         }
+
+
     };
 
     return (
