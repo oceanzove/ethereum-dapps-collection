@@ -25,11 +25,14 @@ contract FileStorage {
         return fileHash;
     }
 
-    function getFileInfo(bytes memory file) public view returns (uint256, string memory, string memory, bytes32) {
-        bytes32 fileHash = keccak256(file);
+    function getFileInfoByHash(bytes32 fileHash) public view returns (uint256, string memory, string memory, bytes32) {
         FileInfo memory info = fileInfos[fileHash];
         require(info.timestamp != 0, "File not found");
 
         return (info.timestamp, info.uploader, info.fileName, info.fileHash);
+    }
+
+    function getFileHash(bytes memory file) public pure returns (bytes32) {
+        return keccak256(file);
     }
 }
