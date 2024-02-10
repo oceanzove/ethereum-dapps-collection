@@ -47,11 +47,6 @@ const uploadFileReducer = (state = initialState, action) => {
                 newOwnerText: '',
                 newFileName: '',
                 newFileHash: '',
-                uploadedFileOwner: '',
-                uploadedFileName: '',
-                uploadedFileHash: '',
-                uploadedFileTime: ''
-
             }
         case UPLOADED_FILE_INFO:
             return {

@@ -6,7 +6,7 @@ function App() {
   return (
       <div className='app-wrapper'>
         <div className='app-wrapper-content'>
-          <UploadFileContainer />
+          <UploadFileContainer/>
         </div>
       </div>
   );

@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import Web3 from 'web3';
-import FileStorageContract from '../../solidity-contracts/build/contracts/FileStorage.json';
+import React, {useState, useEffect, useContext} from 'react';
 
 import styles from './UploadFile.module.css';
+import ContractManagerContext from "../services/ContractManagerContext";
 
 const UploadFile = (props) => {
-    useEffect(() => {
-        const init = async () => {
-            try {
-                // Подключение к локальной сети Ethereum (Ganache)
-                const ganacheUrl = 'http://localhost:7545'; // Замените на ваш URL Ganache
-                const web3Instance = new Web3(ganacheUrl);
-                setWeb3(web3Instance);
+    const { contractManager} = useContext(ContractManagerContext)
+    console.log(contractManager)
+    console.log(contractManager.getContract('FileStorageContract'))
+    const [fileStorageContract, setFileStorageContract] = useState(null);
+    const [web3Instance, setWeb3Instance] = useState(null);
 
-                // Использование ABI и адреса контракта из файла FileStorage.json
-                const networkId = await web3Instance.eth.net.getId();
-                const deployedNetwork = FileStorageContract.networks[networkId];
-                const contractInstance = new web3Instance.eth.Contract(
-                    FileStorageContract.abi,
-                    deployedNetwork && deployedNetwork.address,
-                );
-                setFileStorageContract(contractInstance);
+
+    useEffect(() => {
+        const getContract = async () => {
+            try {
+                const contract = await contractManager.getContract('FileStorageContract');
+                setFileStorageContract(contract);
             } catch (error) {
                 console.error(error);
             }
         };
+        getContract();
+    }, [contractManager]);
 
-        init()
-    }, []);
+    useEffect(() => {
+        const web3 = contractManager.getWeb3()
+        setWeb3Instance(web3)
+    }, [contractManager])
 
-    const [fileStorageContract, setFileStorageContract] = useState(null);
-    const [web3, setWeb3] = useState(null);
 
     let onNewOwnerChange = (e) => {
         let text = e.target.value;
@@ -59,13 +56,14 @@ const UploadFile = (props) => {
 
     }
 
+
     const handleUploadButtonClick = async () => {
         try {
             const fileHash = props.uploadFilePage.newFileHash;
             const ownerName = props.uploadFilePage.newOwnerText;
             const fileName = props.uploadFilePage.newFileName;
             const uploadTime = Date.now();
-            const accounts = await web3.eth.getAccounts();
+            const accounts = await web3Instance.eth.getAccounts();
             const gasLimit = 2000000; // Установите желаемое значение газа
             const {transactionHash} = await fileStorageContract.methods.uploadFile(fileHash, ownerName, fileName, uploadTime).send({ from: accounts[0], gas: gasLimit });
             props.updateTransactionHash(transactionHash);
