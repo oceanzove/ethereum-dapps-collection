@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 
 import FileStorageContract from '../../solidity-contracts/build/contracts/FileStorage.json';
-import Factorial from '../../solidity-contracts/build/contracts/Factorial.json';
+import FactorialContract from '../../solidity-contracts/build/contracts/Factorial.json';
 
 
 
@@ -17,7 +17,7 @@ class ContractManager {
 
             this.contracts.FileStorageContract = await this.initContract(FileStorageContract);
 
-            this.contracts.Factorial = await this.initContract(Factorial);
+            this.contracts.FactorialContract = await this.initContract(FactorialContract);
         } catch (error) {
             console.error(error);
         }

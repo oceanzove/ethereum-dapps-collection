@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import Factorial from "./Factorial";
+import {setAnswerTextAC, updateInputTextAC} from "../../redux/factorialReducer";
 
 
 
@@ -12,7 +13,14 @@ const mapStateToProps = (state) => {
 
 const  mapDispatchToProps = (dispatch) => {
     return {
-
+        updateInputText: (text) => {
+            let action = updateInputTextAC(text);
+            dispatch(action);
+        },
+        setAnswerText: (text) => {
+            let action = setAnswerTextAC(text);
+            dispatch(action);
+        }
     }
 }
 

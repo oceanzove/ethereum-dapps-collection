@@ -22,13 +22,11 @@ let initialState = {
 const uploadFileReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_NEW_OWNER_TEXT:
-            console.log('Owner chaned', action.newText)
             return {
                 ...state,
                 newOwnerText: action.newText
             };
         case UPDATE_NEW_FILE:
-            console.log(`Successful file with name ${action.newName}`, action.newHash)
             return {
                 ...state,
                 newFileName: action.newName,
