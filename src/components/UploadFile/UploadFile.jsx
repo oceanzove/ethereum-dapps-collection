@@ -5,11 +5,8 @@ import ContractManagerContext from "../services/ContractManagerContext";
 
 const UploadFile = (props) => {
     const { contractManager} = useContext(ContractManagerContext)
-    console.log(contractManager)
-    console.log(contractManager.getContract('FileStorageContract'))
     const [fileStorageContract, setFileStorageContract] = useState(null);
     const [web3Instance, setWeb3Instance] = useState(null);
-
 
     useEffect(() => {
         const getContract = async () => {
@@ -56,7 +53,6 @@ const UploadFile = (props) => {
 
     }
 
-
     const handleUploadButtonClick = async () => {
         try {
             const fileHash = props.uploadFilePage.newFileHash;
@@ -73,9 +69,6 @@ const UploadFile = (props) => {
             console.error(error);
         }
     };
-
-
-
     const handleGetInfoButtonClick = async () => {
         try {
              const fileHash = props.uploadFilePage.newFileHash;
@@ -87,6 +80,8 @@ const UploadFile = (props) => {
 
 
     };
+
+
 
     return (
         <div className={styles.content}>
@@ -134,6 +129,7 @@ const UploadFile = (props) => {
                     </div>
             </div>
         </div>
+
     );
 }
 
