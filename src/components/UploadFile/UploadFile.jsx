@@ -4,14 +4,7 @@ import FileStorageContract from '../../solidity-contracts/build/contracts/FileSt
 
 import styles from './UploadFile.module.css';
 
-const UploadFile = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [transactionHash, setTransactionHash] = useState('');
-    const [fileInfo, setFileInfo] = useState(null);
-    const [ownerName, setOwnerName] = useState('');
-    const [web3, setWeb3] = useState(null);
-    const [fileStorageContract, setFileStorageContract] = useState(null);
-
+const UploadFile = (props) => {
     useEffect(() => {
         const init = async () => {
             try {
@@ -33,13 +26,49 @@ const UploadFile = () => {
             }
         };
 
-        init();
+        init()
     }, []);
 
-    const handleFileChange = (e) => {
+    let onNewOwnerChange = (e) => {
+        let text = e.target.value;
+        props.updateNewOwnerText(text);
+
+    }
+    let onNewFileHashChange = (e) => {
         const file = e.target.files[0];
-        setSelectedFile(file);
-    };
+        const name = e.target.files[0].name;
+        getHashFile(file).then(fileHash => props.updateNewFile(fileHash, name))
+        console.log(props.uploadFilePage.newFileName)
+    }
+
+    const getHashFile = (file) => {
+        return new Promise((resolve, reject) => {
+            try {
+                const fileReader = new FileReader();
+                fileReader.onloadend = async () => {
+                    const arrayBuffer = fileReader.result;
+                    const fileBytes = new Uint8Array(arrayBuffer);
+                    const fileHash = await fileStorageContract.methods.getFileHash(fileBytes).call();
+                    resolve(fileHash);
+                };
+                fileReader.readAsArrayBuffer(file);
+            } catch (error) {
+                console.error('File hash error', error);
+                reject(error);
+            }
+        });
+    }
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [transactionHash, setTransactionHash] = useState('');
+
+    const [fileInfo, setFileInfo] = useState(null);
+    // remove this
+    const [ownerName, setOwnerName] = useState('');
+    const [web3, setWeb3] = useState(null);
+
+    const [fileStorageContract, setFileStorageContract] = useState(null);
+
 
     const handleUploadButtonClick = async () => {
         if (!selectedFile || !ownerName || !web3 || !fileStorageContract) return;
@@ -83,9 +112,6 @@ const UploadFile = () => {
         }
     };
 
-
-
-
     return (
         <div className={styles.content}>
             <div className={styles.title}>
@@ -95,14 +121,14 @@ const UploadFile = () => {
             <div className={styles.container}>
                 <div className={styles.ownerInputContainer}>
                     <label htmlFor="owner-name" className={styles.ownerInputLabel}>Введите имя владельца</label>
-                    <input type="text" id="owner-name" value={ownerName} onChange={(e) => setOwnerName(e.target.value)} className={styles.ownerInput}/>
+                    <input type="text" id="owner-name" value={props.uploadFilePage.newOwnerText} onChange={onNewOwnerChange} className={styles.ownerInput}/>
                 </div>
 
                 <div className={styles.fileUpload}>
                     <label htmlFor="file-upload" className={styles.customFileUpload}>
-                        {selectedFile ? selectedFile.name : 'Выберите файл'}
+                        {props.uploadFilePage.newFileName === '' ? 'Выберите файл' : props.uploadFilePage.newFileName}
                     </label>
-                    <input id="file-upload" type="file" onChange={handleFileChange} className={styles.inputFile}/>
+                    <input id="file-upload" type="file" onChange={onNewFileHashChange} className={styles.inputFile}/>
                 </div>
             </div>
 

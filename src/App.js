@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css'
-import UploadFile from "./components/UploadFile/UploadFile";
+import UploadFileContainer from "./components/UploadFile/UploadFileContainer";
 
 function App() {
   return (
       <div className='app-wrapper'>
         <div className='app-wrapper-content'>
-          <UploadFile />
+          <UploadFileContainer />
         </div>
       </div>
   );
