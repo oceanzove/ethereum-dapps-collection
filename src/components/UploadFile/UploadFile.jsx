@@ -59,11 +59,6 @@ const UploadFile = (props) => {
 
     }
 
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [fileInfo, setFileInfo] = useState(null);
-
-
     const handleUploadButtonClick = async () => {
         try {
             const fileHash = props.uploadFilePage.newFileHash;
@@ -84,18 +79,10 @@ const UploadFile = (props) => {
 
 
     const handleGetInfoButtonClick = async () => {
-        if (!selectedFile || !web3 || !fileStorageContract) return;
-
         try {
-            const fileReader = new FileReader();
-            fileReader.onloadend = async () => {
-                const arrayBuffer = fileReader.result;
-                const fileBytes = new Uint8Array(arrayBuffer);
-                const fileHash = await fileStorageContract.methods.getFileHash(fileBytes).call();
-                const info = await fileStorageContract.methods.getFileInfoByHash(fileHash).call();
-                setFileInfo(info);
-            };
-            fileReader.readAsArrayBuffer(selectedFile);
+             const fileHash = props.uploadFilePage.newFileHash;
+             const info = await fileStorageContract.methods.getFileInfoByHash(fileHash).call();
+             props.uploadedFileInfo(info[0],info[1], info[2], info[3]);
         } catch (error) {
             console.error(error);
         }
@@ -127,7 +114,9 @@ const UploadFile = (props) => {
                 <button className={styles.button} disabled={!props.uploadFilePage.newOwnerText
                     || !props.uploadFilePage.newFileName}
                         onClick={handleUploadButtonClick}>Отправить</button>
-                <button className={styles.button} onClick={handleGetInfoButtonClick}>Получить информацию</button>
+                <button className={styles.button} disabled={
+                    !props.uploadFilePage.newFileHash
+                } onClick={handleGetInfoButtonClick}>Получить информацию</button>
             </div>
 
             <div className={styles.transactionStatus}>
@@ -136,14 +125,15 @@ const UploadFile = (props) => {
 
             <div className={styles.fileInfo}>
                 {/* Отображение информации о файле */}
-                {fileInfo && (
                     <div>
-                        <p>Временная метка: {fileInfo[0]}</p>
-                        <p>Пользователь: {fileInfo[1]}</p>
-                        <p>Имя файла: {fileInfo[2]}</p>
-                        <p>Хэш файла: {fileInfo[3]}</p>
+                        <p>Временная метка:
+                            {props.uploadFilePage.uploadedFileTime === '' ? '' :
+                                new Date(Number(props.uploadFilePage.uploadedFileTime)).toString()}
+                        </p>
+                        <p>Пользователь: {props.uploadFilePage.uploadedFileOwner}</p>
+                        <p>Имя файла: {props.uploadFilePage.uploadedFileName}</p>
+                        <p>Хэш файла: {props.uploadFilePage.uploadedFileHash}</p>
                     </div>
-                )}
             </div>
         </div>
     );

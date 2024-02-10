@@ -13,7 +13,6 @@ contract FileStorage {
 
     event FileUploaded(bytes32 indexed fileHash, uint256 timestamp, string uploader, string fileName);
 
-    // TODO Сделай чтобы timestamp работал коректно, и не возращлся hash
     function uploadFile(bytes32 fileHash, string memory userName, string memory fileName, uint256 timestamp) public returns (bytes32) {
         require(fileInfos[fileHash].timestamp == 0, "File already exists");
 
@@ -25,11 +24,11 @@ contract FileStorage {
         return fileHash;
     }
 
-    function getFileInfoByHash(bytes32 fileHash) public view returns (uint256, string memory, string memory, bytes32) {
+    function getFileInfoByHash(bytes32 fileHash) public view returns (string memory, string memory, bytes32, uint256) {
         FileInfo memory info = fileInfos[fileHash];
         require(info.timestamp != 0, "File not found");
 
-        return (info.timestamp, info.uploader, info.fileName, info.fileHash);
+        return (info.uploader, info.fileName, info.fileHash, info.timestamp);
     }
 
     function getFileHash(bytes memory file) public pure returns (bytes32) {

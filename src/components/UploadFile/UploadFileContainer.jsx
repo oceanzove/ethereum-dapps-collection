@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {
     updateNewFileAC,
     updateNewOwnerAC,
-    updateTransactionHashAC, uploadFileAC
+    updateTransactionHashAC, uploadedFileInfoAC, uploadFileAC
 } from "../../redux/uploadfileReducer";
 import UploadFile from "./UploadFile";
 
@@ -29,6 +29,10 @@ const  mapDispatchToProps = (dispatch) => {
         },
         uploadFile: (owner, name, hash, uploadTime) => {
             let action = uploadFileAC(owner, name, hash, uploadTime);
+            dispatch(action);
+        },
+        uploadedFileInfo: (owner, name, hash, uploadedTime) => {
+            let action = uploadedFileInfoAC(owner, name, hash, uploadedTime);
             dispatch(action);
         }
     }
