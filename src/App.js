@@ -3,6 +3,7 @@ import './App.css'
 import UploadFileContainer from "./components/UploadFile/UploadFileContainer";
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import FactorialContainer from "./components/Factorial/FactorialContainer";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='/uploadfile' element={<UploadFileContainer/>}/>
+                        <Route path='/factorial' element={<FactorialContainer/>}/>
                     </Routes>
                 </div>
             </div>
