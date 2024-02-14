@@ -1,22 +1,35 @@
 import styles from "../Factorial/Factorial.module.css";
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
+import ContractManagerContext from "../services/ContractManagerContext";
 
 
 const BinaryToDecimal = (props) => {
-
+    const {contractManager} = useContext(ContractManagerContext);
+    const [converterContract, setConverterContract] = useState(null);
+    useEffect(() => {
+        const getContract = async () => {
+            try {
+                const contract = await contractManager.getContract('ConverterContract');
+                setConverterContract(contract);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getContract();
+    }, [contractManager]);
     let onChangeInputText = (e) => {
         let text = e.target.value;
         props.updateInputText(text);
     }
 
     const onButtonClick = async () => {
-        // try {
-        //     const number = Number(props.factorialPage.inputText);
-        //     const response = await factorialContract.methods.getFactorial(number).call();
-        //     props.setAnswerText(response.toString());
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        try {
+            const binaryNumber = Number(props.binaryToDecimalPage.inputText);
+            const response = await converterContract.methods.BinaryToDecimal(binaryNumber).call();
+            props.setAnswerText(response.toString());
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

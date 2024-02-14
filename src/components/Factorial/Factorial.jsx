@@ -5,7 +5,6 @@ import ContractManagerContext from "../services/ContractManagerContext";
 const Factorial = (props) => {
     const {contractManager} = useContext(ContractManagerContext);
     const [factorialContract, setFactorialContact] = useState(null);
-    const [web3Instance, setWeb3Instance] = useState(null);
 
     useEffect(() => {
         const getContract = async () => {
@@ -18,11 +17,6 @@ const Factorial = (props) => {
         };
         getContract();
     }, [contractManager]);
-
-    useEffect(() => {
-        const web3 = contractManager.getWeb3()
-        setWeb3Instance(web3)
-    }, [contractManager])
 
 
     let onChangeInputText = (e) => {

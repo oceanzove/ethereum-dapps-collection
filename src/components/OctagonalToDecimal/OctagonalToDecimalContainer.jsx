@@ -1,5 +1,6 @@
 import {connect} from "react-redux";
 import {setAnswerTextAC, updateInputTextAC} from "../../redux/simpleContractReducer";
+import OctagonalToDecimal from "./OctagonalToDecimal";
 
 
 

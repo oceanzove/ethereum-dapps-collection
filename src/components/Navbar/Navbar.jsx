@@ -23,7 +23,7 @@ const Navbar = () => {
                >Из двоичной в десятичную</NavLink>
            </div>
             <div className={styles.item}>
-                <NavLink to="/cctagonalTodecimal"
+                <NavLink to="/octagonalTodecimal"
                          className={location.pathname === '/octagonalTodecimal' ? styles.active : undefined}
                 >Из восьмеричной в десятичную</NavLink>
             </div>

@@ -1,8 +1,22 @@
 import styles from "../Factorial/Factorial.module.css";
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
+import ContractManagerContext from "../services/ContractManagerContext";
 
 
 const OctagonalToDecimal = (props) => {
+    const {contractManager} = useContext(ContractManagerContext);
+    const [converterContract, setConverterContract] = useState(null);
+    useEffect(() => {
+        const getContract = async () => {
+            try {
+                const contract = await contractManager.getContract('ConverterContract');
+                setConverterContract(contract);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getContract();
+    }, [contractManager]);
 
     let onChangeInputText = (e) => {
         let text = e.target.value;
@@ -10,13 +24,13 @@ const OctagonalToDecimal = (props) => {
     }
 
     const onButtonClick = async () => {
-        // try {
-        //     const number = Number(props.factorialPage.inputText);
-        //     const response = await factorialContract.methods.getFactorial(number).call();
-        //     props.setAnswerText(response.toString());
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        try {
+            const octagonalNumber = Number(props.octagonalToDecimalPage.inputText);
+            const response = await converterContract.methods.OctagonalToDecimal(octagonalNumber).call();
+            props.setAnswerText(response.toString());
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -34,12 +48,12 @@ const OctagonalToDecimal = (props) => {
                         id="answerInput"
                         type="number"
                         className={styles.input}
-                        value={props.binaryToDecimalPage.inputText}
+                        value={props.octagonalToDecimalPage.inputText}
                         onChange={onChangeInputText}
                     />
                 </div>
                 <div className={styles.compile}>
-                    <button disabled={!props.binaryToDecimalPage.inputText}
+                    <button disabled={!props.octagonalToDecimalPage.inputText}
                             className={styles.button} onClick={onButtonClick}>
                         Вычислить
                     </button>
@@ -48,7 +62,7 @@ const OctagonalToDecimal = (props) => {
             <div className={styles.answerContainer}>
                 <label className={styles.answerText}>
                     Ответ:
-                    {props.binaryToDecimalPage.answerText}
+                    {props.octagonalToDecimalPage.answerText}
                 </label>
             </div>
         </div>
