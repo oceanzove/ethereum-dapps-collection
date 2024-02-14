@@ -4,6 +4,7 @@ import UploadFileContainer from "./components/UploadFile/UploadFileContainer";
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import FactorialContainer from "./components/Factorial/FactorialContainer";
+import BinaryToDecimalContainer from "./components/BinaryToDecimal/BinaryToDecimalContainer";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Routes>
                         <Route path='/uploadfile' element={<UploadFileContainer/>}/>
                         <Route path='/factorial' element={<FactorialContainer/>}/>
+                        <Route path='/binaryTodecimal' element={<BinaryToDecimalContainer/>}/>
                     </Routes>
                 </div>
             </div>

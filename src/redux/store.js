@@ -1,10 +1,11 @@
 import {combineReducers, createStore} from "redux";
 import uploadFileReducer from "./uploadfileReducer";
-import factorialReducer from "./factorialReducer";
+import simpleContractReducer from "./simpleContractReducer";
 
 let reducers = combineReducers({
     uploadFilePage: uploadFileReducer,
-    factorialPage: factorialReducer,
+    factorialPage: simpleContractReducer,
+    binaryToDecimalPage: simpleContractReducer,
 })
 
 let store  = createStore(reducers)

@@ -1,13 +1,10 @@
-import {connect} from "react-redux";
-import Factorial from "./Factorial";
 import {setAnswerTextAC, updateInputTextAC} from "../../redux/simpleContractReducer";
-
-
-
+import {connect} from "react-redux";
+import BinaryToDecimal from "./BinaryToDecimal";
 
 const mapStateToProps = (state) => {
     return {
-        factorialPage: state.factorialPage
+        binaryToDecimalPage: state.binaryToDecimalPage
     }
 }
 
@@ -24,7 +21,7 @@ const  mapDispatchToProps = (dispatch) => {
     }
 }
 
-const FactorialContainer = connect(mapStateToProps, mapDispatchToProps) (Factorial)
+const BinaryToDecimalContainer = connect(mapStateToProps, mapDispatchToProps) (BinaryToDecimal)
 
 
-export default  FactorialContainer
+export default  BinaryToDecimalContainer

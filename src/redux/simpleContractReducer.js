@@ -6,7 +6,7 @@ let initialState = {
     answerText: ''
 }
 
-const factorialReducer = (state = initialState, action) => {
+const simpleContractReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_INPUT_TEXT:
             return {
@@ -31,4 +31,4 @@ export const setAnswerTextAC = (text) => (
     {type: SET_ANSWER_TEXT, answerText: text}
 )
 
-export default factorialReducer
+export default simpleContractReducer
