@@ -6,6 +6,7 @@ let reducers = combineReducers({
     uploadFilePage: uploadFileReducer,
     factorialPage: simpleContractReducer,
     binaryToDecimalPage: simpleContractReducer,
+    octagonalToDecimalPage: simpleContractReducer,
 })
 
 let store  = createStore(reducers)
