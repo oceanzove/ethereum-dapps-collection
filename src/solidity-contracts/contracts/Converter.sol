@@ -9,7 +9,7 @@ contract Converter {
     {
         uint256 decimalNumber = 0;
         uint256 base = 1;
-        uint256 temp = BinaryNumber;
+        uint256 temp = binaryNumber;
 
         while (temp > 0) {
             uint256 lastDigit = temp % 10;
@@ -38,14 +38,14 @@ contract Converter {
         return decimalNumber;
     }
 
-    function DecimalToBinary(uint256 BinaryNumberTwo)
+    function DecimalToBinary(uint256 binaryNumberTwo)
         public
         pure
         returns (uint256)
     {
         uint256 decimalNumber = 0;
         uint256 base = 1;
-        uint256 temp = BinaryNumberTwo;
+        uint256 temp = binaryNumberTwo;
 
         while (temp > 0) {
             uint256 lastDigit = temp % 2;

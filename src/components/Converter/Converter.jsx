@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import styles from "../Factorial/Factorial.module.css";
-
+import styles from './Converter.module.css'
 const Converter = (props) => {
     const [isToggled, setIsToggled] = useState(false);
     const [leftButtonClicked, setLeftButtonClicked] = useState(true);
