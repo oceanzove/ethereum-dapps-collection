@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Factorial from "./Factorial";
-import {setAnswerTextAC, updateInputTextAC} from "../../redux/simpleContractReducer";
+import {setAnswerTextAC, updateInputTextAC} from "../../redux/factorialReducer";
 
 
 

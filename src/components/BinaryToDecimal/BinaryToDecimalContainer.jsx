@@ -1,4 +1,4 @@
-import {setAnswerTextAC, updateInputTextAC} from "../../redux/simpleContractReducer";
+import {setAnswerTextAC, updateInputTextAC} from "../../redux/factorialReducer";
 import {connect} from "react-redux";
 import BinaryToDecimal from "./BinaryToDecimal";
 
