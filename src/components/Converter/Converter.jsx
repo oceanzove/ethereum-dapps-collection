@@ -1,5 +1,6 @@
-import React, {useState} from "react";
-import styles from "../Factorial/Factorial.module.css";
+import React, {useContext, useEffect, useState} from "react";
+import styles from './Converter.module.css'
+import ContractManagerContext from "../services/ContractManagerContext";
 
 const Converter = (props) => {
     const {contractManager} = useContext(ContractManagerContext);
@@ -77,7 +78,7 @@ const Converter = (props) => {
                 }}
                     onClick={handleLeftButtonClick}
                 >
-                    Левая часть кнопки
+                    Из двочиной в десятичную
                 </button>
                 <button
                     className={styles.rightButton}
@@ -86,7 +87,7 @@ const Converter = (props) => {
                 }}
                     onClick={handleRightButtonClick}
                 >
-                    Правая часть кнопки
+                    Из восьмиричной в десятичную
                 </button>
             </div>
         </div>
