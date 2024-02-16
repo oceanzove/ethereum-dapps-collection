@@ -9,7 +9,7 @@ contract Converter {
     {
         uint256 decimalNumber = 0;
         uint256 base = 1;
-        uint256 temp = BinaryNumber;
+        uint256 temp = binaryNumber;
 
         while (temp > 0) {
             uint256 lastDigit = temp % 10;
