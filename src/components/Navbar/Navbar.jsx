@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './Navbar.module.css'
 import {NavLink, useLocation} from "react-router-dom";
+import NavItem from "./NavItem";
 
 const Navbar = () => {
     const location = useLocation();
@@ -23,20 +24,19 @@ const Navbar = () => {
                >Конвертер</NavLink>
            </div>
         </NavItem>
-    </nav>)
-}
-
-function NavItem(props) {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <li className={styles.dropdownMenu}>
-            <div className={open ? styles.open : undefined} onClick={() => setOpen(!open)}>
-                {props.name}
+        <NavItem name='ПЗ-14'>
+            <div className={styles.item}>
+                <NavLink to='/converter-2'
+                         className={location.pathname === '/converter-2' ? styles.active : undefined}
+                >Конвертер 2</NavLink>
             </div>
-            {open && props.children}
-        </li>
-    );
+            <div className={styles.item}>
+                <NavLink to='/custom-converter'
+                         className={location.pathname === '/custom-converter' ? styles.active : undefined}
+                >Настраевыемый конвертер</NavLink>
+            </div>
+        </NavItem>
+    </nav>)
 }
 
 
