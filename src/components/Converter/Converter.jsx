@@ -1,37 +1,69 @@
 import React, {useState} from "react";
-import styles from './Converter.module.css'
+import styles from "../Factorial/Factorial.module.css";
+
 const Converter = (props) => {
-    const [isToggled, setIsToggled] = useState(false);
+    const {contractManager} = useContext(ContractManagerContext);
+    const [converterContract, setConverterContract] = useState(null);
+    useEffect(() => {
+        const getContract = async () => {
+            try {
+                const contract = await contractManager.getContract('ConverterContract');
+                setConverterContract(contract);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getContract();
+    }, [contractManager]);
+
     const [leftButtonClicked, setLeftButtonClicked] = useState(true);
     const [rightButtonClicked, setRightButtonClicked] = useState(false);
-    const [inputValue, setInputValue] = useState('');
-    const [answer, setAnswer] = useState('');
 
     const handleLeftButtonClick = () => {
-        setIsToggled(isToggled)
         setLeftButtonClicked(true);
         setRightButtonClicked(false);
         // Здесь можно добавить логику для действия при нажатии на левую часть кнопки
-        setAnswer(`Левая часть кнопки: ${inputValue}`);
     };
 
     const handleRightButtonClick = () => {
         setRightButtonClicked(true);
         setLeftButtonClicked(false);
         // Здесь можно добавить логику для действия при нажатии на правую часть кнопки
-        setAnswer(`Правая часть кнопки: ${inputValue}`);
     };
 
     const BTD = 'Перевода целого шестнадцатиразрядного числа из двоичной системы в десятичную.'
     const OTD = 'Перевода целого восьмиразрядного числа из восьмеричной системы в десятичную.'
 
+    let onChangeInputText = (e) => {
+        let text = e.target.value;
+        if (leftButtonClicked) {
+            props.updateInputBinaryText(text);
+        } else if (rightButtonClicked) {
+            props.updateInputOctagonalText(text);
+        }
+    }
 
-    const handleToggle = () => {
-        setIsToggled(!isToggled);
-        // Очищаем input и ответ при переключении
-        // setInputValue('');
-        // setAnswer('');
+    const onButtonClick = async () => {
+        if (leftButtonClicked) {
+            try {
+                const binaryNumber = Number(props.converterPage.inputTextBinary);
+                const response = await converterContract.methods.BinaryToDecimal(binaryNumber).call();
+                props.setAnswerBinaryText(response.toString());
+            } catch (error) {
+                console.error(error);
+            }
+        } else if (rightButtonClicked) {
+            try {
+                const octagonalNumber = Number(props.converterPage.inputTextOctagonal);
+                const response = await converterContract.methods.OctagonalToDecimal(octagonalNumber).call();
+                props.setAnswerOctagonalText(response.toString());
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
     };
+
 
     return (
     <div className={styles.content}>
@@ -57,26 +89,23 @@ const Converter = (props) => {
                     Правая часть кнопки
                 </button>
             </div>
-            {/*<button onClick={handleToggle}>*/}
-            {/*    {isToggled ? 'Переключить на Действие 2' : 'Переключить на Действие 1'}*/}
-            {/*</button>*/}
         </div>
         <div className={styles.container}>
             <div className={styles.inputContainer}>
-                <label htmlFor="answerInput" className={styles.inputLabel}>
+                <label htmlFor="converterInput" className={styles.inputLabel}>
                     Введите цифру:
                 </label>
                 <input
-                    id="answerInput"
+                    id="converterInput"
                     type="number"
                     className={styles.input}
-                    value={null}
-                    onChange={null}
+                    value={leftButtonClicked ? props.converterPage.inputTextBinary : props.converterPage.inputTextOctagonal}
+                    onChange={onChangeInputText}
                 />
             </div>
             <div className={styles.compile}>
                 <button disabled={null}
-                        className={styles.button} onClick={null}>
+                        className={styles.button} onClick={onButtonClick}>
                     Вычислить
                 </button>
             </div>
@@ -84,7 +113,7 @@ const Converter = (props) => {
         <div className={styles.answerContainer}>
             <label className={styles.answerText}>
                 Ответ:
-                {null}
+                {leftButtonClicked ? props.converterPage.answerTextBinary : props.converterPage.answerTextOctagonal}
             </label>
         </div>
     </div>
