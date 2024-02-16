@@ -37,15 +37,21 @@ const Converter = (props) => {
     <div className={styles.content}>
         <div>
             <h2 className={styles.title}> {leftButtonClicked ? BTD : OTD}  </h2>
-            <div style={{display: 'flex'}}>
+            <div className={styles.toggleButton}>
                 <button
-                    style={{flex: 1, background: leftButtonClicked ? 'green' : 'none'}}
+                    className={styles.leftButton}
+                    style={{background: leftButtonClicked ?  '#2196F3' : 'none'
+                        ,color: leftButtonClicked ? 'white' : "black"
+                }}
                     onClick={handleLeftButtonClick}
                 >
                     Левая часть кнопки
                 </button>
                 <button
-                    style={{flex: 1, background: rightButtonClicked ? 'green' : 'none'}}
+                    className={styles.rightButton}
+                    style={{background: rightButtonClicked ?  '#2196F3' : 'none'
+                            ,color: rightButtonClicked? 'white' : 'black'
+                }}
                     onClick={handleRightButtonClick}
                 >
                     Правая часть кнопки
