@@ -18,15 +18,10 @@ const Navbar = () => {
                 >Факториал</NavLink>
             </div>
            <div className={styles.item}>
-               <NavLink to="/binaryTodecimal"
-                        className={location.pathname === '/binaryTodecimal' ? styles.active : undefined}
-               >Из двоичной в десятичную</NavLink>
+               <NavLink to="/converter"
+                        className={location.pathname === '/converter' ? styles.active : undefined}
+               >Конвертер</NavLink>
            </div>
-            <div className={styles.item}>
-                <NavLink to="/octagonalTodecimal"
-                         className={location.pathname === '/octagonalTodecimal' ? styles.active : undefined}
-                >Из восьмеричной в десятичную</NavLink>
-            </div>
         </NavItem>
     </nav>)
 }
