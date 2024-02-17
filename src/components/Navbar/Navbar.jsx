@@ -26,8 +26,8 @@ const Navbar = () => {
         </NavItem>
         <NavItem name='ПЗ-14'>
             <div className={styles.item}>
-                <NavLink to='/converter-2'
-                         className={location.pathname === '/converter-2' ? styles.active : undefined}
+                <NavLink to='/converter-advance'
+                         className={location.pathname === '/converter-advance' ? styles.active : undefined}
                 >Конвертер 2</NavLink>
             </div>
             <div className={styles.item}>

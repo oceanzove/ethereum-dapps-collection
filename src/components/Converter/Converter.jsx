@@ -48,7 +48,7 @@ const Converter = (props) => {
         if (leftButtonClicked) {
             try {
                 const binaryNumber = Number(props.converterPage.inputTextBinary);
-                const response = await converterContract.methods.BinaryToDecimal(binaryNumber).call();
+                const response = await converterContract.methods.binaryToDecimal(binaryNumber).call();
                 props.setAnswerBinaryText(response.toString());
             } catch (error) {
                 console.error(error);
@@ -56,7 +56,7 @@ const Converter = (props) => {
         } else if (rightButtonClicked) {
             try {
                 const octagonalNumber = Number(props.converterPage.inputTextOctagonal);
-                const response = await converterContract.methods.OctagonalToDecimal(octagonalNumber).call();
+                const response = await converterContract.methods.octagonalToDecimal(octagonalNumber).call();
                 props.setAnswerOctagonalText(response.toString());
             } catch (error) {
                 console.error(error);

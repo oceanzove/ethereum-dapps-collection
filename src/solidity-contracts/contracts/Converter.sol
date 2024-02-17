@@ -2,7 +2,7 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Converter {
-    function BinaryToDecimal(uint256 binaryNumber) public pure returns (uint256) {
+    function binaryToDecimal(uint256 binaryNumber) public pure returns (uint256) {
         uint256 decimalNumber = 0;
         uint256 base = 1;
         uint256 temp = binaryNumber;
@@ -16,7 +16,7 @@ contract Converter {
         return decimalNumber;
     }
 
-    function OctagonalToDecimal(uint256 octagonalNumber) public pure returns (uint256) {
+    function octagonalToDecimal(uint256 octagonalNumber) public pure returns (uint256) {
         uint256 decimalNumber = 0;
         uint256 base = 1;
         uint256 tempOctalNumber = octagonalNumber;

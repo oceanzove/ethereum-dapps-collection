@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import FactorialContainer from "./components/Factorial/FactorialContainer";
 import ConverterContainer from "./components/Converter/ConverterConataier";
+import ConverterAdvanceContainer from "./components/ConverterAdvance/ConverterAdvanceContainer";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Route path='/uploadfile' element={<UploadFileContainer/>}/>
                         <Route path='/factorial' element={<FactorialContainer/>}/>
                         <Route path='/converter' element={<ConverterContainer/>}/>
+                        <Route path='/converter-advance' element={<ConverterAdvanceContainer/>}/>
                     </Routes>
                 </div>
             </div>
