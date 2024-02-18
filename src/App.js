@@ -6,6 +6,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import FactorialContainer from "./components/Factorial/FactorialContainer";
 import ConverterContainer from "./components/Converter/ConverterConataier";
 import ConverterAdvanceContainer from "./components/ConverterAdvance/ConverterAdvanceContainer";
+import CustomConverterContainer from "./components/CustomConverter/CustomConverterContainer";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                         <Route path='/factorial' element={<FactorialContainer/>}/>
                         <Route path='/converter' element={<ConverterContainer/>}/>
                         <Route path='/converter-advance' element={<ConverterAdvanceContainer/>}/>
+                        <Route path='custom-converter' element={<CustomConverterContainer/>}/>
                     </Routes>
                 </div>
             </div>

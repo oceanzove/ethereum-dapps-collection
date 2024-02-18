@@ -1,0 +1,108 @@
+
+
+.title {
+    text-align: center;
+    color: #3772da;
+    margin: auto 0 auto 0;
+    border-radius: 15px;
+
+}
+
+.content {
+    display: grid;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+
+    .toggleButton {
+        display: flex;
+
+        .leftButton{
+            flex: 1;
+            border-radius: 10px 0 0 10px;
+            border-width: 1px 0 1px 1px;
+        }
+
+        .rightButton {
+            flex: 1;
+            border-radius: 0 10px 10px 0;
+            border-width: 1px 1px 1px 0;
+
+        }
+
+    }
+
+
+}
+
+.container {
+    display: flex;
+    margin: 100px auto;
+
+    .inputContainer {
+        flex: 1;
+
+        .inputLabel {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+    }
+
+    .compile {
+        flex: 1;
+        margin-top: 23px ;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.answerContainer {
+    position: relative; /* Для абсолютного позиционирования текста ответа */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Добавьте отступ сверху по вашему усмотрению */
+}
+
+
+
+/* Пример анимации с использованием transition */
+.answerText {
+    transition: opacity 0.2s ease-in-out;
+}
+
+
+.button {
+    padding: 10px 20px;
+    height: 33px;
+    margin-right: 10px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+.button:disabled:hover {
+    background-color: #cccccc;
+}
+
+.button:hover {
+    background-color: #0b7dda;
+}
