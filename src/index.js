@@ -26,5 +26,4 @@ reportWebVitals();
 
 
 //TODO Написать стек, что это зачем, зачем это и как запускать (FLUX ARCHITECTURE)
-//TODO Объединить странички BinaryConverter & OctagonalConverter в одну и сделать отдельный редусер
 //TODO Сделать экран приветствия
