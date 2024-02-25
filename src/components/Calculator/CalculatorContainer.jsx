@@ -25,7 +25,7 @@ const  mapDispatchToProps = (dispatch) => {
     }
 }
 
-const FactorialContainer = connect(mapStateToProps, mapDispatchToProps) (Calculator)
+const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps) (Calculator)
 
 
-export default  FactorialContainer
+export default  CalculatorContainer;
