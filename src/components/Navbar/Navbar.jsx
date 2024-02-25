@@ -36,6 +36,13 @@ const Navbar = () => {
                 >Настраиваемый конвертер</NavLink>
             </div>
         </NavItem>
+        <NavItem name='ПЗ-15'>
+            <div className={styles.item}>
+                <NavLink to='/calculator'
+                         className={location.pathname === '/calculator' ? styles.active : undefined}
+                >Калькулятор</NavLink>
+            </div>
+        </NavItem>
     </nav>)
 }
 
