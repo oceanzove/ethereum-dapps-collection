@@ -1,8 +1,35 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from './CustomConverter.module.css';
 import ComboBox from "../utils/ComboBox";
+import ContractManagerContext from "../services/ContractManagerContext";
 
 const CustomConverter = (props) => {
+    const {contractManager} = useContext(ContractManagerContext);
+    const [customConverterContract, setCustomConverterContract] = useState(null);
+    useEffect(() => {
+        const getContract = async () => {
+            try {
+                const contract = await contractManager.getContract('CustomConverterContract');
+                setCustomConverterContract(contract);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getContract();
+    }, [contractManager]);
+
+    const onButtonClick = async () => {
+        try {
+            const number = props.customConverterPage.inputNumber;
+            const from = Number(props.customConverterPage.convertFrom);
+            const to =  Number(props.customConverterPage.convertTo);
+            const response = await customConverterContract.methods.Converter(number, from, to).call();
+            props.setAnswerNumber(response);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
 
     const handleSelectFrom = (value) => {
         props.setConvertFrom(value);
@@ -11,6 +38,11 @@ const CustomConverter = (props) => {
     const handleSelectTo = (value) => {
         props.setConvertTo(value);
         // Дополнительные действия при выборе значения
+    }
+
+    let onChangeInputNumber = (e) => {
+        let number = e.target.value;
+        props.updateInputNumber(number);
     }
 
     return (
@@ -25,10 +57,9 @@ const CustomConverter = (props) => {
                     </label>
                     <input
                         id="converterInput"
-                        type="number"
                         className={styles.input}
-                        value={null}
-                        onChange={null}
+                        value={props.customConverterPage.inputNumber}
+                        onChange={onChangeInputNumber}
                     />
                 </div>
 
@@ -37,10 +68,9 @@ const CustomConverter = (props) => {
                         Ответ:
                     </label>
                     <input id='converterOutput'
-                           type='number'
                            className={styles.output}
                            readOnly
-                           value={null}
+                           value={props.customConverterPage.answerNumber}
                     />
                 </div>
 
@@ -56,12 +86,12 @@ const CustomConverter = (props) => {
                         options={props.customConverterPage.optionsConvertTo}
                         onSelect={handleSelectTo}/>
                 </div>
-                {/*<div className={styles.compile}>*/}
-                {/*    <button disabled={null}*/}
-                {/*            className={styles.button} onClick={null}>*/}
-                {/*        Вычислить*/}
-                {/*    </button>*/}
-                {/*</div>*/}
+                <div className={styles.compile}>
+                    <button disabled={!props.customConverterPage.inputNumber}
+                            className={styles.button} onClick={onButtonClick}>
+                        Вычислить
+                    </button>
+                </div>
             </div>
 
         </div>

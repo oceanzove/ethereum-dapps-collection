@@ -3,7 +3,8 @@ import Web3 from 'web3';
 import FileStorageContract from '../../solidity-contracts/build/contracts/FileStorage.json';
 import FactorialContract from '../../solidity-contracts/build/contracts/Factorial.json';
 import ConverterContract from '../../solidity-contracts/build/contracts/Converter.json';
-import ConverterAdvanceContract from '../../solidity-contracts/build/contracts/ConverterAdvance.json'
+import ConverterAdvanceContract from '../../solidity-contracts/build/contracts/ConverterAdvance.json';
+import CustomConverterContract from '../../solidity-contracts/build/contracts/CustomConverter.json';
 
 
 
@@ -22,7 +23,8 @@ class ContractManager {
             this.contracts.FactorialContract = await this.initContract(FactorialContract);
 
             this.contracts.ConverterContract = await this.initContract(ConverterContract);
-            this.contracts.ConverterAdvanceContract = await  this.initContract(ConverterAdvanceContract)
+            this.contracts.CustomConverterContract = await this.initContract(CustomConverterContract);
+            this.contracts.ConverterAdvanceContract = await this.initContract(ConverterAdvanceContract);
 
 
         } catch (error) {

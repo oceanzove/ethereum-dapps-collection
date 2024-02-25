@@ -6,8 +6,8 @@ const SET_ANSWER_NUMBER = 'SET_ANSWER_NUMBER'
 let initialSate = {
     optionsConvertFrom: ['Из двоичной', 'Из восьмеричной', 'Из десятичной', 'Из шестнадцатеричной'],
     optionsConvertTo: ['В двоичную', 'В восьмиричную', 'В десятчиную', 'В шестнадцатеричную'],
-    convertFrom: '',
-    convertTo: '',
+    convertFrom: '2',
+    convertTo: '2',
     inputNumber: '',
     answerNumber: ''
 }
@@ -41,17 +41,17 @@ const customConverterReducer = (state = initialSate, action) => {
 
 export default customConverterReducer;
 
-export const setConvertToAC = (text) => (
-    {type: SET_CONVERT_TO, convertTo: text}
+export const setConvertToAC = (number) => (
+    {type: SET_CONVERT_TO, convertTo: number}
 )
-export const setConvertFromAC = (text) => (
-    {type: SET_CONVERT_FROM, convertFrom: text}
-)
-
-export const updateInputNumberAC = (text) => (
-    {type: UPDATE_INPUT_NUMBER, inputNumber: text}
+export const setConvertFromAC = (number) => (
+    {type: SET_CONVERT_FROM, convertFrom: number}
 )
 
-export const setAnswerNumberAC = (text) => (
-    {type: SET_ANSWER_NUMBER, answerNumber: text}
+export const updateInputNumberAC = (number) => (
+    {type: UPDATE_INPUT_NUMBER, inputNumber: number}
+)
+
+export const setAnswerNumberAC = (number) => (
+    {type: SET_ANSWER_NUMBER, answerNumber: number}
 )

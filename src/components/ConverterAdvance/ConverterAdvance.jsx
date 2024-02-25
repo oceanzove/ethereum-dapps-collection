@@ -105,8 +105,8 @@ const ConverterAdvance = (props) => {
                     />
                 </div>
                 <div className={styles.compile}>
-                    <button disabled={null}
-                            className={styles.button} onClick={onButtonClick}>
+                    <button disabled={leftButtonClicked ? !props.converterAdvancePage.inputDecimalToHex : !props.converterAdvancePage.inputDecimalToBinary}
+                        className={styles.button} onClick={onButtonClick}>
                         Вычислить
                     </button>
                 </div>

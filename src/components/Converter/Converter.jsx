@@ -105,7 +105,7 @@ const Converter = (props) => {
                 />
             </div>
             <div className={styles.compile}>
-                <button disabled={null}
+                <button disabled={leftButtonClicked ? !props.converterPage.inputTextBinary : !props.converterPage.inputTextOctagonal}
                         className={styles.button} onClick={onButtonClick}>
                     Вычислить
                 </button>

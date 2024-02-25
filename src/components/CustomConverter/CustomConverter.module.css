@@ -15,9 +15,13 @@
 
         grid-template-areas:
         "input output"
-        "input-combo-box output-combo-box";
+        "input-combo-box output-combo-box"
+        "compile compile";
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 1fr 0.2fr;
+        grid-template-rows: repeat(3, 0.4fr);
+        grid-row-gap: 10px;
+        grid-column-gap: 5px;
+
 
         .inputContainer {
             grid-area: input;
@@ -60,33 +64,19 @@
 
         }
 
-
-
         .outputComboBox {
             grid-area: output-combo-box;
+        }
+
+        .compile {
+            grid-area: compile;
         }
     }
 }
 
-.answerContainer {
-    position: relative; /* Для абсолютного позиционирования текста ответа */
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px; /* Добавьте отступ сверху по вашему усмотрению */
-}
-
-/* Пример анимации с использованием transition */
-.answerText {
-    transition: opacity 0.2s ease-in-out;
-}
-
-
 .button {
+    width: 100%;
     padding: 10px 20px;
-    height: 33px;
-    margin-right: 10px;
     background-color: #2196F3;
     color: white;
     border: none;
