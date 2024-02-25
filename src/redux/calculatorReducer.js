@@ -39,6 +39,6 @@ export const updateNumber2AC = (number) => (
     {type: UPDATE_NUMBER2, newNumber2: number}
 );
 
-export const setOperator = (operator) => (
+export const setOperatorAC = (operator) => (
     {type: SET_OPERATOR, newOperator: operator}
 );
