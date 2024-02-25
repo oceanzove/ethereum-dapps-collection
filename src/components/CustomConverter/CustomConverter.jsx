@@ -16,14 +16,9 @@ const CustomConverter = (props) => {
     return (
         <div className={styles.content}>
             <div>
-                <h2 className={styles.title}> Настраевыемый конвертер </h2>
+                <h2 className={styles.title}> Настраиваемый конвертер </h2>
             </div>
             <div className={styles.container}>
-                <div className={styles.comboBoxFrom}>
-                    <ComboBox
-                        options={props.customConverterPage.optionsConvertFrom}
-                        onSelect={handleSelectFrom}/>
-                </div>
                 <div className={styles.inputContainer}>
                     <label htmlFor="converterInput" className={styles.inputLabel}>
                         Введите цифру:
@@ -36,24 +31,39 @@ const CustomConverter = (props) => {
                         onChange={null}
                     />
                 </div>
-                <div className={styles.comboBoxTo}>
+
+                <div className={styles.outputContainer}>
+                    <label htmlFor='converterOutput' className={styles.outputLabel}>
+                        Ответ:
+                    </label>
+                    <input id='converterOutput'
+                           type='number'
+                           className={styles.output}
+                           readOnly
+                           value={null}
+                    />
+                </div>
+
+                <div className={styles.inputComboBox}>
+                    <ComboBox className={styles.inputComboBox}
+                        options={props.customConverterPage.optionsConvertFrom}
+                        onSelect={handleSelectFrom}/>
+                </div>
+
+
+                <div className={styles.outputComboBox}>
                     <ComboBox
                         options={props.customConverterPage.optionsConvertTo}
                         onSelect={handleSelectTo}/>
                 </div>
-                <div className={styles.compile}>
-                    <button disabled={null}
-                            className={styles.button} onClick={null}>
-                        Вычислить
-                    </button>
-                </div>
+                {/*<div className={styles.compile}>*/}
+                {/*    <button disabled={null}*/}
+                {/*            className={styles.button} onClick={null}>*/}
+                {/*        Вычислить*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
-            <div className={styles.answerContainer}>
-                <label className={styles.answerText}>
-                    Ответ:
-                    {null}
-                </label>
-            </div>
+
         </div>
     )
 }

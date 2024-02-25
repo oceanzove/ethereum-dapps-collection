@@ -33,7 +33,7 @@ const Navbar = () => {
             <div className={styles.item}>
                 <NavLink to='/custom-converter'
                          className={location.pathname === '/custom-converter' ? styles.active : undefined}
-                >Настраевыемый конвертер</NavLink>
+                >Настраиваемый конвертер</NavLink>
             </div>
         </NavItem>
     </nav>)

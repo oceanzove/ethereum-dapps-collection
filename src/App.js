@@ -22,7 +22,7 @@ function App() {
                         <Route path='/factorial' element={<FactorialContainer/>}/>
                         <Route path='/converter' element={<ConverterContainer/>}/>
                         <Route path='/converter-advance' element={<ConverterAdvanceContainer/>}/>
-                        <Route path='custom-converter' element={<CustomConverterContainer/>}/>
+                        <Route path='/custom-converter' element={<CustomConverterContainer/>}/>
                     </Routes>
                 </div>
             </div>
