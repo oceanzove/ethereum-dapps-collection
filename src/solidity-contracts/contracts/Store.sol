@@ -51,7 +51,7 @@ contract Store {
     uint public storeCounter = 0;
 
     // Конструктор контракта
-    constructor() {
+    constructor() public {
         // Инициализация первого пользователя как администратора.
         users[msg.sender] = UserInfo("Admin", "Admin", true, false, false);
         userAddresses.push(msg.sender);
