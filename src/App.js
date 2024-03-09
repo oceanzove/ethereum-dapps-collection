@@ -9,8 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<p>Hekki Wi</p>} />
-        <Route path="/auth" element={<Authorization />} />
+        <Route path="/" element={<Authorization />} />
         <Route path='/registration' element={<Registration />} />
         <Route path='/admin' element={<AdminPanel />} />
       </Routes>
