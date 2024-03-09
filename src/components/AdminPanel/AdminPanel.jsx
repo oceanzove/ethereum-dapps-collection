@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import ContractManagerContext from "../Services/ContractManagerContext";
-import StoreItem from "../Utils/StoreList";
+import StoreItem from "../Utils/StoreList/StoreList";
+import UserItem from "../Utils/UserList/UserList";
 
 const AdminPanel = () => {
   const { contractManager } = useContext(ContractManagerContext);
   const [StoreContract, setStoreContract] = useState(null);
   const [storeElements, setStoreElements] = useState([]);
+  const [userElements, setUserElements] = useState([]);
 
   useEffect(() => {
     const getContract = async () => {
@@ -33,6 +35,23 @@ const AdminPanel = () => {
     };
     fetchStores();
   }, [StoreContract]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        if (StoreContract) {
+          const response = await StoreContract.methods.getAllUsers().call();
+          const users = response.map(s => <UserItem key={s.id} name={s.name} password={s.password} />);
+          setUserElements(users);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsers();
+  }, [StoreContract]);
+
+
 
   const createStore = async () => {
     try {
@@ -70,6 +89,8 @@ const AdminPanel = () => {
       </div>
       <div>
         Список юзеров и возможжность повысить понизить
+        {userElements}
+        выводи их роль, ода
       </div>
     </div>
 
