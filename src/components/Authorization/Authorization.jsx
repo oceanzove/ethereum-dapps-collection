@@ -13,10 +13,9 @@ const Authorization = (props) => {
             const password = props.authorizationPage.password;
             const address = props.authorizationPage.address;
             const response = await storeContract.authorizationUser(username, password, address);
-            console.log('auth',response)
             if (response) {
-                console.log('auth well')
                 const response = await storeContract.isAdmin(username, password, address);
+                props.authorized();
                 if (response) {
                     navigate('/admin');
                 } else {

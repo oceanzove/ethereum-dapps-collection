@@ -1,7 +1,7 @@
 const UPDATE_LOGIN_INPUT = 'UPDATE_LOGIN_INPUT';
 const UPDATE_PASSWORD_INPUT = 'UPDATE_PASSWORD_INPUT';
 const UPDATE_ADDRESS_INPUT = 'UPDATE_ADDRESS_INPUT';
-
+const AUTHORIZED = 'AUTHORIZED';
 
 let initialState = {
     login: '',
@@ -26,6 +26,13 @@ const authorizationReducer = (state = initialState, action) => {
               ...state,
               address: action.newText
           }
+      case AUTHORIZED:
+          return {
+              ...state,
+              login: '',
+              password: '',
+              address: '',
+          }
       default:
           return state
   }
@@ -44,3 +51,7 @@ export const updatePasswordInputAc = (text) => (
 export const updateAddressInputAc = (text) => (
     {type: UPDATE_ADDRESS_INPUT, newText: text}
 );
+
+export const authorizedAc = () => (
+    {type: AUTHORIZED}
+)
