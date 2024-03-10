@@ -1,15 +1,12 @@
 import React, {useContext, useEffect, useState} from "react";
 import ContractManagerContext from "../Services/ContractManagerContext";
-import StoreItem from "../Utils/StoreList/StoreList";
-import UserItem from "../Utils/UserList/UserList";
+import StoreItem from "../Utils/StoreItem/StoreItem";
+import UserItem from "../Utils/UserItem/UserItem";
 
 
-const AdminPanel = () => {
-
-
+const AdminPanel = (props) => {
     const {contractManager} = useContext(ContractManagerContext);
     const [StoreContract, setStoreContract] = useState(null);
-    const [storeElements, setStoreElements] = useState([]);
     const [userElements, setUserElements] = useState([]);
 
     useEffect(() => {
@@ -24,21 +21,28 @@ const AdminPanel = () => {
         getContract();
     }, [contractManager]);
 
-    useEffect(() => {
-        const fetchStores = async () => {
-            try {
-                if (StoreContract) {
-                    const response = await StoreContract.methods.getApprovedStores().call();
-                    const stores = response.map((s, index) =>
-                        <StoreItem key={index} name={s.name} owner={s.owner} address='0x4419EF3A756AB184c046D23ECda4E34Fe8761924'/>);
-                    setStoreElements(stores);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchStores();
-    }, [StoreContract]);
+    // useEffect(() => {
+    //     const fetchStores = async () => {
+    //         try {
+    //             if (StoreContract) {
+    //                 const response = await StoreContract.methods.getApprovedStores().call();
+    //                 const stores = response.map((s, index) =>
+    //                     <StoreItem key={index} name={s.name} owner={s.owner} address='0x4419EF3A756AB184c046D23ECda4E34Fe8761924'/>);
+    //                 setStoreElements(stores);
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
+    //     fetchStores();
+    // }, [StoreContract]);
+
+    let storeElements = props.adminPage.stores.map(s =>
+        <StoreItem key={s.index} name={s.name} owner={s.owner}
+                   address='0x4419EF3A756AB184c046D23ECda4E34Fe8761924'
+                   deleteStore={props.deleteStore}
+        />
+    )
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -69,9 +73,20 @@ const AdminPanel = () => {
             await StoreContract.methods.approveStore(owner).send({
                  from: '0x4419EF3A756AB184c046D23ECda4E34Fe8761924', gas: 200000
             });
+            props.addStore();
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const onChangeStoreName = (e) => {
+        let text = e.target.value;
+        props.updateNewStoreName(text);
+    }
+
+    const onChangeStoreAddress = (e) => {
+        let text = e.target.value;
+        props.updateNewStoreAddress(text);
     }
 
     return (
@@ -79,8 +94,16 @@ const AdminPanel = () => {
             <div>
                 <div>
                     Создать магазин
-                    <input name='input-name-store' type="text" placeholder="Название магазина"/>
-                    <input name='input-owner-store' type="text" placeholder="Адрес владельца"/>
+                    <input name='input-name-store'
+                           type="text" placeholder="Название магазина"
+                           value={props.adminPage.newStoreName}
+                           onChange={onChangeStoreName}
+                    />
+                    <input name='input-owner-store'
+                           type="text" placeholder="Адрес владельца"
+                           value={props.adminPage.newStoreAddress}
+                           onChange={onChangeStoreAddress}
+                    />
                     <button onClick={createStore}>Создать</button>
                 </div>
                 Список магазинов

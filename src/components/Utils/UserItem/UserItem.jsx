@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './UserList.module.css'
+import styles from './UserItem.module.css'
 const UserItem = (props) => {
 
     const deleteStore =  async () => {

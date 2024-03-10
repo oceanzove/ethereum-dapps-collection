@@ -1,10 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
-import styles from './StoreList.module.css';
+import styles from './StoreItem.module.css';
 import ContractManagerContext from "../../Services/ContractManagerContext";
 
 const StoreItem = (props) => {
-
-
     const {contractManager} = useContext(ContractManagerContext);
     const [StoreContract, setStoreContract] = useState(null);
 
@@ -25,6 +23,7 @@ const StoreItem = (props) => {
             const storeAddress = props.owner;
             await StoreContract.methods.removeStore(storeAddress)
                 .send({from: props.address, gas: 2000000});
+            props.deleteStore(storeAddress);
         } catch (error) {
             console.log(error);
         }
