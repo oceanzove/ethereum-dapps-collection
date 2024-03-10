@@ -51,6 +51,16 @@ class StoreContract {
         }
     }
 
+    async registrationUser(name, password, userAddress){
+        try {
+            await this.storeContract.methods.registerUser(name, password, userAddress).send({
+                from: userAddress, gas: 200000
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async isAdmin(username, password, address) {
         try {
             await this.init();
