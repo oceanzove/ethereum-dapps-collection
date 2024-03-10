@@ -12,9 +12,11 @@ const Authorization = (props) => {
             const username = props.authorizationPage.login;
             const password = props.authorizationPage.password;
             const address = props.authorizationPage.address;
-            const response = storeContract.authorizationUser(username, password, address);
+            const response = await storeContract.authorizationUser(username, password, address);
+            console.log('auth',response)
             if (response) {
-                const response =  storeContract.isAdmin(username, password, address);
+                console.log('auth well')
+                const response = await storeContract.isAdmin(username, password, address);
                 if (response) {
                     navigate('/admin');
                 } else {
@@ -47,18 +49,15 @@ const Authorization = (props) => {
     return (
         <div className={styles.window}>
             <h1>Authorization</h1>
-            <input name='input-username-auth'
-                   type="text" placeholder="Логин"
+            <input type="text" placeholder="Логин"
                    value={props.authorizationPage.login}
                    onChange={onChangeLogin}
             />
-            <input name='input-password-auth'
-                   type="password" placeholder="Пароль"
+            <input type="password" placeholder="Пароль"
                    value={props.authorizationPage.password}
                    onChange={onChangePassword}
             />
-            <input name='input-address-auth'
-                   type="password" placeholder="Адресс"
+            <input type="password" placeholder="Адресс"
                    value={props.authorizationPage.address}
                    onChange={onChangeAddress}
             />

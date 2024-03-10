@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Authorization from "./Authorization";
-import {updateAddressInput, updateLoginInputAC, updatePasswordInputAc} from "../../redux/authorizationReducer";
+import {updateAddressInputAc, updateLoginInputAC, updatePasswordInputAc} from "../../redux/authorizationReducer";
 
 
 const mapStateToProps = (state) => {
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(action);
         },
         updateAddress: (text) => {
-            let action = updateAddressInput(text);
+            let action = updateAddressInputAc(text);
             dispatch(action);
         }
     }

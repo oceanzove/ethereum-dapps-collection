@@ -41,6 +41,6 @@ export const updatePasswordInputAc = (text) => (
     {type: UPDATE_PASSWORD_INPUT, newText: text}
 );
 
-export const updateAddressInput = (text) => (
+export const updateAddressInputAc = (text) => (
     {type: UPDATE_ADDRESS_INPUT, newText: text}
 );
