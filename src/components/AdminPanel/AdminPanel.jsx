@@ -7,24 +7,6 @@ import StoreContract from "../Contracts/StoreContract";
 const AdminPanel = (props) => {
     const storeContract = new StoreContract();
 
-
-    // useEffect(() => {
-    //     const fetchUsers = async () => {
-    //         try {
-    //             if (StoreContract) {
-    //                 const response = await StoreContract.methods.getAllUsers().call();
-    //                 const users = response.map((u, index) => <UserItem key={index} name={u.name}
-    //                                                                    password={u.password}/>);
-    //                 setUserElements(users);
-    //             }
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-    //     fetchUsers();
-    // }, [StoreContract]);
-
-
     const createStore = async () => {
         const name = props.adminPage.newStoreName;
         const owner = props.adminPage.newStoreAddress;
@@ -50,23 +32,28 @@ const AdminPanel = (props) => {
 
 
     let storeElements = props.adminPage.stores.map(s =>
-        <StoreItem key={s.index} name={s.name} owner={s.owner}
+        <StoreItem key={s.name} name={s.name} owner={s.owner}
                    deleteStore={deleteStore}
         />
     )
+
+    let userElements = props.adminPage.users.map(u => {
+        let role = u.isAdmin ? 'Админ' : (u.isSeller ? 'Продавец' : 'Покупатель');
+        return (
+            <UserItem key={u.name} name={u.name} password={u.password} role={role} />
+        );
+    });
 
     return (
         <div>
             <div>
                 <div>
                     Создать магазин
-                    <input name='input-name-store'
-                           type="text" placeholder="Название магазина"
+                    <input type="text" placeholder="Название магазина"
                            value={props.adminPage.newStoreName}
                            onChange={onChangeStoreName}
                     />
-                    <input name='input-owner-store'
-                           type="text" placeholder="Адрес владельца"
+                    <input type="text" placeholder="Адрес владельца"
                            value={props.adminPage.newStoreAddress}
                            onChange={onChangeStoreAddress}
                     />
@@ -82,7 +69,7 @@ const AdminPanel = (props) => {
             </div>
             <div>
                 Список юзеров и возможжность повысить понизить
-                {/*{userElements}*/}
+                {userElements}
                 выводи их роль, ода
             </div>
         </div>

@@ -43,10 +43,9 @@ class StoreContract {
 
     async authorizationUser(username, password, address) {
         try {
-            // Дожидаемся завершения инициализации перед вызовом метода
             await this.init();
-            return await this.storeContract.methods.authUser(username, password)
-                .call({ from: address });
+            return await this.storeContract.methods.authUser(username, password).call({
+                from: address });
         } catch (error) {
             console.log(error);
         }
@@ -93,6 +92,16 @@ class StoreContract {
             console.error(error);
         }
     }
+
+    async getUsers() {
+        try {
+            await this.init();
+            return await this.storeContract.methods.getAllUsers().call();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 }
 

@@ -14,6 +14,7 @@ const UserItem = (props) => {
         <div className={styles.container}>
             <div>{props.name}</div>
             <div>{props.password}</div>
+            <div>{props.role}</div>
             <button onClick={deleteStore}> Повысить </button>
             <button onClick={deleteStore}> Понизить </button>
         </div>

@@ -9,9 +9,7 @@ const storeContract = new StoreContract();
 
 let initialState = {
     stores: await storeContract.getStores(),
-    users: [
-        {name: 'Admin', password: 'Admin', address: '0x4419EF3A756AB184c046D23ECda4E34Fe8761924'}
-    ],
+    users: await storeContract.getUsers(),
     newStoreName: '',
     newStoreAddress: '',
 }
