@@ -61,7 +61,7 @@ const AdminPanel = (props) => {
     let userElements = props.adminPage.users.map(u => {
         let role = u.isAdmin ? 'Админ' : (u.isSeller ? 'Продавец' : 'Покупатель');
         return (
-        <UserItem key={u.name} name={u.name} password={u.password} role={role}/>
+            <UserItem key={u.name} name={u.name} password={u.password} role={role}/>
         );
     });
 
@@ -78,7 +78,12 @@ const AdminPanel = (props) => {
                            value={props.adminPage.newStoreAddress}
                            onChange={onChangeStoreAddress}
                     />
-                    <button onClick={createStore}>Создать</button>
+                    <button onClick={createStore}
+                            disabled={
+                                !props.adminPage.newStoreName || !props.adminPage.newStoreAddress
+                            }
+                    >Создать
+                    </button>
                 </div>
                 Список магазинов
                 <div>
@@ -99,7 +104,12 @@ const AdminPanel = (props) => {
                        value={props.adminPage.newAdminAddress}
                        onChange={onChangeNewAdminAddress}
                 />
-                <button onClick={addNewAdmin}> Добавить </button>
+                <button onClick={addNewAdmin}
+                        disabled={
+                            !props.adminPage.newAdminLogin || !props.adminPage.newAdminPassword || !props.adminPage.newAdminAddress
+                        }
+                > Добавить
+                </button>
             </div>
             <div>
                 Список юзеров:
