@@ -1,83 +1,42 @@
-import React, {useContext, useEffect, useState} from "react";
-import ContractManagerContext from "../Services/ContractManagerContext";
+import React from "react";
 import StoreItem from "../Utils/StoreItem/StoreItem";
 import UserItem from "../Utils/UserItem/UserItem";
+import StoreContract from "../Contracts/StoreContract";
 
 
 const AdminPanel = (props) => {
-    const {contractManager} = useContext(ContractManagerContext);
-    const [StoreContract, setStoreContract] = useState(null);
-    const [userElements, setUserElements] = useState([]);
+    const storeContract = new StoreContract();
 
-    useEffect(() => {
-        const getContract = async () => {
-            try {
-                const contract = await contractManager.getContract('StoreContract');
-                setStoreContract(contract);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        getContract();
-    }, [contractManager]);
 
     // useEffect(() => {
-    //     const fetchStores = async () => {
+    //     const fetchUsers = async () => {
     //         try {
     //             if (StoreContract) {
-    //                 const response = await StoreContract.methods.getApprovedStores().call();
-    //                 const stores = response.map((s, index) =>
-    //                     <StoreItem key={index} name={s.name} owner={s.owner} address='0x4419EF3A756AB184c046D23ECda4E34Fe8761924'/>);
-    //                 setStoreElements(stores);
+    //                 const response = await StoreContract.methods.getAllUsers().call();
+    //                 const users = response.map((u, index) => <UserItem key={index} name={u.name}
+    //                                                                    password={u.password}/>);
+    //                 setUserElements(users);
     //             }
     //         } catch (error) {
     //             console.error(error);
     //         }
     //     };
-    //     fetchStores();
+    //     fetchUsers();
     // }, [StoreContract]);
-
-    let storeElements = props.adminPage.stores.map(s =>
-        <StoreItem key={s.index} name={s.name} owner={s.owner}
-                   address='0x4419EF3A756AB184c046D23ECda4E34Fe8761924'
-                   deleteStore={props.deleteStore}
-        />
-    )
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                if (StoreContract) {
-                    const response = await StoreContract.methods.getAllUsers().call();
-                    const users = response.map((u, index) => <UserItem key={index} name={u.name}
-                                                                       password={u.password}/>);
-                    setUserElements(users);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchUsers();
-    }, [StoreContract]);
 
 
     const createStore = async () => {
-        try {
-            const nameInput = document.querySelector('input[name="input-name-store"]');
-            const ownerInput = document.querySelector('input[name="input-owner-store"]');
-            const name = nameInput.value;
-            const owner = ownerInput.value;
-            await StoreContract.methods.registerStore(name, owner).send({
-               from: owner, gas: 200000
-            });
-            await StoreContract.methods.approveStore(owner).send({
-                 from: '0x4419EF3A756AB184c046D23ECda4E34Fe8761924', gas: 200000
-            });
-            props.addStore();
-        } catch (error) {
-            console.log(error);
-        }
+        const name = props.adminPage.newStoreName;
+        const owner = props.adminPage.newStoreAddress;
+        await storeContract.createStore(name, owner)
+        props.addStore();
+
     }
+
+    const deleteStore = async (owner) => {
+        await storeContract.deleteStore(owner);
+        props.deleteStore(owner);
+    };
 
     const onChangeStoreName = (e) => {
         let text = e.target.value;
@@ -88,6 +47,13 @@ const AdminPanel = (props) => {
         let text = e.target.value;
         props.updateNewStoreAddress(text);
     }
+
+
+    let storeElements = props.adminPage.stores.map(s =>
+        <StoreItem key={s.index} name={s.name} owner={s.owner}
+                   deleteStore={deleteStore}
+        />
+    )
 
     return (
         <div>
@@ -116,7 +82,7 @@ const AdminPanel = (props) => {
             </div>
             <div>
                 Список юзеров и возможжность повысить понизить
-                {userElements}
+                {/*{userElements}*/}
                 выводи их роль, ода
             </div>
         </div>

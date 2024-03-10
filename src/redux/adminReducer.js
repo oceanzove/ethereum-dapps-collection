@@ -1,12 +1,14 @@
+import StoreContract from "../components/Contracts/StoreContract";
+
 const ADD_STORE = 'ADD_STORE';
 const DELETE_STORE = 'DELETE_STORE';
 const UPDATE_NEW_STORE_NAME = 'UPDATE_NEW_STORE_NAME';
 const UPDATE_NEW_STORE_ADDRESS = 'UPDATE_NEW_STORE_ADDRESS';
 
+const storeContract = new StoreContract();
+
 let initialState = {
-    stores: [
-        {name: 'Default Store', owner: '0x4419EF3A756AB184c046D23ECda4E34Fe8761924'}
-    ],
+    stores: await storeContract.getStores(),
     users: [
         {name: 'Admin', password: 'Admin', address: '0x4419EF3A756AB184c046D23ECda4E34Fe8761924'}
     ],

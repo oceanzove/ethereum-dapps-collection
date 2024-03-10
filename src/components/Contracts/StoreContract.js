@@ -4,6 +4,7 @@ class StoreContract {
     constructor() {
         this.contractManager = null;
         this.storeContract = null;
+        this.adminAccount = null;
         this.init();
     }
 
@@ -11,6 +12,7 @@ class StoreContract {
         try {
             this.contractManager = await this.getContractManager();
             this.storeContract = await this.getStoreContract();
+            this.adminAccount = await this.getAdminAccount();
         } catch (error) {
             console.error(error);
         }
@@ -30,6 +32,15 @@ class StoreContract {
         }
     }
 
+    async getAdminAccount() {
+        const accounts = await this.contractManager.getWeb3().eth.getAccounts();
+        if (accounts && accounts.length > 0) {
+            return accounts[0];
+        } else {
+            throw new Error('No accounts found');
+        }
+    }
+
     async authorizationUser(username, password, address) {
         try {
             // Дожидаемся завершения инициализации перед вызовом метода
@@ -43,7 +54,6 @@ class StoreContract {
 
     async isAdmin(username, password, address) {
         try {
-            // Дожидаемся завершения инициализации перед вызовом метода
             await this.init();
             return await this.storeContract.methods.isAdmin(username, password)
                 .call({ from: address });
@@ -51,6 +61,39 @@ class StoreContract {
             console.log(error);
         }
     }
+
+    async createStore(name, owner){
+        try {
+            await this.storeContract.methods.registerStore(name, owner).send({
+                from: owner, gas: 200000
+            });
+            await this.storeContract.methods.approveStore(owner).send({
+                from: this.adminAccount, gas: 200000
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async deleteStore(storeAddress){
+        try {
+            await this.storeContract.methods.removeStore(storeAddress).send({
+                from: this.adminAccount, gas: 2000000
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getStores() {
+        try {
+            await this.init();
+            return await this.storeContract.methods.getApprovedStores().call();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 }
 
 export default StoreContract;
