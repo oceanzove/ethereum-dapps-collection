@@ -152,25 +152,25 @@ contract Store {
         return allUsers;
     }
 
-   function authUser(string memory username, string memory password) public view returns (bool) {
-       UserInfo memory user = users[msg.sender];
-       if (compareStrings(user.name, username) && compareStrings(user.password, password)) {
-         return true;
-       }
-       return false;
-   }
-   
-   function compareStrings(string memory a, string memory b) public pure returns (bool) {
-     return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
+    function authUser(string memory username, string memory password) public view returns (bool) {
+        UserInfo memory user = users[msg.sender];
+        if (compareStrings(user.name, username) && compareStrings(user.password, password)) {
+            return true;
+        }
+        return false;
+    }
+
+    function compareStrings(string memory a, string memory b) public pure returns (bool) {
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
     }
 
     // Функция проверки пользователя на наличие прав администратора
     function isAdmin(string memory username, string memory password) public view returns (bool) {
-       UserInfo memory user = users[msg.sender];
-       if (compareStrings(user.name, username) && compareStrings(user.password, password)) {
-        if (user.isAdmin) {
-            return true;
-        }
+        UserInfo memory user = users[msg.sender];
+        if (compareStrings(user.name, username) && compareStrings(user.password, password)) {
+            if (user.isAdmin) {
+                return true;
+            }
         }
         return false;
     }
