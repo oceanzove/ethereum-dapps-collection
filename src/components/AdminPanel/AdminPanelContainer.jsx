@@ -1,6 +1,13 @@
 import {connect} from "react-redux";
 import AdminPanel from "./AdminPanel";
-import {addStoreAc, deleteStoreAc, updateNewStoreAddressAc, updateNewStoreNameAc} from "../../redux/adminReducer";
+import {
+    addNewAdminAc,
+    addStoreAc,
+    deleteStoreAc, updateNewAdminAddressAc,
+    updateNewAdminLoginAc, updateNewAdminPasswordAc,
+    updateNewStoreAddressAc,
+    updateNewStoreNameAc
+} from "../../redux/adminReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -26,6 +33,22 @@ const mapDispatchToProps = (dispatch) => {
             let action = deleteStoreAc(address);
             dispatch(action);
         },
+        updateNewAdminLogin: (text) => {
+            let action = updateNewAdminLoginAc(text);
+            dispatch(action);
+        },
+        updateNewAdminPassword: (text) => {
+            let action = updateNewAdminPasswordAc(text);
+            dispatch(action);
+        },
+        updateNewAdminAddress: (text) => {
+            let action = updateNewAdminAddressAc(text);
+            dispatch(action);
+        },
+        addAdmin: () => {
+            let action = addNewAdminAc();
+            dispatch(action);
+        }
     }
 }
 

@@ -37,10 +37,31 @@ const AdminPanel = (props) => {
         />
     )
 
+    const addNewAdmin = async () => {
+        const name = props.adminPage.newAdminLogin;
+        const password = props.adminPage.newAdminPassword;
+        const userAddress = props.adminPage.newAdminAddress;
+        await storeContract.createAdmin(name, password, userAddress);
+        props.addAdmin();
+    }
+
+    const onChangeNewAdminLogin = (e) => {
+        let text = e.target.value;
+        props.updateNewAdminLogin(text);
+    };
+    const onChangeNewAdminPassword = (e) => {
+        let text = e.target.value;
+        props.updateNewAdminPassword(text);
+    };
+    const onChangeNewAdminAddress = (e) => {
+        let text = e.target.value;
+        props.updateNewAdminAddress(text);
+    };
+
     let userElements = props.adminPage.users.map(u => {
         let role = u.isAdmin ? 'Админ' : (u.isSeller ? 'Продавец' : 'Покупатель');
         return (
-            <UserItem key={u.name} name={u.name} password={u.password} role={role} />
+        <UserItem key={u.name} name={u.name} password={u.password} role={role}/>
         );
     });
 
@@ -66,11 +87,23 @@ const AdminPanel = (props) => {
             </div>
             <div>
                 Добавить админа
+                <input type='text' placeholder='Логин'
+                       value={props.adminPage.newAdminLogin}
+                       onChange={onChangeNewAdminLogin}
+                />
+                <input type='text' placeholder='Пароль'
+                       value={props.adminPage.newAdminPassword}
+                       onChange={onChangeNewAdminPassword}
+                />
+                <input type='text' placeholder='Адресс'
+                       value={props.adminPage.newAdminAddress}
+                       onChange={onChangeNewAdminAddress}
+                />
+                <button onClick={addNewAdmin}> Добавить </button>
             </div>
             <div>
-                Список юзеров и возможжность повысить понизить
+                Список юзеров:
                 {userElements}
-                выводи их роль, ода
             </div>
         </div>
 

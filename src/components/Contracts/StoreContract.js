@@ -53,8 +53,31 @@ class StoreContract {
 
     async registrationUser(name, password, userAddress){
         try {
+            await this.init();
             await this.storeContract.methods.registerUser(name, password, userAddress).send({
                 from: userAddress, gas: 200000
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async createAdmin(name, password, userAddress){
+        try {
+            await this.init();
+            await this.storeContract.methods.createAdmin(name, password, userAddress).send({
+                from: userAddress, gas: 200000
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async approveAdmin(userAddress) {
+        try {
+            console.log('approve to admin')
+            await this.init();
+            await this.storeContract.methods.approveAdmin(userAddress).send({
+                from: this.adminAccount, gas: 200000
             })
         } catch (error) {
             console.log(error);

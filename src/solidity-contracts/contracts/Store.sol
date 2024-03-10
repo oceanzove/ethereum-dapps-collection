@@ -71,6 +71,23 @@ contract Store {
         userCounter++;
     }
 
+    function createAdmin(string memory name, string memory password, address userAddress) public {
+        require(!users[userAddress].isAdmin && !users[userAddress].isSeller && !users[userAddress].isBuyer, "User already registered");
+        // Создаем администратора
+        users[msg.sender] = UserInfo(name, password, true, false, false);
+        userAddresses.push(userAddress);
+        userCounter++;
+    }
+
+    function approveAdmin(address userAddress) public {
+        // Проверяем, что функция вызвана только один раз
+        require(users[msg.sender].isAdmin, "Only admins can approve stores");
+
+        // Устанавливаем статус администратора для указанного адреса
+        users[userAddress].isAdmin = true;
+    }
+
+
     // Функция регистрации магазина
     function registerStore(string memory name, address owner) public {
         stores[owner] = StoreInfo(name, owner, false);
@@ -182,5 +199,6 @@ contract Store {
         // Уменьшение счетчика магазинов
         storeCounter--;
     }
+
 
 }

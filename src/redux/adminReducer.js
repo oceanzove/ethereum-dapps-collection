@@ -5,6 +5,11 @@ const DELETE_STORE = 'DELETE_STORE';
 const UPDATE_NEW_STORE_NAME = 'UPDATE_NEW_STORE_NAME';
 const UPDATE_NEW_STORE_ADDRESS = 'UPDATE_NEW_STORE_ADDRESS';
 
+const UPDATE_NEW_ADMIN_LOGIN = 'UPDATE_NEW_ADMIN_LOGIN';
+const UPDATE_NEW_ADMIN_PASSWORD = 'UPDATE_NEW_ADMIN_PASSWORD';
+const UPDATE_NEW_ADMIN_ADDRESS = 'UPDATE_NEW_ADMIN_ADDRESS';
+const ADD_NEW_ADMIN = 'ADD_NEW_ADMIN'
+
 const storeContract = new StoreContract();
 
 let initialState = {
@@ -12,12 +17,15 @@ let initialState = {
     users: await storeContract.getUsers(),
     newStoreName: '',
     newStoreAddress: '',
+    newAdminLogin: '',
+    newAdminPassword: '',
+    newAdminAddress: ''
 }
 
 const adminReducer = (state = initialState, action) => {
   switch (action.type) {
       case ADD_STORE:
-          let newStore ={
+          let newStore = {
               name: state.newStoreName,
               owner: state.newStoreAddress,
           }
@@ -43,6 +51,34 @@ const adminReducer = (state = initialState, action) => {
               ...state,
               stores: updatedStores,
           };
+      case UPDATE_NEW_ADMIN_LOGIN:
+          return {
+              ...state,
+              newAdminLogin: action.newText
+          }
+      case UPDATE_NEW_ADMIN_PASSWORD:
+          return {
+              ...state,
+              newAdminPassword: action.newText
+          }
+      case UPDATE_NEW_ADMIN_ADDRESS:
+          return {
+              ...state,
+              newAdminAddress: action.newText
+          }
+      case ADD_NEW_ADMIN:
+          let newUser = {
+              name: state.newAdminLogin,
+              password: state.newAdminPassword,
+              isAdmin: true,
+          }
+          return {
+              ...state,
+              users: [...state.users, newUser],
+              newAdminLogin: '',
+              newAdminPassword: '',
+              newAdminAddress: '',
+          }
       default:
           return state;
   }
@@ -65,3 +101,19 @@ export const addStoreAc = () => (
 export const deleteStoreAc = (owner) => (
     {type: DELETE_STORE, owner: owner}
 );
+
+export const updateNewAdminLoginAc = (text) => (
+    {type: UPDATE_NEW_ADMIN_LOGIN, newText: text}
+);
+
+export const updateNewAdminPasswordAc = (text) => (
+    {type: UPDATE_NEW_ADMIN_PASSWORD, newText: text}
+);
+
+export const updateNewAdminAddressAc = (text) => (
+    {type: UPDATE_NEW_ADMIN_ADDRESS, newText: text}
+);
+
+export const addNewAdminAc = () => (
+    {type: ADD_NEW_ADMIN}
+)
