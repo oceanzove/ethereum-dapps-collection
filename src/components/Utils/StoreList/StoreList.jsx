@@ -1,23 +1,43 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from './StoreList.module.css';
+import ContractManagerContext from "../../Services/ContractManagerContext";
 
 const StoreItem = (props) => {
 
-  const deleteStore =  async () => {
-      try {
-          console.log('cooming soon')
-      } catch (error) {
-          console.error(error);
-      }
-  }
 
-  return (
-    <div className={styles.container}>
-       <div>{props.name}</div>
-       <div>{props.owner}</div>
-        <button onClick={deleteStore}> Удалить </button>
-    </div>
-  );
+    const {contractManager} = useContext(ContractManagerContext);
+    const [StoreContract, setStoreContract] = useState(null);
+
+    useEffect(() => {
+        const getContract = async () => {
+            try {
+                const contract = await contractManager.getContract('StoreContract');
+                setStoreContract(contract);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        getContract();
+    }, [contractManager]);
+
+    const onDeleteClick = async () => {
+        try {
+            const storeAddress = props.owner;
+            await StoreContract.methods.removeStore(storeAddress)
+                .send({from: props.address, gas: 2000000});
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    return (
+        <div className={styles.container}>
+            <div>{props.name}</div>
+            <div>{props.owner}</div>
+            <button onClick={onDeleteClick}> Удалить</button>
+        </div>
+    );
 };
 
 export default StoreItem;

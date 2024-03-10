@@ -158,4 +158,29 @@ contract Store {
         return false;
     }
 
+    // Функция удаления магазина
+    function removeStore(address storeAddress) public {
+        require(users[msg.sender].isAdmin, "Only admins can remove stores");
+        require(stores[storeAddress].approved, "Store is not approved");
+
+        // Удаление магазина из маппинга
+        delete stores[storeAddress];
+
+        // Удаление магазина из массива адресов магазинов
+        for (uint i = 0; i < storeAddresses.length; i++) {
+            if (storeAddresses[i] == storeAddress) {
+                // Сдвигаем элементы в массиве
+                for (uint j = i; j < storeAddresses.length-1; j++) {
+                    storeAddresses[j] = storeAddresses[j+1];
+                }
+                // Уменьшаем длину массива на 1 и удаляем последний элемент
+                storeAddresses.pop();
+                break;
+            }
+        }
+
+        // Уменьшение счетчика магазинов
+        storeCounter--;
+    }
+
 }
