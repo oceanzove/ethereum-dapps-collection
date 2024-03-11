@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 
 import styles from './UploadFile.module.css';
-import ContractManagerContext from "../services/ContractManagerContext";
+import ContractManagerContext from "../Services/ContractManagerContext";
 
 const UploadFile = (props) => {
     const { contractManager} = useContext(ContractManagerContext)

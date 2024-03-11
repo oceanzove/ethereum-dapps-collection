@@ -1,6 +1,6 @@
 import Calculator from "./Calculator";
 import {connect} from "react-redux";
-import {setOperatorAC, updateNumber1AC, updateNumber2AC} from "../../redux/calculatorReducer";
+import {clearAc, setOperatorAC, setResultAC, updateNumber1AC, updateNumber2AC} from "../../redux/calculatorReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -8,24 +8,32 @@ const mapStateToProps = (state) => {
     }
 }
 
-const  mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         updateNumber1: (number) => {
             let action = updateNumber1AC(number);
             dispatch(action);
         },
-       updateNumber2: (number) => {
+        updateNumber2: (number) => {
             let action = updateNumber2AC(number);
-           dispatch(action);
-       },
-       setOperator: (operator) => {
+            dispatch(action);
+        },
+        setOperator: (operator) => {
             let action = setOperatorAC(operator);
             dispatch(action);
-       }
+        },
+        setResult: (result) => {
+            let action = setResultAC(result);
+            dispatch(action);
+        },
+        clear: () => {
+            let action = clearAc();
+            dispatch(action);
+        }
     }
 }
 
-const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps) (Calculator)
+const CalculatorContainer = connect(mapStateToProps, mapDispatchToProps)(Calculator)
 
 
-export default  CalculatorContainer;
+export default CalculatorContainer;

@@ -1,6 +1,6 @@
 import styles from "../Converter/Converter.module.css";
 import React, {useContext, useEffect, useState} from "react";
-import ContractManagerContext from "../services/ContractManagerContext";
+import ContractManagerContext from "../Services/ContractManagerContext";
 
 
 const ConverterAdvance = (props) => {

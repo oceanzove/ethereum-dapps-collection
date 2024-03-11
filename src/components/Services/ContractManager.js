@@ -5,6 +5,7 @@ import FactorialContract from '../../solidity-contracts/build/contracts/Factoria
 import ConverterContract from '../../solidity-contracts/build/contracts/Converter.json';
 import ConverterAdvanceContract from '../../solidity-contracts/build/contracts/ConverterAdvance.json';
 import CustomConverterContract from '../../solidity-contracts/build/contracts/CustomConverter.json';
+import CalculatorContract from '../../solidity-contracts/build/contracts/Calculator.json';
 
 
 
@@ -25,6 +26,8 @@ class ContractManager {
             this.contracts.ConverterContract = await this.initContract(ConverterContract);
             this.contracts.CustomConverterContract = await this.initContract(CustomConverterContract);
             this.contracts.ConverterAdvanceContract = await this.initContract(ConverterAdvanceContract);
+
+            this.contracts.CalculatorContract = await this.initContract(CalculatorContract);
 
 
         } catch (error) {

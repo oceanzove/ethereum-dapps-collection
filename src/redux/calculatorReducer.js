@@ -1,11 +1,14 @@
 const UPDATE_NUMBER1 = 'UPDATE_NUMBER1';
 const UPDATE_NUMBER2 = 'UPDATE_NUMBER2';
 const SET_OPERATOR = 'SET_OPERATOR';
+const SET_RESULT = 'SET_RESULT';
+const CLEAR = 'CLEAR';
 
 let initialState = {
     number1: '',
     number2: '',
     operator: '',
+    result: '',
 }
 
 const calculatorReducer = (state = initialState, action) => {
@@ -25,6 +28,22 @@ const calculatorReducer = (state = initialState, action) => {
               ...state,
               operator: action.newOperator
           };
+      case SET_RESULT:
+          console.log(action.newResult)
+          return {
+              ...state,
+              number1: '',
+              number2: '',
+              operator: '',
+              result: action.newResult
+          }
+      case CLEAR:
+          return {
+              number1: '',
+              number2: '',
+              operator: '',
+              result: '',
+          }
       default:
           return state
   }
@@ -42,3 +61,11 @@ export const updateNumber2AC = (number) => (
 export const setOperatorAC = (operator) => (
     {type: SET_OPERATOR, newOperator: operator}
 );
+
+export const setResultAC = (result) => (
+    {type: SET_RESULT, newResult: result}
+);
+
+export const clearAc = () => (
+    {type: CLEAR}
+)

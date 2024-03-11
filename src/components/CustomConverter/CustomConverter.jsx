@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import styles from './CustomConverter.module.css';
-import ComboBox from "../utils/ComboBox";
-import ContractManagerContext from "../services/ContractManagerContext";
+import ComboBox from "../Utils/ComboBox";
+import ContractManagerContext from "../Services/ContractManagerContext";
 
 const CustomConverter = (props) => {
     const {contractManager} = useContext(ContractManagerContext);

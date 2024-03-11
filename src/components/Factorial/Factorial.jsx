@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import styles from './Factorial.module.css'
-import ContractManagerContext from "../services/ContractManagerContext";
+import ContractManagerContext from "../Services/ContractManagerContext";
 
 const Factorial = (props) => {
     const {contractManager} = useContext(ContractManagerContext);
