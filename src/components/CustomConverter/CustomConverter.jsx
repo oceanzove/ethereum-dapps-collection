@@ -30,8 +30,6 @@ const CustomConverter = (props) => {
         }
     };
 
-    // TODO Сделать валидацию инпута для каждого типа фрома
-
     const handleSelectFrom = (value) => {
         props.setConvertFrom(value);
         // Дополнительные действия при выборе значения

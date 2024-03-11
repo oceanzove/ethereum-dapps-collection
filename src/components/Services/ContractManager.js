@@ -7,6 +7,8 @@ import ConverterAdvanceContract from '../../solidity-contracts/build/contracts/C
 import CustomConverterContract from '../../solidity-contracts/build/contracts/CustomConverter.json';
 import CalculatorContract from '../../solidity-contracts/build/contracts/Calculator.json';
 import BitwiseCalculatorContract from '../../solidity-contracts/build/contracts/BitwiseCalculator.json';
+import NoteContract from '../../solidity-contracts/build/contracts/Note.json';
+import NewNoteContract from '../../solidity-contracts/build/contracts/NewNote.json';
 
 
 class ContractManager {
@@ -28,7 +30,10 @@ class ContractManager {
             this.contracts.ConverterAdvanceContract = await this.initContract(ConverterAdvanceContract);
 
             this.contracts.CalculatorContract = await this.initContract(CalculatorContract);
-            this.contracts.BitwiseCalculatorContract = await this.initContract(BitwiseCalculatorContract)
+            this.contracts.BitwiseCalculatorContract = await this.initContract(BitwiseCalculatorContract);
+
+            this.contracts.NoteContract = await this.initContract(NoteContract);
+            this.contracts.NewNoteContract = await this.initContract(NewNoteContract);
 
 
         } catch (error) {

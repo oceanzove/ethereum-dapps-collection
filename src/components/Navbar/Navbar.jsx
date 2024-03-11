@@ -48,6 +48,18 @@ const Navbar = () => {
                 >Бинарный Калькулятор</NavLink>
             </div>
         </NavItem>
+        <NavItem name='ПЗ-16'>
+            <div className={styles.item}>
+                <NavLink to='/note'
+                         className={location.pathname === '/note' ? styles.active : undefined}
+                >Записка</NavLink>
+            </div>
+            <div className={styles.item}>
+                <NavLink to='/new-note'
+                         className={location.pathname === '/new-note' ? styles.active : undefined}
+                >Новая записка</NavLink>
+            </div>
+        </NavItem>
     </nav>)
 }
 
