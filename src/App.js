@@ -10,6 +10,7 @@ import CustomConverterContainer from "./components/CustomConverter/CustomConvert
 import CalculatorContainer from "./components/Calculator/CalculatorContainer";
 import BitwiseCalculatorContainer from "./components/BitwiseCalculator/BitwiseCalculatorContainer";
 import NoteContainer from "./components/Note/NoteContainer";
+import NewNoteContainer from "./components/NewNote/NewNoteContainer";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                         <Route path='/calculator' element={<CalculatorContainer/>}/>
                         <Route path='/bitwise-calculator' element={<BitwiseCalculatorContainer/>}/>
                         <Route path='/note' element={<NoteContainer/>}/>
+                        <Route path='/new-note' element={<NewNoteContainer/>}/>
                     </Routes>
                 </div>
             </div>
