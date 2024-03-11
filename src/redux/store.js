@@ -5,6 +5,7 @@ import converterReducer from "./converterReducer";
 import converterAdvanceReducer from "./converterAdvanceReducer";
 import customConverterReducer from "./customConverterReducer";
 import calculatorReducer from "./calculatorReducer";
+import bitwiseCalculatorReducer from "./bitwiseCalculatorReducer";
 
 let reducers = combineReducers({
     uploadFilePage: uploadFileReducer,
@@ -13,6 +14,7 @@ let reducers = combineReducers({
     converterAdvancePage: converterAdvanceReducer,
     customConverterPage: customConverterReducer,
     calculatorPage: calculatorReducer,
+    bitwiseCalculatorPage: bitwiseCalculatorReducer,
 })
 
 let store  = createStore(reducers)

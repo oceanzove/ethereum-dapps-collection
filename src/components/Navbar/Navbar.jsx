@@ -42,6 +42,11 @@ const Navbar = () => {
                          className={location.pathname === '/calculator' ? styles.active : undefined}
                 >Калькулятор</NavLink>
             </div>
+            <div className={styles.item}>
+                <NavLink to='/bitwise-calculator'
+                         className={location.pathname === '/bitwise-calculator' ? styles.active : undefined}
+                >Бинарный Калькулятор</NavLink>
+            </div>
         </NavItem>
     </nav>)
 }

@@ -8,6 +8,7 @@ import ConverterContainer from "./components/Converter/ConverterConataier";
 import ConverterAdvanceContainer from "./components/ConverterAdvance/ConverterAdvanceContainer";
 import CustomConverterContainer from "./components/CustomConverter/CustomConverterContainer";
 import CalculatorContainer from "./components/Calculator/CalculatorContainer";
+import BitwiseCalculatorContainer from "./components/BitwiseCalculator/BitwiseCalculatorContainer";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         <Route path='/converter-advance' element={<ConverterAdvanceContainer/>}/>
                         <Route path='/custom-converter' element={<CustomConverterContainer/>}/>
                         <Route path='/calculator' element={<CalculatorContainer/>}/>
+                        <Route path='/bitwise-calculator' element={<BitwiseCalculatorContainer/>}/>
                     </Routes>
                 </div>
             </div>

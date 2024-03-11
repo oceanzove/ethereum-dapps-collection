@@ -29,7 +29,6 @@ const calculatorReducer = (state = initialState, action) => {
               operator: action.newOperator
           };
       case SET_RESULT:
-          console.log(action.newResult)
           return {
               ...state,
               number1: '',

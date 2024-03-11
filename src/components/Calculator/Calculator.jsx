@@ -58,7 +58,6 @@ const Calculator = (props) => {
             }
 
             const response = await calculatorContract.methods.calculate(x, operator, y).call();
-            console.log(response);
             props.setResult(response.toString())
 
         } catch (error) {
