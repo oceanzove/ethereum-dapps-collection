@@ -113,7 +113,7 @@ function App(props) {
                 </div>
             </div>
             <button id="toggleButton" onClick={onToggleButtonClicked} className="button toggle">
-                {isSetColumnVisible ? 'Поставить оценку' : 'Посмотреть результаты'}
+                {isSetColumnVisible ? 'Посмотреть результаты' : 'Поставить оценку'}
             </button>
         </div>
     );
