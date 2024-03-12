@@ -18,6 +18,9 @@ function App(props) {
 
         // Вызываем метод setUser контракта и передаем значения
         const response = await ownerContract.setUser(name, number, age, address);
+        if (response === false) {
+            setInvalidAddress("SET");
+        }
         props.onSetUser();
     }
 
@@ -28,8 +31,31 @@ function App(props) {
 
         // Вызываем метод getUser контракта и передаем значения
         const response = await ownerContract.getUser(name, address);
-        console.log(response.number)
+        if (response === false) {
+            setInvalidAddress("GET");
+        }
         props.onGetUser(response.number, response.age.toString());
+    }
+
+    function setInvalidAddress(param) {
+        let input;
+        if (param === "SET") {
+            input = document.getElementById("address-set");
+
+        } else {
+            input = document.getElementById("address-get");
+        }
+        input.classList.add("invalid");
+        input.style.background = '#F06660';
+        input.style.color = '#fff'
+        input.placeholder = "Введен адрес не владельца";
+
+        setTimeout(function() {
+            input.classList.remove("invalid");
+            input.style.background = ''; // Сброс цвета фона
+            input.style.color = ''; // Сброс цвета текста
+            input.placeholder = ""; // Сброс placeholder'a
+        }, 3000);
     }
 
     const onChangeSetName = (e) => {
@@ -147,10 +173,11 @@ function App(props) {
                             </div>
                             <button
                                 disabled={
-                                 !props.ownerPage.getUserName
+                                    !props.ownerPage.getUserName
                                     || !props.ownerPage.getUserAddress
                                 }
-                                onClick={onGetUserClicked} className="button">Получить</button>
+                                onClick={onGetUserClicked} className="button">Получить
+                            </button>
                         </div>
                     )}
                 </div>
