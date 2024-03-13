@@ -62,7 +62,8 @@ class AddressContract {
 
     async getAllAddress() {
         try {
-           return await this.addressContract.getAll()
+           await this.init()
+           return await this.addressContract.methods.getAll()
                .call();
         } catch (error) {
             console.log(error);

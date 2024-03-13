@@ -1,13 +1,25 @@
+import AddressContract from "../components/Contracts/AddressContract";
+
 const UPDATE_SET_ADDRESS = 'UPDATE_SET_ADDRESS';
 const UPDATE_GET_ADDRESS = 'UPDATE_GET_ADDRESS';
 const SET_GET_INDEX_ADDRESS = 'SET_GET_INDEX_ADDRESS';
 const ADD_ADDRESS = 'ADD_ADDRESS';
 
+const addressContract = new AddressContract();
+const addresses = await addressContract.getAllAddress().then(
+    async (result) => {
+        return Promise.all(result.map(async (address, index) => ({
+            index: index,
+            address: address
+        })));
+    }
+);
+
 const initialState = {
     setAddress: '',
     getAddress: '',
     getIndexAddress: '',
-    addresses: []
+    addresses: addresses
 }
 
 const addressReducer = (state = initialState, action) => {

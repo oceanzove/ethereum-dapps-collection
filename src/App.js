@@ -29,7 +29,7 @@ function App(props) {
   }
 
   let addressElements = props.addressPage.addresses.map(
-      a => <AddressItem index={a.index} address={a.address}/>
+      a => <AddressItem key={a.index} index={a.index} address={a.address}/>
   )
 
   const onChangeSetAddress = (e) => {
