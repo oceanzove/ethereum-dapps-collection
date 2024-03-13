@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-import AddressContract from '../../solidity-contracts/build/contracts/Address.json';
+import AddressContract from '../../solidity-contracts/build/contracts/AddressContract.json';
 
 
 class ContractManager {

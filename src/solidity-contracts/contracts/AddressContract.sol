@@ -1,7 +1,7 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.4.22 <0.9.0;
 
-contract Address {
+contract AddressContract {
   mapping(uint => address)  addresses;
   uint count;
 
@@ -17,5 +17,13 @@ contract Address {
       }
     }
     return 0;
+  }
+
+  function getAll() public view returns (address[] memory) {
+    address[] memory all = new address[](count);
+    for (uint i = 0; i < count; i++) {
+      all[i] = addresses[i];
+    }
+    return all;
   }
 }
