@@ -1,12 +1,13 @@
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10vw;
+    margin: 5vw 10vw;
 
+    display: grid;
     grid-template-columns: 1fr 0.5fr;
     grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+    "t f"
+    "v .";
 }
 
 .title {
@@ -15,39 +16,42 @@
     color: #3772da;
 }
 
+.candidate-div {
+    margin: 10px;
+    grid-area: f;
+}
+
+.vote-div {
+    margin-top: 10px;
+    grid-area: v;
+}
+
+.table-div {
+    grid-area: t;
+    overflow: auto;
+    max-height: 350px;
+}
+
 
 .table {
+    width: 100%;
+
     border: 2px black solid;
     border-collapse: collapse;
 
+    th,
+    td {
+        border: 1px solid rgb(160 160 160);
+        padding: 8px 10px;
+    }
+
+    tr {
+        text-align: center;
+    }
 }
 
-/*thead,*/
-/*tfoot {*/
-/*    background-color: rgb(228 240 245);*/
-/*}*/
 
-th,
-td {
-    border: 1px solid rgb(160 160 160);
-    padding: 8px 10px;
-}
 
-/*td:last-of-type {*/
-/*    text-align: center;*/
-/*}*/
-
-/*tbody > tr:nth-of-type(even) {*/
-/*    background-color: rgb(237 238 242);*/
-/*}*/
-
-/*tfoot th {*/
-/*    text-align: right;*/
-/*}*/
-
-/*tfoot td {*/
-/*    font-weight: bold;*/
-/*}*/
 
 .input-div {
     display: flex;
@@ -59,7 +63,7 @@ td {
     }
 
     input {
-        width: 200px;
+        width: 100%;
         padding: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;

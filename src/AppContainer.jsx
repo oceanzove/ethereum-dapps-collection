@@ -1,6 +1,12 @@
 import {connect} from "react-redux";
 import App from "./App";
-import {addNewCandidate, updateCandidateName, updateVoterAddress, updateVoterCandidate} from "./redux/voterReducer";
+import {
+    addNewCandidate, clearVoterAddress,
+    updateCandidateName,
+    updateVoterAddress,
+    updateVoterCandidate,
+    voteCandidate
+} from "./redux/voterReducer";
 
 
 const mapStateToProps = (state) => {
@@ -17,11 +23,17 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateVoterAddress: (value) => {
             dispatch(updateVoterAddress(value));
         },
+        onClearVoterAddress: () => {
+            dispatch(clearVoterAddress())
+        },
         onUpdateVoterCandidate: (value) => {
             dispatch(updateVoterCandidate(value));
         },
         onAddNewCandidate: (candidate) => {
             dispatch(addNewCandidate(candidate));
+        },
+        onVoteCandidate: (candidateId) => {
+            dispatch(voteCandidate(candidateId));
         }
     };
 };

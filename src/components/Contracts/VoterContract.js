@@ -51,7 +51,7 @@ class AddressContract {
             console.log(error);
         }
     }
-    //    mapping(uint => Candidate) public candidates;
+
     async getCandidates() {
         try {
             await this.init();
@@ -72,6 +72,16 @@ class AddressContract {
         }
     }
 
+    async vote(index, address) {
+        try {
+            await this.init();
+            return await this.voterContract.methods.vote(index)
+                .send({from: address})
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
 }
 
 export default AddressContract;

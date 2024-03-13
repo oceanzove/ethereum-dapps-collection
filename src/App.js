@@ -11,6 +11,18 @@ function App(props) {
         const candidate = await voterContract.getLastCandidate();
         props.onAddNewCandidate(candidate);
     }
+
+    const onVoteClicked = async () => {
+        const index = props.voterPage.voterCandidate;
+        const address = props.voterPage.voterAddress;
+        const response = await voterContract.vote(index, address);
+        console.log(response);
+        if (response === false) {
+            setInvalidAddress();
+        } else {
+            props.onVoteCandidate(index);
+        }
+    }
     const onChangeCandidateName = (e) => {
         const value = e.target.value;
         props.onUpdateCandidateName(value);
@@ -30,27 +42,47 @@ function App(props) {
         v => <Tr key={v.id} id={v.id} name={v.name} totalVotes={v.totalVotes}/>
     )
 
-    // let addressElements = props.addressPage.addresses.map(
-    //         a => <AddressItem key={a.index} index={a.index} address={a.address}/>
-    //     )
+    function setInvalidAddress() {
+
+        const input = document.getElementById("address-voter");
+        input.classList.add("invalid");
+        input.style.background = '#F06660';
+        input.style.color = '#fff'
+        input.value = 'Вы уже голосовали'
+        input.style.textAlign = 'center'
+        input.readOnly = true;
+
+        setTimeout(function () {
+            input.classList.remove("invalid");
+            input.style.background = ''; // Сброс цвета фона
+            input.style.color = ''; // Сброс цвета текста
+            input.value = '';
+            input.style.textAlign = 'left'
+            input.readOnly = false;
+            props.onClearVoterAddress();
+        }, 2000);
+    }
+
     return (
         <div className="App">
+            <div className="title">
+                <h2>Voter</h2>
+            </div>
             <div className='container'>
-                <div className="title">
-                    <h2>Voter</h2>
+                <div className='table-div'>
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Кандидат</th>
+                            <th>Голоса</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {candidateElements}
+                        </tbody>
+                    </table>
                 </div>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Кандидат</th>
-                        <th>Голоса</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {candidateElements}
-                    </tbody>
-                </table>
                 <div className='vote-div'>
                     <div className='input-div'>
                         <label htmlFor='address-voter' className='input-label'>
@@ -73,7 +105,7 @@ function App(props) {
                     </div>
                     <button
                         disabled={!props.voterPage.voterAddress || !props.voterPage.voterCandidate}
-                        onClick={null} className="button">Проголосовать
+                        onClick={onVoteClicked} className="button">Проголосовать
                     </button>
                 </div>
                 <div className='candidate-div'>
@@ -82,7 +114,7 @@ function App(props) {
                     </h2>
                     <div className='input-div'>
                         <label htmlFor='address-voter' className='input-label'>
-                            Имя ногого кандидат
+                            Имя нового кандидата
                         </label>
                         <input type="text" id='address-voter'
                                value={props.voterPage.newCandidateName}
