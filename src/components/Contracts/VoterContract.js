@@ -1,5 +1,4 @@
 import ContractManager from "../Services/ContractManager";
-import tr from "../Table/Tr/Tr";
 
 class AddressContract {
     constructor() {
@@ -55,7 +54,7 @@ class AddressContract {
     //    mapping(uint => Candidate) public candidates;
     async getCandidates() {
         try {
-            return await this.voterContract.candidates
+            return await this.voterContract.candidates(0)
                 .call({from: this.accounts[0]})
         } catch (error) {
             console.log(error);
