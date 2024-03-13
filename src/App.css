@@ -18,6 +18,11 @@
     margin-bottom: 20px;
 }
 
+.addresses {
+    overflow: auto;
+    max-height: 60vh;
+}
+
 .input-div {
     display: flex;
     flex-direction: column;

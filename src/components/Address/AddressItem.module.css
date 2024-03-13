@@ -1,3 +1,8 @@
 .container {
-    color: red;
+
+    border: 2px #2196F3 solid;
+    border-radius: 15px;
+
+    padding: 10px 20px;
+    margin: 10px;
 }
