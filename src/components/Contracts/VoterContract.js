@@ -1,6 +1,6 @@
 import ContractManager from "../Services/ContractManager";
 
-class AddressContract {
+class VoterContract {
     constructor() {
         this.contractManager = null;
         this.voterContract = null;
@@ -84,4 +84,4 @@ class AddressContract {
     }
 }
 
-export default AddressContract;
+export default VoterContract;
