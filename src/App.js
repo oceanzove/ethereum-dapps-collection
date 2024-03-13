@@ -1,13 +1,15 @@
 import './App.css';
 import VoterContract from "./components/Contracts/VoterContract";
+import Tr from "./components/Table/Tr/Tr";
 
 function App(props) {
     const voterContract = new VoterContract();
 
     const onAddCandidateClicked = async () => {
-      const candidate = props.voterPage.newCandidateName;
-      await voterContract.addCandidate(candidate);
-      props.onAddNewCandidate(candidate);
+        const name = props.voterPage.newCandidateName;
+        await voterContract.addCandidate(name);
+        const candidate = await voterContract.getLastCandidate();
+        props.onAddNewCandidate(candidate);
     }
     const onChangeCandidateName = (e) => {
         const value = e.target.value;
@@ -23,6 +25,14 @@ function App(props) {
         const value = e.target.value;
         props.onUpdateVoterCandidate(value)
     }
+
+    let candidateElements = props.voterPage.candidates.map(
+        v => <Tr key={v.id} id={v.id} name={v.name} totalVotes={v.totalVotes}/>
+    )
+
+    // let addressElements = props.addressPage.addresses.map(
+    //         a => <AddressItem key={a.index} index={a.index} address={a.address}/>
+    //     )
     return (
         <div className="App">
             <div className='container'>
@@ -38,21 +48,7 @@ function App(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>0</td>
-                        <td>Рома</td>
-                        <td id="candidate-1"></td>
-                    </tr>
-                    <tr>
-                        <td>0</td>
-                        <td>Олег</td>
-                        <td id="candidate-2"></td>
-                    </tr>
-                    <tr>
-                        <td>0</td>
-                        <td>Иван</td>
-                        <td id="candidate-3"></td>
-                    </tr>
+                    {candidateElements}
                     </tbody>
                 </table>
                 <div className='vote-div'>

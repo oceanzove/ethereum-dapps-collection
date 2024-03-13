@@ -42,10 +42,10 @@ class AddressContract {
     }
 
 
-    async addCandidate(candidate) {
+    async addCandidate(name) {
         try {
             await this.init()
-            await this.voterContract.methods.addCandidate(candidate)
+            await this.voterContract.methods.addCandidate(name)
                 .send({from: this.accounts[0], gas: '100000'})
         } catch (error) {
             console.log(error);
@@ -54,18 +54,19 @@ class AddressContract {
     //    mapping(uint => Candidate) public candidates;
     async getCandidates() {
         try {
-            return await this.voterContract.candidates(0)
+            await this.init();
+            return await this.voterContract.methods.getAll()
                 .call({from: this.accounts[0]})
         } catch (error) {
             console.log(error);
         }
     }
 
-    async getAllAddress() {
+    async getLastCandidate() {
         try {
-            await this.init()
-            return await this.addressContract.methods.getAll()
-                .call();
+            await this.init();
+            return await this.voterContract.methods.getLastCandidate()
+                .call({from: this.accounts[0]})
         } catch (error) {
             console.log(error);
         }

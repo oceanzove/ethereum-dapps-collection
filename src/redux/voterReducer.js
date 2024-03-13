@@ -6,30 +6,22 @@ const UPDATE_VOTER_ADDRESS = 'UPDATE_VOTER_ADDRESS';
 const UPDATE_VOTER_CANDIDATE = 'UPDATE_VOTER_CANDIDATE';
 
 const voterContract = new VoterContract();
-const voters = await voterContract.getCandidates();
-console.log(voters);
-
+const voters = await voterContract.getCandidates().then(
+    async (response) => {
+        return Promise.all(response.map(async r => ({
+            id: r.id.toString(),
+            name: r.name,
+            totalVotes: r.totalVotes.toString()
+        })));
+    }
+);
 
 let initialState = {
     newCandidateName: '',
     voterAddress: '',
     voterCandidate: '',
-    voters: []
+    candidates: voters
 }
-
-
-//const addressContract = new AddressContract();
-// const addresses = await addressContract.getAllAddress().then(
-//     async (result) => {
-//         return Promise.all(result.map(async (address, index) => ({
-//             index: index,
-//             address: address
-//         })));
-//     }
-// );
-// 0: uint256: id 2
-// 1: string: name Миша
-// 2: uint256: totalVotes 1
 
 const voterReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -49,10 +41,15 @@ const voterReducer = (state = initialState, action) => {
                 voterCandidate: action.newValue
             }
         case ADD_NEW_CANDIDATE:
+            const newCandidate = {
+                id: action.candidate.id.toString(),
+                name: action.candidate.name,
+                totalVotes: action.candidate.totalVotes.toString()
+            }
             return {
                 ...state,
                 newCandidateName: '',
-                voters: [...state.voters, action.candidate]
+                candidates: [...state.candidates, newCandidate]
             }
 
         default:
