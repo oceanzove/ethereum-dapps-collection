@@ -40,7 +40,19 @@ class DiceContract {
             throw new Error('No accounts found');
         }
     }
-    
+
+    async getDiceRoll() {
+        try {
+            const randomNumbers = [];
+            for (let i = 0; i < 4; i++) {
+                randomNumbers.push(Math.floor(Math.random() * 9999999));
+            }
+            console.log(randomNumbers);
+            return  await this.diceContract.methods.rollDices(randomNumbers).call({});
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default DiceContract;
