@@ -41,14 +41,11 @@ class DragonFarmContract {
         }
     }
 
-    async getDiceRoll() {
+    async getAllDragons() {
         try {
-            const randomNumbers = [];
-            for (let i = 0; i < 4; i++) {
-                randomNumbers.push(Math.floor(Math.random() * 9999999));
-            }
-            console.log(randomNumbers);
-            return  await this.dargonFarmContract.methods.rollDices(randomNumbers).call({});
+            await this.init()
+            return await this.dargonFarmContract.methods.GetAllDragons()
+                .call();
         } catch (error) {
             console.log(error);
         }

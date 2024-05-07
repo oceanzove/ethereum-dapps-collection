@@ -1,30 +1,26 @@
 import {connect} from "react-redux";
 import App from "./App";
-import {
-    addAddress, setGetIndexAddress,
-    updateGetAddress,
-    updateSetAddress
-} from "./redux/dragonFarmReducer";
+import {addDragon, setGetDragonInfo, updateAddName, updateGetIndex} from "./redux/dragonFarmReducer";
 
 const mapStateToProps = (state) => {
     return {
-        addressPage: state.addressPage
+        dragonFarmPage: state.dragonFarmPage
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onUpdateSetAddress: (value) => {
-            dispatch(updateSetAddress(value));
+        onUpdateAddName: (value) => {
+            dispatch(updateAddName(value));
         },
-        onUpdateGetAddress: (value) => {
-            dispatch(updateGetAddress(value));
+        onUpdateGetIndex: (value) => {
+            dispatch(updateGetIndex(value));
         },
-        onSetGetIndexAddress: (value) => {
-            dispatch(setGetIndexAddress(value));
+        onSetGetDragonInfo: (value) => {
+            dispatch(setGetDragonInfo(value));
         },
-        onAddAddress: (index, address) => {
-            dispatch(addAddress(index, address));
+        onAddDragon: (index, name, dna) => {
+            dispatch(addDragon(index, name, dna));
         }
     };
 };
