@@ -6,11 +6,12 @@ const SET_GET_DRAGON_INFO = 'SET_GET_DRAGON_INFO';
 const ADD_DRAGON = 'ADD_DRAGON';
 
 const dragonFarmContract = new DragonFarmContract();
-const dragons = await dragonFarmContract.getAllAddress().then(
+const dragons = await dragonFarmContract.getAllDragons().then(
     async (result) => {
-        return Promise.all(result.map(async (address, index) => ({
+        return Promise.all(result.map(async (index, name, dna) => ({
             index: index,
-            address: address
+            name: name,
+            dna: dna,
         })));
     }
 );
