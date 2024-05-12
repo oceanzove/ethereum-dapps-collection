@@ -13,19 +13,15 @@ contract DragonFarm {
     Dragon[] public dragons;
     uint private count;
 
-    function GenerateRandomDna(string memory _str) private pure returns (uint) {
+    function GenerateRandomDna(string memory _str) public pure returns (uint) {
         uint rand = uint(keccak256(abi.encode(_str)));
         return rand % (10 ** 16);
     }
 
-    function AddDragon(string memory _name, uint _dna) private {
+    function AddDragon(string memory _name, uint _dna) public {
         dragons.push(Dragon(_name, _dna));
         emit  NewDragon(_name, _dna);
         count++;
-    }
-    function CreateDragon(string memory _name) public {
-        uint randDna = GenerateRandomDna(_name);
-        AddDragon(_name, randDna);
     }
 
     function GetAllDragons() public view returns (Dragon[] memory) {
@@ -34,5 +30,10 @@ contract DragonFarm {
             allDragons[i] = dragons[i];
         }
         return allDragons;
+    }
+
+    function getLastDragonIndex() public view returns (uint) {
+        require(count > 0, "No dragons available");
+        return count - 1;
     }
 }

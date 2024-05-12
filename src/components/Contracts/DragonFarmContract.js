@@ -50,6 +50,48 @@ class DragonFarmContract {
             console.log(error);
         }
     }
+
+    async getDragon(index) {
+        try {
+            await this.init();
+            const allDragons = await this.getAllDragons();
+            console.log(allDragons)
+            return allDragons[index];
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async generateDna(_str) {
+        try {
+            await this.init();
+            return await this.dargonFarmContract.methods.GenerateRandomDna(_str)
+                .call();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getLastDragonIndex() {
+        try {
+            await this.init();
+            return await this.dargonFarmContract.methods.getLastDragonIndex()
+                .call();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async addDragon(_name, _dna) {
+        try {
+            await this.init();
+            await this.dargonFarmContract.methods.AddDragon(_name, _dna)
+                .send({from: this.accounts[0], gas: "2000000"});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 export default DragonFarmContract;

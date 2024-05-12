@@ -8,10 +8,10 @@ const ADD_DRAGON = 'ADD_DRAGON';
 const dragonFarmContract = new DragonFarmContract();
 const dragons = await dragonFarmContract.getAllDragons().then(
     async (result) => {
-        return Promise.all(result.map(async (index, name, dna) => ({
+        return Promise.all(result.map(async (dragon, index) => ({
             index: index,
-            name: name,
-            dna: dna,
+            name: dragon.name,
+            dna: dragon.dna,
         })));
     }
 );
@@ -19,7 +19,7 @@ const dragons = await dragonFarmContract.getAllDragons().then(
 const initialState = {
     setName: '',
     getIndex: '',
-    getInfo: '',
+    getInfo: [{name: '', dna: ''}],
     dragons: dragons
 }
 
@@ -36,9 +36,13 @@ const dragonFarmReducer = (state = initialState, action) => {
                 getIndex: action.newValue
             }
         case SET_GET_DRAGON_INFO:
+            let dragonInfo = {
+                name: action.newName,
+                dna: action.newDNA,
+            }
             return {
                 ...state,
-                getIndexAddress: action.newValue
+                getInfo: [dragonInfo]
             }
         case ADD_DRAGON:
             let newDragon = {
@@ -65,8 +69,8 @@ export const updateAddName = (value) => (
 export const updateGetIndex = (value) => (
     {type: UPDATE_GET_INDEX, newValue: value}
 );
-export const setGetDragonInfo = (value) => (
-    {type: SET_GET_DRAGON_INFO, newValue: value}
+export const setGetDragonInfo = (name, dna) => (
+    {type: SET_GET_DRAGON_INFO, newName: name, newDNA: dna}
 );
 
 export const addDragon = (index, name, dna) => (

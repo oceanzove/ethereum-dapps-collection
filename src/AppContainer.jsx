@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateGetIndex: (value) => {
             dispatch(updateGetIndex(value));
         },
-        onSetGetDragonInfo: (value) => {
-            dispatch(setGetDragonInfo(value));
+        onSetGetDragonInfo: (name, dna) => {
+            dispatch(setGetDragonInfo(name, dna));
         },
         onAddDragon: (index, name, dna) => {
             dispatch(addDragon(index, name, dna));
