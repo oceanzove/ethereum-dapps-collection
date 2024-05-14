@@ -3,9 +3,9 @@ import ContractManager from "../Services/ContractManager";
 class TransactionContract {
     constructor() {
         this.contractManager = null;
+        this.web3 = null;
         this.transactionContract = null;
         this.accounts = null;
-        this.web3 = null;
         this.init();
     }
 
@@ -13,9 +13,8 @@ class TransactionContract {
         try {
             this.contractManager = await this.getContractManager();
             this.web3 = await this.getWeb3();
+            this.transactionContract = await this.getAddressContract('TransactionContract');
             this.accounts = await this.getAccounts();
-
-            this.transactionContract = await this.getAddressContract('TransactionContract')
         } catch (error) {
             console.error(error);
         }

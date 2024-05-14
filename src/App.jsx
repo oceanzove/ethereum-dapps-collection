@@ -76,6 +76,7 @@ function App(props) {
         const address = props.page.getBalanceAddress;
 
         const balance = await transactionContract.balance(address);
+        console.log(balance)
         props.onSetBalance(balance);
     }
 
@@ -92,10 +93,14 @@ function App(props) {
                             <label htmlFor='fromAddress' className='input-label'>
                                 Пополнить с адреса:
                             </label>
-                            <input type="text" id="fromAddress"
-                                   value={props.page.fromAddress}
-                                   onChange={onChangeFromAddress}
-                            />
+                            {/*<input type="text" id="fromAddress"*/}
+                            {/*       value={props.page.fromAddress}*/}
+                            {/*       onChange={onChangeFromAddress}*/}
+                            {/*/>*/}
+                            <select id="fromAddress" onChange={onChangeFromAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
                         </div>
                         <div className='input-div'>
                             <label htmlFor='fromAmount' className='input-label'>
@@ -117,10 +122,14 @@ function App(props) {
                             <label htmlFor='toAddress' className='input-label'>
                                 Перевести на адрес:
                             </label>
-                            <input type="text" id="toAddress"
-                                   value={props.page.toAddress}
-                                   onChange={onChangeToAddress}
-                            />
+                            {/*<input type="text" id="toAddress"*/}
+                            {/*       value={props.page.toAddress}*/}
+                            {/*       onChange={onChangeToAddress}*/}
+                            {/*/>*/}
+                            <select id="fromAddress" onChange={onChangeToAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
                         </div>
                         <div className='input-div'>
                             <label htmlFor='toAmount' className='input-label'>
@@ -142,10 +151,14 @@ function App(props) {
                             <label htmlFor='getBalance' className='input-label'>
                                 Получить баланс по адресу
                             </label>
-                            <input type="text" id='getBalance'
-                                   value={props.page.getBalanceAddress}
-                                   onChange={onChangeGetBalanceAddress}
-                            />
+                            {/*<input type="text" id="getBalance"*/}
+                            {/*       value={props.page.getBalanceAddress}*/}
+                            {/*       onChange={onChangeGetBalanceAddress}*/}
+                            {/*/>*/}
+                            <select id="getBalance" onChange={onChangeGetBalanceAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
                         </div>
                         <button
                             disabled={!props.page.getBalanceAddress}

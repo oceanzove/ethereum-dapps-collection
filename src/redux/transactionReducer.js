@@ -1,3 +1,5 @@
+import TransactionContract from "../components/Contracts/TransactionContract";
+
 const UPDATE_FROM_ADDRESS = 'UPDATE_FROM_ADDRESS';
 const UPDATE_TO_ADDRESS = 'UPDATE_TO_ADDRESS';
 const UPDATE_GET_BALANCE_ADDRESS = 'UPDATE_GET_BALANCE_ADDRESS';
@@ -7,6 +9,14 @@ const SET_BALANCE = 'SET_BALANCE';
 const COIN = 'COIN';
 const SEND = 'SEND';
 
+const transactionContract = new TransactionContract();
+await transactionContract.init();
+const addresses = await transactionContract.accounts.map((address, index) => (
+    <option key={index} value={address}>
+        {address}
+    </option>
+));
+
 const initialState = {
     fromAddress: '',
     toAddress: '',
@@ -14,8 +24,8 @@ const initialState = {
     toAmount: '',
     getBalanceAddress: '',
     balance: '',
+    addresses: addresses,
 }
-
 const transactionReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_FROM_ADDRESS:
@@ -51,13 +61,11 @@ const transactionReducer = (state = initialState, action) => {
         case COIN:
             return {
                 ...state,
-                fromAddress: '',
                 fromAmount: '',
             }
         case SEND:
             return {
                 ...state,
-                toAddress: '',
                 toAmount: '',
             }
         default:
