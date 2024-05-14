@@ -1,9 +1,9 @@
 import ContractManager from "../Services/ContractManager";
 
-class PatternContract {
+class TransactionContract {
     constructor() {
         this.contractManager = null;
-        this.PatternContract = null;
+        this.transactionContract = null;
         this.accounts = null;
         this.web3 = null;
         this.init();
@@ -15,7 +15,7 @@ class PatternContract {
             this.web3 = await this.getWeb3();
             this.accounts = await this.getAccounts();
 
-            this.PatternContract = await this.getAddressContract('PatternContract')
+            this.transactionContract = await this.getAddressContract('TransactionContract')
         } catch (error) {
             console.error(error);
         }
@@ -52,6 +52,32 @@ class PatternContract {
         }
     }
 
+    async coin(receiver, amount) {
+        try {
+            await this.transactionContract.methods.coin(receiver, amount)
+                .send({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async send(receiver, amount) {
+        try {
+            await this.transactionContract.methods.send(receiver, amount)
+                .send({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async balance(address) {
+        try {
+            return await this.transactionContract.methods.balances(address)
+                .call({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
-export default PatternContract;
+export default TransactionContract;
