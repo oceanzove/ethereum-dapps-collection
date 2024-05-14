@@ -3,7 +3,7 @@ import App from "./App";
 import {
     coin, send,
     setBalance,
-    updateFromAddress, updateGetBalanceAddress, updateToAddress
+    updateFromAddress, updateFromAmount, updateGetBalanceAddress, updateToAddress, updateToAmount
 } from "./redux/transactionReducer";
 
 const mapStateToProps = (state) => {
@@ -31,6 +31,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSend: () => {
             dispatch(send());
+        },
+        onChangeFromAmount: (value) => {
+            dispatch(updateFromAmount(value));
+        },
+        onChangeToAmount: (value) => {
+          dispatch(updateToAmount(value));
         },
     };
 };
