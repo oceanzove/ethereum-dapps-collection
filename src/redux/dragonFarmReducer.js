@@ -1,26 +1,20 @@
-import DragonFarmContract from "../components/Contracts/DragonFarmContract";
-
 const UPDATE_ADD_NAME = 'UPDATE_ADD_NAME';
 const UPDATE_GET_INDEX = 'UPDATE_GET_INDEX';
 const SET_GET_DRAGON_INFO = 'SET_GET_DRAGON_INFO';
 const ADD_DRAGON = 'ADD_DRAGON';
 
-const dragonFarmContract = new DragonFarmContract();
-// const dragons = await dragonFarmContract.getAllDragons().then(
-//     async (result) => {
-//         return Promise.all(result.map(async (dragon, index) => ({
-//             index: index,
-//             name: dragon.name,
-//             dna: dragon.dna,
-//         })));
-//     }
-// );
+const UPDATE_REFORGE_DRAGON_NAME = 'UPDATE_REFORGE_DRAGON_NAME';
+const UPDATE_REFORGE_DRAGON_ID = 'UPDATE_REFORGE_DRAGON_ID';
+const UPDATE_REFORGE_DRAGON_FOOD = 'UPDATE_REFORGE_DRAGON_FOOD';
+const REFORGE_DRAGON = 'REFORGE_DRAGON';
 
 const initialState = {
-    setName: '',
-    getIndex: '',
-    getInfo: [{name: '', dna: ''}],
-    dragons: []
+    addDragonName: '',
+    getDragonIndex: '',
+    getInfo: [{id: '', name: '', dna: ''}],
+    reforgeDragonName: '',
+    reforgeDragonId: '',
+    reforgeDragonFood: '',
 }
 
 const dragonFarmReducer = (state = initialState, action) => {
@@ -28,15 +22,16 @@ const dragonFarmReducer = (state = initialState, action) => {
         case UPDATE_ADD_NAME:
             return {
                 ...state,
-                setName: action.newValue
+                addDragonName: action.newValue
             }
         case UPDATE_GET_INDEX:
             return {
                 ...state,
-                getIndex: action.newValue
+                getDragonIndex: action.newValue
             }
         case SET_GET_DRAGON_INFO:
             let dragonInfo = {
+                id: action.newId,
                 name: action.newName,
                 dna: action.newDNA,
             }
@@ -45,15 +40,31 @@ const dragonFarmReducer = (state = initialState, action) => {
                 getInfo: [dragonInfo]
             }
         case ADD_DRAGON:
-            let newDragon = {
-                index: action.newIndex,
-                name: action.newName,
-                dna: action.newDNA,
-            }
             return {
                 ...state,
-                setName: '',
-                dragons: [...state.dragons, newDragon]
+                addDragonName: '',
+            }
+        case UPDATE_REFORGE_DRAGON_NAME:
+            return {
+                ...state,
+                reforgeDragonName: action.newValue,
+            }
+        case UPDATE_REFORGE_DRAGON_ID:
+            return {
+                ...state,
+                reforgeDragonId: action.newValue,
+            }
+        case UPDATE_REFORGE_DRAGON_FOOD:
+            return {
+                ...state,
+                reforgeDragonFood: action.newValue,
+            }
+        case REFORGE_DRAGON:
+            return {
+                ...state,
+                reforgeDragonName: '',
+                reforgeDragonId: '',
+                reforgeDragonFood: '',
             }
         default:
             return state;
@@ -69,10 +80,27 @@ export const updateAddName = (value) => (
 export const updateGetIndex = (value) => (
     {type: UPDATE_GET_INDEX, newValue: value}
 );
-export const setGetDragonInfo = (name, dna) => (
-    {type: SET_GET_DRAGON_INFO, newName: name, newDNA: dna}
+export const setGetDragonInfo = (id, name, dna) => (
+    {type: SET_GET_DRAGON_INFO, newId: id, newName: name, newDNA: dna}
 );
 
-export const addDragon = (index, name, dna) => (
-    {type: ADD_DRAGON, newIndex: index, newName: name, newDNA: dna}
+export const addDragon = () => (
+    {type: ADD_DRAGON}
+);
+
+
+export const updateReforgeDragonName = (value) => (
+    {type: UPDATE_REFORGE_DRAGON_NAME, newValue: value}
+);
+
+export const updateReforgeDragonId = (value) => (
+    {type: UPDATE_REFORGE_DRAGON_ID, newValue: value}
+);
+
+export const updateReforgeDragonFood = (value) => (
+    {type: UPDATE_REFORGE_DRAGON_FOOD, newValue: value}
+);
+
+export const reforgeDragon = () => (
+    {type: REFORGE_DRAGON}
 );

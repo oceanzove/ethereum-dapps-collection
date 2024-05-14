@@ -31,17 +31,10 @@ contract DragonFarm {
         ownerDragons[msg.sender]++;
     }
 
-//    function GetAllDragons() public view returns (Dragon[] memory) {
-//        Dragon[] memory allDragons = new Dragon[](count);
-//        for (uint i = 0; i < count; i++) {
-//            allDragons[i] = dragons[i];
-//        }
-//        return allDragons;
-//    }
-
-    function getLastDragonIndex() public view returns (uint) {
-        require(count > 0, "No dragons available");
-        return count - 1;
+    function getDragonByIndex(uint _index) public view returns (uint id, string memory name, uint dna) {
+        require(_index < dragons.length, "Dragon index out of bounds");
+        Dragon memory dragon = dragons[_index];
+        return (dragon.id, dragon.name, dragon.dna);
     }
 }
 

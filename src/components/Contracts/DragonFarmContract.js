@@ -11,7 +11,8 @@ class DragonFarmContract {
     async init() {
         try {
             this.contractManager = await this.getContractManager();
-            this.dargonFarmContract = await this.getAddressContract();
+            this.dargonFarmContract = await this.getAddressContract('DragonFarmContract');
+            this.dragonForgeContract = await this.getAddressContract('DragonForgeContract')
             this.accounts = await this.getAccounts();
         } catch (error) {
             console.error(error);
@@ -24,9 +25,9 @@ class DragonFarmContract {
         return manager;
     }
 
-    async getAddressContract() {
+    async getAddressContract(address) {
         try {
-            return await this.contractManager.getContract('DragonFarmContract');
+            return await this.contractManager.getContract(address);
         } catch (error) {
             console.error(error);
         }
@@ -41,24 +42,13 @@ class DragonFarmContract {
         }
     }
 
-    async getAllDragons() {
-        try {
-            await this.init()
-            return await this.dargonFarmContract.methods.GetAllDragons()
-                .call();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async getDragon(index) {
         try {
             await this.init();
-            const allDragons = await this.getAllDragons();
-            console.log(allDragons)
-            return allDragons[index];
+            return await this.dargonFarmContract.methods.getDragonByIndex(index)
+                .call();
         } catch (error) {
-            console.log(error);
+            return {id: '-1', name: 'undefined', dna: 0}
         }
     }
 
@@ -72,21 +62,21 @@ class DragonFarmContract {
         }
     }
 
-    async getLastDragonIndex() {
-        try {
-            await this.init();
-            return await this.dargonFarmContract.methods.getLastDragonIndex()
-                .call();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async addDragon(_name, _dna) {
         try {
             await this.init();
             await this.dargonFarmContract.methods.AddDragon(_name, _dna)
                 .send({from: this.accounts[0], gas: "2000000"});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async reforge(name, id, food) {
+        try {
+            await this.init();
+            await this.dragonForgeContract.methods.Reforge(name, id, food)
+                .call({from: this.accounts[0], gas: "200000", value: '10'})
         } catch (error) {
             console.log(error);
         }

@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 
 import DragonFarmContract from '../../solidity-contracts/build/contracts/DragonFarm.json';
+import DragonForgeContract from '../../solidity-contracts/build/contracts/DragonForge.json';
 
 
 class ContractManager {
@@ -14,6 +15,7 @@ class ContractManager {
             this.web3 = new Web3('http://localhost:7545');
 
             this.contracts.DragonFarmContract = await this.initContract(DragonFarmContract);
+            this.contracts.DragonForgeContract = await this.initContract(DragonForgeContract);
 
         } catch (error) {
             console.error(error);

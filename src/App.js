@@ -1,102 +1,161 @@
 import './App.css';
 import DragonFarmContract from "./components/Contracts/DragonFarmContract";
-import {useState} from "react";
-import DragonItem from "./components/Dragons/DragonItem";
 
 function App(props) {
-  const [isSetColumnVisible, setIsSetColumnVisible] = useState(true);
-  const dragonFarmContract = new DragonFarmContract();
+    const dragonFarmContract = new DragonFarmContract();
 
-  const onToggleButtonClicked = () => {
-    setIsSetColumnVisible(!isSetColumnVisible);
-  }
-  const onChangeDragonAdd = (e) => {
-    const value = e.target.value;
-    props.onUpdateAddName(value);
-  }
+    // Обновление поля с именем дракона для добавления
+    const onChangeDragonAdd = (e) => {
+        const value = e.target.value;
+        props.onUpdateAddName(value);
+    };
 
-  const onChangeDragonGet = (e) => {
-    const value = e.target.value;
-    props.onUpdateGetIndex(value);
-  }
+    // Обновления поля с индексом для получения информации
+    const onChangeDragonGet = (e) => {
+        const value = e.target.value;
+        props.onUpdateGetIndex(value);
+    };
 
-  const onAddDragonClick = async () => {
-    const name = props.dragonFarmPage.setName;
-    const dna = await dragonFarmContract.generateDna(name);
-    await dragonFarmContract.addDragon(name, dna)
+    // Обновление полей для reforge драконов
+    const onChangeReforgeDragonName = (e) => {
+        const value = e.target.value;
+        props.onUpdateReforgeDragonName(value);
+    };
 
-    const index = await dragonFarmContract.getLastDragonIndex();
-    props.onAddDragon(index, name, dna);
-  }
+    const onChangeReforgeDragonId = (e) => {
+        const value = e.target.value;
+        props.onUpdateReforgeDragonId(value);
+    };
 
-  const onGetDragonInfo = async () => {
-    const index = props.dragonFarmPage.getIndex;
-    const dragon = await dragonFarmContract.getDragon(index);
-    props.onSetGetDragonInfo(dragon.name, dragon.dna);
-  }
+    const onChangeReforgeDragonFood = (e) => {
+        const value = e.target.value;
+        props.onUpdateReforgeDragonFood(value);
+    }
 
-  let dragonElements = props.dragonFarmPage.dragons.map(
-      d => <DragonItem key={d.index} index={d.index} name={d.name} dna={d.dna}/>
-  )
+    /**
+     * Метод для добавления дракона, в блокчейн
+     */
+    const onAddDragonClick = async () => {
+        const name = props.dragonFarmPage.addDragonName;
+        const dna = await dragonFarmContract.generateDna(name);
+        await dragonFarmContract.addDragon(name, dna)
 
-  return (
-      <div className="App">
-        <div className="container">
-          <div className="title">
-            <h2>DragonFarm</h2>
-          </div>
-          <div className='wrapper'>
-            {isSetColumnVisible ? (
-                <div>
-                  <div className='input-div'>
-                    <label htmlFor='dragon-add' className='input-label'>
-                      Добавить дракона
-                    </label>
-                    <input type="text" id='dragon-add'
-                           value={props.dragonFarmPage.setName}
-                           onChange={onChangeDragonAdd}
-                    />
-                  </div>
-                  <button
-                      disabled={!props.dragonFarmPage.setName}
-                      onClick={onAddDragonClick} className="button">Добавить
-                  </button>
-                  <div className='input-div'>
-                    <label htmlFor='dragon-get' className='input-label'>
-                      Получить дракона по индексу
-                    </label>
-                    <input type="text" id='dargon-get'
-                           value={props.dragonFarmPage.getIndex}
-                           onChange={onChangeDragonGet}
-                    />
-                  </div>
-                  <button
-                      disabled={!props.dragonFarmPage.getIndex}
-                      onClick={onGetDragonInfo} className="button">Получить
-                  </button>
-                  <div className='input-div'>
-                    <label htmlFor='name' className='input-label'>Имя</label>
-                    <output id='name'>{props.dragonFarmPage.getInfo[0].name}</output>
-                  </div>
-                  <div className='input-div'>
-                    <label htmlFor='dna' className='input-label'>ДНК</label>
-                    <output id='dna'>{props.dragonFarmPage.getInfo[0].dna.toString()}</output>
-                  </div>
+        props.onAddDragon(name, dna);
+    };
+
+    /**
+     * Метод для получения дракона из блокчейна по индексу
+     */
+    const onGetDragonInfo = async () => {
+        const index = props.dragonFarmPage.getDragonIndex;
+        const dragon = await dragonFarmContract.getDragon(index);
+        props.onSetGetDragonInfo(dragon.id, dragon.name, dragon.dna);
+    };
+
+    /**
+     * Метод для reforge'а дракона и добавления его в блокчейн
+     */
+    const onReforgeDragonClick = async () => {
+        const name = props.dragonFarmPage.reforgeDragonName;
+    };
+
+
+
+    return (
+        <div className="App">
+            <div className="title">
+                <h2>DragonFarm & DragonForge</h2>
+            </div>
+            <div className='container'>
+                <div className='wrapper'>
+                    {/*Добавление дракона*/}
+                    <div className='child'>
+                        <div className='input-div'>
+                            <label htmlFor='dragon-add' className='input-label'>
+                                Добавить дракона
+                            </label>
+                            <input type="text" id='dragon-add'
+                                   value={props.dragonFarmPage.addDragonName}
+                                   onChange={onChangeDragonAdd}
+                            />
+                        </div>
+                        <button
+                            disabled={!props.dragonFarmPage.addDragonName}
+                            onClick={onAddDragonClick} className="button">Добавить
+                        </button>
+                    </div>
+
+                    {/*Получение по индексу дракона*/}
+                    <div className='child'>
+                        <div className='input-div'>
+                            <label htmlFor='dragon-get' className='input-label'>
+                                Получить дракона по индексу
+                            </label>
+                            <input type="number" id='dargon-get'
+                                   value={props.dragonFarmPage.getDragonIndex}
+                                   onChange={onChangeDragonGet}
+                            />
+                        </div>
+                        <button
+                            disabled={!props.dragonFarmPage.getDragonIndex}
+                            onClick={onGetDragonInfo} className="button">Получить
+                        </button>
+                        <div className='input-div'>
+                            <label htmlFor='id' className='input-label'>ID</label>
+                            <output id='id'>{props.dragonFarmPage.getInfo[0].id.toString()}</output>
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='name' className='input-label'>Имя</label>
+                            <output id='name'>{props.dragonFarmPage.getInfo[0].name}</output>
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='dna' className='input-label'>ДНК</label>
+                            <output id='dna'>{props.dragonFarmPage.getInfo[0].dna.toString()}</output>
+                        </div>
+                    </div>
+
+                    {/*Reforge дракона */}
+                    <div className='child'>
+                        <div className='input-div'>
+                            <label htmlFor='dragon-reforge-name' className='input-label'>
+                                Имя
+                            </label>
+                            <input type="text" id='dragon-reforge-name'
+                                   value={props.dragonFarmPage.reforgeDragonName}
+                                   onChange={onChangeReforgeDragonName}
+                            />
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='dragon-reforge-id' className='input-label'>
+                                ID
+                            </label>
+                            <input type="number" id='dragon-reforge-id'
+                                   value={props.dragonFarmPage.reforgeDragonId}
+                                   onChange={onChangeReforgeDragonId}
+                            />
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='dragon-reforge-food' className='input-label'>
+                                Еда
+                            </label>
+                            <input type="number" id='dragon-reforge-food'
+                                   value={props.dragonFarmPage.reforgeDragonFood}
+                                   onChange={onChangeReforgeDragonFood}
+                            />
+                        </div>
+                        <button
+                            disabled={
+                                !props.dragonFarmPage.reforgeDragonName
+                                || !props.dragonFarmPage.reforgeDragonId
+                                || !props.dragonFarmPage.reforgeDragonFood
+                            }
+                            onClick={null} className="button">Переделать
+                        </button>
+                    </div>
                 </div>
-            ) : (
-                <div>
-                  <div className='dragons'>
-                    {dragonElements}
-                  </div>
-                </div>
-            )}
-          </div>
+            </div>
         </div>
-        <button id="toggleButton" onClick={onToggleButtonClicked} className="button toggle">
-          {isSetColumnVisible ? 'Список драконов' : 'Добавить дракона'}
-        </button>
-      </div>
-  );
+    );
 }
 
 export default App;
