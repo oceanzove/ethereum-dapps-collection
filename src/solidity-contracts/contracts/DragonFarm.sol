@@ -36,5 +36,20 @@ contract DragonFarm {
         Dragon memory dragon = dragons[_index];
         return (dragon.id, dragon.name, dragon.dna);
     }
+
+    function Reforge(string memory name, uint id, uint food) public payable {
+        require(msg.value > 0, "Pay for the food!");
+        require(DragonOwner[id] == msg.sender, "You do not own this dragon!");
+
+        uint brains = uint(keccak256(abi.encode(food)));
+        brains = brains % (10 ** 16);
+        uint newDna = (id + brains) / 2;
+
+        dragons.push(Dragon(id, name, newDna));
+        emit NewDragon(id, name, newDna);
+        DragonOwner[id] = msg.sender;
+        count++;
+        ownerDragons[msg.sender]++;
+    }
 }
 

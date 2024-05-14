@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    addDragon,
+    addDragon, reforgeDragon,
     setGetDragonInfo,
     updateAddName,
     updateGetIndex, updateReforgeDragonFood, updateReforgeDragonId,
@@ -36,6 +36,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateReforgeDragonFood: (value) => {
             dispatch(updateReforgeDragonFood(value));
+        },
+        onReforgeDragon: () => {
+          dispatch(reforgeDragon());
         },
     };
 };

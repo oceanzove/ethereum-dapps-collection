@@ -57,6 +57,11 @@ function App(props) {
      */
     const onReforgeDragonClick = async () => {
         const name = props.dragonFarmPage.reforgeDragonName;
+        const id = props.dragonFarmPage.reforgeDragonId;
+        const food = props.dragonFarmPage.reforgeDragonFood;
+        await dragonFarmContract.reforge(name, id, food);
+
+        props.onReforgeDragon();
     };
 
 
@@ -149,7 +154,7 @@ function App(props) {
                                 || !props.dragonFarmPage.reforgeDragonId
                                 || !props.dragonFarmPage.reforgeDragonFood
                             }
-                            onClick={null} className="button">Переделать
+                            onClick={onReforgeDragonClick} className="button">Переделать
                         </button>
                     </div>
                 </div>

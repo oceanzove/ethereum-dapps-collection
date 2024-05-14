@@ -5,12 +5,14 @@ class DragonFarmContract {
         this.contractManager = null;
         this.dargonFarmContract = null;
         this.accounts = null;
+        this.web3 = null;
         this.init();
     }
 
     async init() {
         try {
             this.contractManager = await this.getContractManager();
+            this.web3 = await this.getWeb3();
             this.dargonFarmContract = await this.getAddressContract('DragonFarmContract');
             this.dragonForgeContract = await this.getAddressContract('DragonForgeContract')
             this.accounts = await this.getAccounts();
@@ -39,6 +41,14 @@ class DragonFarmContract {
             return accounts;
         } else {
             throw new Error('No accounts found');
+        }
+    }
+
+    async getWeb3() {
+        try {
+            return await this.contractManager.getWeb3();
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -73,10 +83,11 @@ class DragonFarmContract {
     }
 
     async reforge(name, id, food) {
+        console.log(name, id, food);
         try {
             await this.init();
-            await this.dragonForgeContract.methods.Reforge(name, id, food)
-                .call({from: this.accounts[0], gas: "200000", value: '10'})
+            await this.dargonFarmContract.methods.Reforge(name, id, food)
+                .send({from: this.accounts[0], gas: "200000", value: this.web3.utils.toWei('10', 'ether') })
         } catch (error) {
             console.log(error);
         }
