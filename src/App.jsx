@@ -1,39 +1,82 @@
 import './App.css';
+import DonationContract from "./components/Contracts/DonationContract";
 
 function App(props) {
+    const donationContract = new DonationContract();
+    const onChangeTest = (e) => {
+        const value = e.target.value;
+        props.onTest(value);
+    };
 
-  const onChangeTest = (e) => {
-    const value = e.target.value;
-    props.onTest(value);
-  };
+    /**
+     * Обновляет поле DonatAddress
+     */
+    const onChangeDonatAddress = (e) => {
+      const value = e.target.value;
+      props.onUpdateDonatAddress(value);
+    };
 
-  return (
-      <div className="App">
-        <div className="title">
-          <h2>Title ( Test )</h2>
-        </div>
-        <div className='container'>
-          <div className='wrapper'>
+    /**
+     * Обновляет поле DonatAmount
+     */
+    const onChangeDonatAmount = (e) => {
+        const value = e.target.value;
+        props.onUpdateDonatAmount(value);
+    };
 
-            <div className='child'>
-              <div className='input-div'>
-                <label htmlFor='test' className='input-label'>
-                  Test
-                </label>
-                <input type="text" id='test'
-                       value={props.page.test}
-                       onChange={onChangeTest}
-                />
-              </div>
-              <button
-                  disabled={!props.page.test}
-                  onClick={null} className="button">Test
-              </button>
+    const onDonatClick = async () => {
+        const address = props.page.donatAddress;
+        const amount = props.page.donatAmount;
+
+        await donationContract.gatherDonation(address, amount);
+        props.onDonat();
+
+        const balance = await donationContract.getContractBalance();
+        props.onSetBalance(balance);
+    };
+
+    return (
+        <div className="App">
+            <div className="title">
+                <h2>Donation</h2>
             </div>
-          </div>
+            <div className='balance'>
+                Donat balance: {props.page.balance.toString()} wei
+            </div>
+            <div className='container'>
+                <div className='wrapper'>
+
+                    {/*Донат*/}
+                    <div className='child'>
+                        <div className='input-div'>
+                            <label htmlFor='fromAddress' className='input-label'>
+                                Пополнить с адреса:
+                            </label>
+                            <select id="fromAddress" onChange={onChangeDonatAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='fromAmount' className='input-label'>
+                                Пополнить на:
+                            </label>
+                            <input type="text" id='fromAmount'
+                                   value={props.page.donatAmount}
+                                   onChange={onChangeDonatAmount}
+                            />
+                        </div>
+                        <button
+                            disabled={!props.page.donatAmount}
+                            onClick={onDonatClick} className="button">Пополнить
+                        </button>
+                    </div>
+                </div>
+                <button className='button'>Собрать донаты
+                </button>
+            </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default App;

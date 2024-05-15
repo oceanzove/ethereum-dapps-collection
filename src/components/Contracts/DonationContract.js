@@ -55,7 +55,7 @@ class DonationContract {
     async gatherDonation(address, value) {
         try {
             await this.donationContract.methods.gatherDonation()
-                .call({from: address, gas: '200000', value: this.web3.utils.toWei(value, 'ether')})
+                .send({from: address, gas: '200000', value: this.web3.utils.toWei(value, 'ether')})
         } catch (error) {
             console.log(error);
         }
