@@ -61,9 +61,9 @@ class SplitContract {
         }
     }
 
-    async send(receiver, amount) {
+    async send(receiver1, receiver2, receiver3, amount) {
         try {
-            await this.splitContract.methods.send(receiver, amount)
+            await this.splitContract.methods.send(receiver1, receiver2, receiver3, amount)
                 .send({from: this.accounts[0], gas: '200000'});
         } catch (error) {
             console.log(error);

@@ -13,7 +13,7 @@ class ContractManager {
         try {
             this.web3 = new Web3('http://localhost:7545');
 
-            this.contracts.DragonFarmContract = await this.initContract(SplitContract);
+            this.contracts.SplitContract = await this.initContract(SplitContract);
 
         } catch (error) {
             console.error(error);
