@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
-const Pattern = artifacts.require("Pattern");
+const Donation = artifacts.require("Donation");
 
 module.exports = function (deployer) {
-    deployer.deploy(Pattern);
+    deployer.deploy(Donation);
 };
