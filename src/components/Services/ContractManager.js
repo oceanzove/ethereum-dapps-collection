@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-import PatternContract from '../../solidity-contracts/build/contracts/Pattern.json';
+import DonationContract from '../../solidity-contracts/build/contracts/Donation.json';
 
 
 class ContractManager {
@@ -13,7 +13,7 @@ class ContractManager {
         try {
             this.web3 = new Web3('http://localhost:7545');
 
-            this.contracts.PatternContract = await this.initContract(PatternContract);
+            this.contracts.DonationContract = await this.initContract(DonationContract);
 
         } catch (error) {
             console.error(error);

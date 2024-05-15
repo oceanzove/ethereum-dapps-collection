@@ -27,4 +27,8 @@ contract Donation {
     function getDonators() public view returns (address[] memory) {
         return donators;
     }
+
+    function getContractBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
 }

@@ -1,9 +1,9 @@
 import ContractManager from "../Services/ContractManager";
 
-class PatternContract {
+class DonationContract {
     constructor() {
         this.contractManager = null;
-        this.PatternContract = null;
+        this.donationContract = null;
         this.accounts = null;
         this.web3 = null;
         this.init();
@@ -15,7 +15,7 @@ class PatternContract {
             this.web3 = await this.getWeb3();
             this.accounts = await this.getAccounts();
 
-            this.PatternContract = await this.getAddressContract('PatternContract')
+            this.donationContract = await this.getAddressContract('DonationContract')
         } catch (error) {
             console.error(error);
         }
@@ -52,6 +52,42 @@ class PatternContract {
         }
     }
 
+    async gatherDonation(address, value) {
+        try {
+            await this.donationContract.methods.gatherDonation()
+                .call({from: address, gas: '200000', value: this.web3.utils.toWei(value, 'ether')})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async transferToOwner() {
+        try {
+            await this.donationContract.methods.transferToOwner()
+                .call({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getDonators() {
+        try {
+            return await this.donationContract.methods.getDonators()
+                .call({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getContractBalance() {
+        try {
+            return await this.donationContract.methods.getContractBalance()
+                .call({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
-export default PatternContract;
+export default DonationContract;
