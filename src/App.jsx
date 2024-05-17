@@ -71,6 +71,30 @@ function App(props) {
                             onClick={onDonatClick} className="button">Пополнить
                         </button>
                     </div>
+                    <div className='child'>
+                        <div className='input-div'>
+                            <label htmlFor='fromAddress' className='input-label'>
+                                Пополнить с адреса:
+                            </label>
+                            <select id="fromAddress" onChange={onChangeDonatAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='fromAmount' className='input-label'>
+                                Пополнить на:
+                            </label>
+                            <input type="text" id='fromAmount'
+                                   value={props.page.donatAmount}
+                                   onChange={onChangeDonatAmount}
+                            />
+                        </div>
+                        <button
+                            disabled={!props.page.donatAmount}
+                            onClick={onDonatClick} className="button">Пополнить
+                        </button>
+                    </div>
                 </div>
                 <button className='button'>Собрать донаты
                 </button>
