@@ -1,6 +1,5 @@
 import DonationContract from "../components/Contracts/DonationContract";
 
-const TEST_ACTION = 'TEST_ACTION';
 const UPDATE_DONAT_ADDRESS = 'UPDATE_DONAT_ADDRESS';
 const UPDATE_DONAT_AMOUNT = 'UPDATE_DONAT_AMOUNT';
 const DONAT = 'DONAT';
@@ -14,22 +13,30 @@ const addresses = await donationContract.accounts.map((address, index) => (
         {address}
     </option>
 ));
+const test =await donationContract.getDonators();
+console.log(test)
+const donators = await donationContract.getDonators();
+
+// const donators = await donationContract.getDonators().then(
+//     async (result) => {
+//         return Promise.all(result.map(async (address) => ({
+//             donater: address
+//         })));
+//     }
+// );
+console.log(donators)
 const balance = await donationContract.getContractBalance();
 
 const initialState = {
     donatAddress: '',
     donatAmount: '',
     addresses: addresses,
+    donators: donators,
     balance: balance,
 }
 
 const donationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TEST_ACTION:
-            return {
-                ...state,
-                test: action.newValue,
-            }
         case UPDATE_DONAT_ADDRESS:
             return {
                 ...state,
@@ -44,6 +51,7 @@ const donationReducer = (state = initialState, action) => {
             return {
                 ...state,
                 donatAmount: '',
+                donators: [...state.donators, action.newValue],
             }
         case SET_BALANCE:
             return {
@@ -57,10 +65,6 @@ const donationReducer = (state = initialState, action) => {
 
 export default donationReducer;
 
-export const test = (value) => (
-    {type: TEST_ACTION, newValue: value}
-);
-
 export const updateDonatAddress = (value) => (
     {type: UPDATE_DONAT_ADDRESS, newValue: value}
 );
@@ -69,8 +73,8 @@ export const updateDonatAmount = (value) => (
     {type: UPDATE_DONAT_AMOUNT, newValue: value}
 );
 
-export const donat = () => (
-    {type: DONAT}
+export const donat = (value) => (
+    {type: DONAT, newValue: value}
 );
 
 export const setBalance = (value) => (

@@ -1,12 +1,11 @@
 import './App.css';
 import DonationContract from "./components/Contracts/DonationContract";
+import React from "react";
+import DonaterItem from "./components/Donater/DonaterItem";
+
 
 function App(props) {
     const donationContract = new DonationContract();
-    const onChangeTest = (e) => {
-        const value = e.target.value;
-        props.onTest(value);
-    };
 
     /**
      * Обновляет поле DonatAddress
@@ -29,11 +28,15 @@ function App(props) {
         const amount = props.page.donatAmount;
 
         await donationContract.gatherDonation(address, amount);
-        props.onDonat();
+        props.onDonat(address);
 
         const balance = await donationContract.getContractBalance();
         props.onSetBalance(balance);
     };
+
+    let donators = props.page.donators.map(
+        donater => <DonaterItem key={donater} donater={donater}/>
+    )
 
     return (
         <div className="App">
@@ -71,28 +74,19 @@ function App(props) {
                             onClick={onDonatClick} className="button">Пополнить
                         </button>
                     </div>
+
+                    {/*Донатеры*/}
                     <div className='child'>
                         <div className='input-div'>
-                            <label htmlFor='fromAddress' className='input-label'>
-                                Пополнить с адреса:
+                            <label className='input-label'>
+                                Список донатеров
                             </label>
-                            <select id="fromAddress" onChange={onChangeDonatAddress}>
-                                <option value="">Выберите адрес</option>
-                                {props.page.addresses}
-                            </select>
-                        </div>
-                        <div className='input-div'>
-                            <label htmlFor='fromAmount' className='input-label'>
-                                Пополнить на:
-                            </label>
-                            <input type="text" id='fromAmount'
-                                   value={props.page.donatAmount}
-                                   onChange={onChangeDonatAmount}
-                            />
+                            <div className='listContainer'>
+                                {donators}
+                            </div>
                         </div>
                         <button
-                            disabled={!props.page.donatAmount}
-                            onClick={onDonatClick} className="button">Пополнить
+                            onClick={null} className="button">Обновить
                         </button>
                     </div>
                 </div>

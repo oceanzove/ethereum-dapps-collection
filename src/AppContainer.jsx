@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import App from "./App";
 import {
     donat, setBalance,
-    test, updateDonatAddress, updateDonatAmount
+    updateDonatAddress, updateDonatAmount
 } from "./redux/donationReducer";
 
 const mapStateToProps = (state) => {
@@ -13,9 +13,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTest: (value) => {
-            dispatch(test(value));
-        },
         onUpdateDonatAddress: (value) => {
           dispatch(updateDonatAddress(value));
         },
@@ -25,8 +22,8 @@ const mapDispatchToProps = (dispatch) => {
         onSetBalance: (value) => {
           dispatch(setBalance(value));
         },
-        onDonat: () => {
-          dispatch(donat());
+        onDonat: (value) => {
+          dispatch(donat(value));
         },
     };
 };

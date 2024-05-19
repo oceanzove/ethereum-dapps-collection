@@ -5,6 +5,12 @@
   /*margin: 10vw;*/
 }
 
+
+.listContainer {
+  overflow: auto;
+  max-height: 30vh;
+}
+
 .title {
   text-align: center;
   width: 100%;
