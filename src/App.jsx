@@ -23,6 +23,10 @@ function App(props) {
         props.onUpdateDonatAmount(value);
     };
 
+    /**
+     * Снимает с указанного баланса указанную сумму
+     * @return {Promise<void>}
+     */
     const onDonatClick = async () => {
         const address = props.page.donatAddress;
         const amount = props.page.donatAmount;
@@ -31,11 +35,21 @@ function App(props) {
         props.onDonat(address);
 
         const balance = await donationContract.getContractBalance();
-        props.onSetBalance(balance);
+        const normalizedBalance = Number(balance) / 1000000000000000000;
+        props.onSetBalance(normalizedBalance);
     };
 
+    /**
+     * Переводит сумму, которая накопилась на балансе контракта владельцу контракта
+     * @return {Promise<void>}
+     */
+    const onTransferToOwnerClick = async () => {
+        await donationContract.transferToOwner();
+        props.onTransferBalance();
+    }
+
     let donators = props.page.donators.map(
-        donater => <DonaterItem key={donater} donater={donater}/>
+        donater => <DonaterItem donater={donater}/>
     )
 
     return (
@@ -43,12 +57,11 @@ function App(props) {
             <div className="title">
                 <h2>Donation</h2>
             </div>
-            <div className='balance'>
-                Donat balance: {props.page.balance.toString()} wei
-            </div>
             <div className='container'>
+                <div className='child'>
+                    Donat balance: {props.page.balance.toString()} ETH
+                </div>
                 <div className='wrapper'>
-
                     {/*Донат*/}
                     <div className='child'>
                         <div className='input-div'>
@@ -85,14 +98,14 @@ function App(props) {
                                 {donators}
                             </div>
                         </div>
-                        <button
-                            onClick={null} className="button">Обновить
-                        </button>
                     </div>
                 </div>
-                <button className='button'>Собрать донаты
-                </button>
+                <div className='child'>
+                    <button disabled={!props.page.balance}
+                        className='button' onClick={onTransferToOwnerClick}>Собрать донаты</button>
+                </div>
             </div>
+
         </div>
     );
 }

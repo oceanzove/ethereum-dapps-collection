@@ -64,7 +64,7 @@ class DonationContract {
     async transferToOwner() {
         try {
             await this.donationContract.methods.transferToOwner()
-                .call({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000'});
         } catch (error) {
             console.log(error);
         }

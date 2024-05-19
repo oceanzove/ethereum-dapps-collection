@@ -5,6 +5,7 @@ const UPDATE_DONAT_AMOUNT = 'UPDATE_DONAT_AMOUNT';
 const DONAT = 'DONAT';
 
 const SET_BALANCE = 'SET_BALANCE';
+const TRANSFER_BALANCE = 'TRANSFER_BALANCE';
 
 const donationContract = new DonationContract();
 await donationContract.init();
@@ -13,19 +14,9 @@ const addresses = await donationContract.accounts.map((address, index) => (
         {address}
     </option>
 ));
-const test =await donationContract.getDonators();
-console.log(test)
 const donators = await donationContract.getDonators();
 
-// const donators = await donationContract.getDonators().then(
-//     async (result) => {
-//         return Promise.all(result.map(async (address) => ({
-//             donater: address
-//         })));
-//     }
-// );
-console.log(donators)
-const balance = await donationContract.getContractBalance();
+const balance = Number(await donationContract.getContractBalance()) / 1000000000000000000;
 
 const initialState = {
     donatAddress: '',
@@ -58,6 +49,12 @@ const donationReducer = (state = initialState, action) => {
                 ...state,
                 balance: action.newValue,
             }
+        case TRANSFER_BALANCE:
+            return {
+                ...state,
+                balance: '',
+                donators: []
+            }
         default:
             return state;
     }
@@ -79,4 +76,8 @@ export const donat = (value) => (
 
 export const setBalance = (value) => (
     {type: SET_BALANCE, newValue: value}
+);
+
+export const transferBalance = () => (
+    {type: TRANSFER_BALANCE}
 );
