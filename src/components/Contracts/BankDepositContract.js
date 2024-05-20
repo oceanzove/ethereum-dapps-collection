@@ -79,20 +79,10 @@ class BankDepositContract {
         }
     }
 
-    async setDepositTime(_time) {
-        try {
-            await this.bankDepositContract.methods.setDepositTime(_time)
-                .send({from: this.accounts[0], gas: '2000000'});
-        } catch (error) {
-            console.log(error);
-
-        }
-    }
-
-    async deposit() {
+    async deposit(address, amount) {
         try {
             await this.bankDepositContract.methods.deposit()
-                .send({from: this.accounts[0], gas: '200000', value: this.web3.utils.toWei('1', 'ether')})
+                .send({from: address, gas: '200000', value: this.web3.utils.toWei(amount, 'ether')})
         } catch (error) {
             console.log(error);
         }

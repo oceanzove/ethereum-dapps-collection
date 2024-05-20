@@ -20,11 +20,19 @@ function App(props) {
     };
 
     /**
-     * Обновляет поле DepositTime
+     * Обновляет поле DepositAddress
      */
-    const onChangeDepositTime = (e) => {
+    const onChangeDepositAddress = (e) => {
         const value = e.target.value;
-        props.onChangeDepositTime(value);
+        props.onChangeDepositAddress(value);
+    };
+
+    /**
+     * Обновляет поле DepositAmount
+     */
+    const onChangeDepositAmount = (e) => {
+        const value = e.target.value;
+        props.onChangeDepositAmount(value);
     };
 
     /**
@@ -47,12 +55,10 @@ function App(props) {
      * @return {Promise<void>}
      */
     const onDeposit = async () => {
-        const remainingTime = props.page.depositTime;
+        const address = props.page.depositAddress;
+        const amount = props.page.depositAmount;
 
-        await bankDepositContract.setDepositTime(remainingTime);
-        props.onSetRemainingTime(remainingTime);
-
-        await bankDepositContract.deposit();
+        await bankDepositContract.deposit(address, amount);
         props.onDeposit();
 
         const percentRate = bankDepositContract.percentRate();
@@ -101,16 +107,25 @@ function App(props) {
                     {/*Депозит*/}
                     <div className='child'>
                         <div className='input-div'>
-                            <label htmlFor='depositTime' className='input-label'>
-                                Введите время:
+                            <label htmlFor='depositAddress' className='input-label'>
+                                Депозит с адреса:
                             </label>
-                            <input type="text" id='depositTime'
-                                   value={props.page.depositTime}
-                                   onChange={onChangeDepositTime}
+                            <select id="depositAddress" onChange={onChangeDepositAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
+                        </div>
+                        <div className='input-div'>
+                            <label htmlFor='depositAmount' className='input-label'>
+                                Введите сумма депозита:
+                            </label>
+                            <input type="text" id='depositAmount'
+                                   value={props.page.depositAmount}
+                                   onChange={onChangeDepositAmount}
                             />
                         </div>
                         <button
-                            disabled={!props.page.depositTime || props.page.remainingTime === 0}
+                            disabled={!props.page.depositAmount || !props.page.depositAddress || props.page.remainingTime === 0}
                             onClick={onDeposit} className="button"> Депозит
                         </button>
                     </div>
