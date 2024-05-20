@@ -36,10 +36,18 @@ function App(props) {
     };
 
     /**
+     * Обновляет поле PercentAddress
+     */
+    const onChangePercentAddress = (e) => {
+        const value = e.target.value;
+        props.onChangePercentAddress(value);
+    };
+
+    /**
      * Пополняет счет контракта
      * @return {Promise<void>}
      */
-    const onBankAccount = async () => {
+    const onBankAccountClick = async () => {
         const address = props.page.bankAddress;
         const amount = props.page.bankAmount;
 
@@ -54,15 +62,27 @@ function App(props) {
      * Сделать депозит
      * @return {Promise<void>}
      */
-    const onDeposit = async () => {
+    const onDepositClick = async () => {
         const address = props.page.depositAddress;
         const amount = props.page.depositAmount;
 
         await bankDepositContract.deposit(address, amount);
         props.onDeposit();
 
-        const percentRate = bankDepositContract.percentRate();
-        console.log(percentRate);
+        const balance = await bankDepositContract.getContractBalance();
+        const normalizedBalance = Number(balance) / 1000000000000000000;
+        props.onSetBalance(normalizedBalance);
+
+        const percentRate = await bankDepositContract.percentRate(address);
+        // setPercentRate
+        let remainingTime = await bankDepositContract.getRemainingTime(address);
+        // setRemainingTime
+
+    }
+
+    const onCollectClick = async () => {
+        const address = props.page.percentAddress;
+        await bankDepositContract.collectPercent(address);
     }
 
     return (
@@ -100,7 +120,7 @@ function App(props) {
                         </div>
                         <button
                             disabled={!props.page.bankAddress || !props.page.bankAmount}
-                            onClick={onBankAccount} className="button">Пополнить
+                            onClick={onBankAccountClick} className="button">Пополнить
                         </button>
                     </div>
 
@@ -126,42 +146,38 @@ function App(props) {
                         </div>
                         <button
                             disabled={!props.page.depositAmount || !props.page.depositAddress || props.page.remainingTime === 0}
-                            onClick={onDeposit} className="button"> Депозит
+                            onClick={onDepositClick} className="button"> Депозит
                         </button>
                     </div>
 
-                    <div>
+                    <div className='child'>
                         Интерфейс для сбора процентов
                         PercentAmount &&
-                    </div>
-                    <div>
-                        Интерфейс для вывода всех денег с контракта
-                        // TransferAmount
+                        Вывести сколько кто на сколько и сколько получит и через сколько
+                        <div className='input-div'>
+                            <label htmlFor='percentAddress' className='input-label'>
+                                Собрать с адреса:
+                            </label>
+                            <select id="percentAddress" onChange={onChangePercentAddress}>
+                                <option value="">Выберите адрес</option>
+                                {props.page.addresses}
+                            </select>
+                        </div>
+                        <button
+                            disabled={!props.page.percentAddress}
+                            onClick={onCollectClick} className="button"> Собрать
+                        </button>
+
                     </div>
                     <div>
                         Интерфейс для ввода времени
                         // Time
                     </div>
                     <div>
-                    Интерфейс где видно процентую ставку
+                        Интерфейс где видно процентую ставку
                         на какой адресс контракт
                         сколько времени осталось
                         и баланс кошелька
-                    </div>
-                    <div className='child'>
-                        <div className='input-div'>
-                            <label htmlFor='test' className='input-label'>
-                                Time {props.page.remainingTime.toString()}
-                            </label>
-                            <input type="text" id='test'
-                                   value={props.page.test}
-                                   onChange={null}
-                            />
-                        </div>
-                        <button
-                            disabled={!props.page.test}
-                            onClick={null} className="button">Test
-                        </button>
                     </div>
                 </div>
             </div>

@@ -8,11 +8,10 @@ const UPDATE_DEPOSIT_ADDRESS = 'UPDATE_DEPOSIT_ADDRESS';
 const UPDATE_DEPOSIT_AMOUNT = 'UPDATE_DEPOSIT_AMOUNT';
 const DEPOSIT = 'DEPOSIT';
 
+const UPDATE_PERCENT_ADDRESS = 'UPDATE_PERCENT_ADDRESS';
 const PERCENT_AMOUNT = 'PERCENT_AMOUNT';
-const PERCENT = 'PERCENT';
+const COLLECT_PERCENT = 'COLLECT_PERCENT';
 
-const TRANSFER_AMOUNT = 'TRANSFER_AMOUNT';
-const TRANSFER = 'TRANSFER';
 
 const SET_BALANCE = 'SET_BALANCE';
 const SET_REMAINING_TIME = 'SET_REMAINING_TIME';
@@ -32,6 +31,7 @@ const initialState = {
     bankAmount: '',
     depositAddress: '',
     depositAmount: '',
+    percentAddress: '',
     balance: balance,
     addresses: addresses,
     remainingTime: remainingTime,
@@ -69,6 +69,11 @@ const bankDepositReducer = (state = initialState, action) => {
                 ...state,
                 depositAmount: '',
             }
+        case UPDATE_PERCENT_ADDRESS:
+            return {
+                ...state,
+                percentAddress: action.newValue,
+            }
         case SET_BALANCE:
             return {
                 ...state,
@@ -102,6 +107,10 @@ export const updateDepositAddress = (value) => (
 );
 export const updateDepositAmount = (value) => (
     {type: UPDATE_DEPOSIT_AMOUNT, newValue: value}
+);
+
+export const updatePercentAddress = (value) => (
+    {type: UPDATE_PERCENT_ADDRESS, newValue: value}
 );
 
 export const setBalance = (value) => (

@@ -70,10 +70,10 @@ class BankDepositContract {
         }
     }
 
-    async getRemainingTime() {
+    async getRemainingTime(address) {
         try {
             return await this.bankDepositContract.methods.getRemainingTime()
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: address, gas: '200000'});
         } catch (error) {
             console.log(error);
         }
@@ -88,10 +88,21 @@ class BankDepositContract {
         }
     }
 
-    async percentRate() {
+    async collectPercent(address) {
+        try {
+            await this.bankDepositContract.methods.collectPercent()
+                .send({from: address, gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+    async percentRate(address) {
         try {
             return await this.bankDepositContract.methods.percentRate()
-                .call({from: this.accounts[0], gas: '200000'})
+                .call({from: address, gas: '200000'})
         } catch (error) {
             console.log(error);
         }
