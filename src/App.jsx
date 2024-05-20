@@ -20,6 +20,14 @@ function App(props) {
     };
 
     /**
+     * Обновляет поле DepositTime
+     */
+    const onChangeDepositTime = (e) => {
+        const value = e.target.value;
+        props.onChangeDepositTime(value);
+    };
+
+    /**
      * Пополняет счет контракта
      * @return {Promise<void>}
      */
@@ -33,6 +41,22 @@ function App(props) {
         const balance = await bankDepositContract.getContractBalance();
         const normalizedBalance = Number(balance) / 1000000000000000000;
         props.onSetBalance(normalizedBalance);
+    }
+    /**
+     * Сделать депозит
+     * @return {Promise<void>}
+     */
+    const onDeposit = async () => {
+        const remainingTime = props.page.depositTime;
+
+        await bankDepositContract.setDepositTime(remainingTime);
+        props.onSetRemainingTime(remainingTime);
+
+        await bankDepositContract.deposit();
+        props.onDeposit();
+
+        const percentRate = bankDepositContract.percentRate();
+        console.log(percentRate);
     }
 
     return (
@@ -48,7 +72,8 @@ function App(props) {
                 </div>
                 <div className='wrapper'>
                     <div className='child'>
-                        Интерфейс для подключения кошелька и перевода денег на контракт
+
+                        {/*Пополнение контракта*/}
                         <div className='input-div'>
                             <label htmlFor='bankAddress' className='input-label'>
                                 Пополнить с адреса:
@@ -72,10 +97,24 @@ function App(props) {
                             onClick={onBankAccount} className="button">Пополнить
                         </button>
                     </div>
-                    <div>
-                        Интерфейс для депозита в котором надо ждать 3 минуты
-                        // DepositTime && DepositAmount
+
+                    {/*Депозит*/}
+                    <div className='child'>
+                        <div className='input-div'>
+                            <label htmlFor='depositTime' className='input-label'>
+                                Введите время:
+                            </label>
+                            <input type="text" id='depositTime'
+                                   value={props.page.depositTime}
+                                   onChange={onChangeDepositTime}
+                            />
+                        </div>
+                        <button
+                            disabled={!props.page.depositTime || props.page.remainingTime === 0}
+                            onClick={onDeposit} className="button"> Депозит
+                        </button>
                     </div>
+
                     <div>
                         Интерфейс для сбора процентов
                         PercentAmount &&
@@ -89,7 +128,7 @@ function App(props) {
                         // Time
                     </div>
                     <div>
-                        Интерфейс где видно процентую ставку
+                    Интерфейс где видно процентую ставку
                         на какой адресс контракт
                         сколько времени осталось
                         и баланс кошелька
@@ -97,7 +136,7 @@ function App(props) {
                     <div className='child'>
                         <div className='input-div'>
                             <label htmlFor='test' className='input-label'>
-                                Test
+                                Time {props.page.remainingTime.toString()}
                             </label>
                             <input type="text" id='test'
                                    value={props.page.test}

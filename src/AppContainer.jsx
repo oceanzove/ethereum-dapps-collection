@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    bank, setBalance,
-    updateBankAddress, updateBankAmount
+    bank, deposit, setBalance, setRemainingTime,
+    updateBankAddress, updateBankAmount, updateDepositTime
 
 } from "./redux/bankDepositReducer";
 
@@ -23,9 +23,19 @@ const mapDispatchToProps = (dispatch) => {
         onBank: () => {
             dispatch(bank());
         },
+        onChangeDepositTime: (value) => {
+            dispatch(updateDepositTime(value));
+        },
+        onDeposit: () => {
+          dispatch(deposit());
+        },
         onSetBalance: (value) => {
             dispatch(setBalance(value));
         },
+        onSetRemainingTime: (value) => {
+            dispatch(setRemainingTime(value));
+        },
+
     };
 };
 

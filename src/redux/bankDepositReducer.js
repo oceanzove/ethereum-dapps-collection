@@ -5,7 +5,6 @@ const UPDATE_BANK_AMOUNT = 'UPDATE_BANK_AMOUNT';
 const BANK = 'BANK';
 
 const UPDATE_DEPOSIT_TIME = 'UPDATE_DEPOSIT_TIME';
-const UPDATE_DEPOSIT_AMOUNT = 'UPDATE_DEPOSIT_AMOUNT';
 const DEPOSIT = 'DEPOSIT';
 
 const PERCENT_AMOUNT = 'PERCENT_AMOUNT';
@@ -15,6 +14,7 @@ const TRANSFER_AMOUNT = 'TRANSFER_AMOUNT';
 const TRANSFER = 'TRANSFER';
 
 const SET_BALANCE = 'SET_BALANCE';
+const SET_REMAINING_TIME = 'SET_REMAINING_TIME';
 
 const bankDepositContract = new BankDepositContract();
 await bankDepositContract.init();
@@ -24,12 +24,15 @@ const addresses = await bankDepositContract.accounts.map((address, index) => (
     </option>
 ));
 const balance = Number(await bankDepositContract.getContractBalance()) / 1000000000000000000;
+const remainingTime = await bankDepositContract.getRemainingTime();
 
 const initialState = {
     bankAddress: '',
     bankAmount: '',
+    depositTime: '',
     balance: balance,
     addresses: addresses,
+    remainingTime: remainingTime,
 }
 
 const bankDepositReducer = (state = initialState, action) => {
@@ -49,10 +52,26 @@ const bankDepositReducer = (state = initialState, action) => {
                 ...state,
                 bankAmount: '',
             }
+        case UPDATE_DEPOSIT_TIME:
+            return {
+                ...state,
+                depositTime: action.newValue,
+            }
+        case DEPOSIT:
+            return {
+                ...state,
+                depositTime: '',
+                depositAmount: '',
+            }
         case SET_BALANCE:
             return {
                 ...state,
                 balance: action.newValue,
+            }
+        case SET_REMAINING_TIME:
+            return {
+                ...state,
+                remainingTime: action.newValue,
             }
         default:
             return state;
@@ -72,6 +91,18 @@ export const bank = () => (
     {type: BANK}
 );
 
+export const updateDepositTime = (value) => (
+    {type: UPDATE_DEPOSIT_TIME, newValue: value}
+);
+
 export const setBalance = (value) => (
     {type: SET_BALANCE, newValue: value}
+);
+
+export const setRemainingTime = (value) => (
+    {type: SET_REMAINING_TIME, newValue: value}
+);
+
+export const deposit = () => (
+    {type: DEPOSIT}
 );

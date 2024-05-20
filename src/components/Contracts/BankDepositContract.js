@@ -70,6 +70,42 @@ class BankDepositContract {
         }
     }
 
+    async getRemainingTime() {
+        try {
+            return await this.bankDepositContract.methods.getRemainingTime()
+                .call({from: this.accounts[0], gas: '200000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async setDepositTime(_time) {
+        try {
+            await this.bankDepositContract.methods.setDepositTime(_time)
+                .send({from: this.accounts[0], gas: '2000000'});
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+    async deposit() {
+        try {
+            await this.bankDepositContract.methods.deposit()
+                .send({from: this.accounts[0], gas: '200000', value: this.web3.utils.toWei('1', 'ether')})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async percentRate() {
+        try {
+            return await this.bankDepositContract.methods.percentRate()
+                .call({from: this.accounts[0], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default BankDepositContract;
