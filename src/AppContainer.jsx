@@ -1,8 +1,10 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    test
-} from "./redux/patternReducer";
+    bank, setBalance,
+    updateBankAddress, updateBankAmount
+
+} from "./redux/bankDepositReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -12,8 +14,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTest: (value) => {
-            dispatch(test(value));
+        onChangeBankAddress: (value) => {
+            dispatch(updateBankAddress(value));
+        },
+        onChangeBankAmount: (value) => {
+            dispatch(updateBankAmount(value));
+        },
+        onBank: () => {
+            dispatch(bank());
+        },
+        onSetBalance: (value) => {
+            dispatch(setBalance(value));
         },
     };
 };

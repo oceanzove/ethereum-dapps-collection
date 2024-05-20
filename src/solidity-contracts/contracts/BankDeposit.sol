@@ -87,4 +87,8 @@ contract BankDeposit {
         percentWithdraw[msg.sender] = 0;
         msg.sender.transfer(withdrawalAmount);
     }
+
+    function getContractBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
 }
