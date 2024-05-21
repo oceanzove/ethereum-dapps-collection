@@ -9,12 +9,10 @@ const UPDATE_DEPOSIT_AMOUNT = 'UPDATE_DEPOSIT_AMOUNT';
 const DEPOSIT = 'DEPOSIT';
 
 const UPDATE_PERCENT_ADDRESS = 'UPDATE_PERCENT_ADDRESS';
-const PERCENT_AMOUNT = 'PERCENT_AMOUNT';
-const COLLECT_PERCENT = 'COLLECT_PERCENT';
+
 
 const SET_BALANCE = 'SET_BALANCE';
 const SET_DEPOSIT_INFO = 'SET_DEPOSIT_INFO';
-const SET_DEPOSIT_COLLECT = 'SET_DEPOSIT_COLLECT';
 
 const bankDepositContract = new BankDepositContract();
 await bankDepositContract.init();
@@ -38,16 +36,6 @@ const initialState = {
 
 const bankDepositReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_DEPOSIT_COLLECT:
-            return {
-                ...state,
-                depositInfo: state.depositInfo.map((deposit, index) => {
-                    if (index === 0) {
-                        return { ...deposit, collect: action.collect };
-                    }
-                    return deposit;
-                }),
-            }
         case SET_DEPOSIT_INFO:
             const info = {
                 address: action.address,

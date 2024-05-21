@@ -1,5 +1,6 @@
 import './App.css';
 import BankDepositContract from "./components/Contracts/BankDepositContract";
+import DepositInfo from "./components/DepositInfo/DepositInfo";
 
 function App(props) {
     // Инициализирует класс для работы с функциями смарт-контракта
@@ -80,10 +81,31 @@ function App(props) {
 
     }
 
-    const onCollectClick = async () => {
+    /**
+     * Возвращает проценты со вклада указанного адреса
+     * @return {Promise<void>}
+     */
+    const onCollectPercentClick = async () => {
+        const address = props.page.percentAddress;
+        await bankDepositContract.collectPercent(address);
+
+        const balance = await bankDepositContract.getContractBalance();
+        const normalizedBalance = Number(balance) / 1000000000000000000;
+        props.onSetBalance(normalizedBalance);
+    }
+
+    /**
+     * Возвращает весь депозит с процентами со вклада указанного адреса
+     * @return {Promise<void>}
+     */
+    const onReturnDepositClick = async () => {
         const address = props.page.percentAddress;
         await bankDepositContract.collectPercent(address);
         await bankDepositContract.returnDeposit(address);
+
+        const balance = await bankDepositContract.getContractBalance();
+        const normalizedBalance = Number(balance) / 1000000000000000000;
+        props.onSetBalance(normalizedBalance);
     }
 
     return (
@@ -151,6 +173,7 @@ function App(props) {
                         </button>
                     </div>
 
+                    {/*Сбор процентов*/}
                     <div className='child'>
                         <div className='input-div'>
                             <label htmlFor='percentAddress' className='input-label'>
@@ -163,16 +186,21 @@ function App(props) {
                         </div>
                         <button
                             disabled={!props.page.percentAddress}
-                            onClick={onCollectClick} className="button"> Собрать
+                            onClick={onCollectPercentClick} className="button"> Собрать проценты
+                        </button>
+                        <button
+                            disabled={!props.page.percentAddress}
+                            onClick={onReturnDepositClick} className="button"> Вернуть депозит с процентами
                         </button>
 
                     </div>
                     <div className='child'>
-                        <p>{props.page.depositInfo[0].address}</p>
-                        <p>{props.page.depositInfo[0].amount}</p>
-                        <p>{props.page.depositInfo[0].time.toString()}</p>
-                        <p>{props.page.depositInfo[0].percent.toString()}</p>
-                        <p>{props.page.depositInfo[0].collect}</p>
+                        <DepositInfo
+                            address={props.page.depositInfo[0].address}
+                            deposit={props.page.depositInfo[0].amount}
+                            time={props.page.depositInfo[0].time.toString()}
+                            percent={props.page.depositInfo[0].percent.toString()}
+                        />
                     </div>
                 </div>
             </div>
