@@ -97,6 +97,15 @@ class BankDepositContract {
         }
     }
 
+    async returnDeposit(address) {
+        try {
+            await this.bankDepositContract.methods.returnDeposit()
+                .send({from: address, gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
 
     async percentRate(address) {
@@ -107,6 +116,16 @@ class BankDepositContract {
             console.log(error);
         }
     }
+
+    async payoutAmount(address) {
+        try {
+            return await this.bankDepositContract.methods.payoutAmount()
+                .call({from: address, gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 export default BankDepositContract;

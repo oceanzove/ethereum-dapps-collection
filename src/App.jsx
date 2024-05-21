@@ -2,6 +2,7 @@ import './App.css';
 import BankDepositContract from "./components/Contracts/BankDepositContract";
 
 function App(props) {
+    // Инициализирует класс для работы с функциями смарт-контракта
     const bankDepositContract = new BankDepositContract();
     /**
      * Обновляет поле BankAddress
@@ -73,16 +74,16 @@ function App(props) {
         const normalizedBalance = Number(balance) / 1000000000000000000;
         props.onSetBalance(normalizedBalance);
 
+        const remainingTime = await bankDepositContract.getRemainingTime(address);
         const percentRate = await bankDepositContract.percentRate(address);
-        // setPercentRate
-        let remainingTime = await bankDepositContract.getRemainingTime(address);
-        // setRemainingTime
+        props.onSetDepositInfo(address, amount, remainingTime, percentRate);
 
     }
 
     const onCollectClick = async () => {
         const address = props.page.percentAddress;
         await bankDepositContract.collectPercent(address);
+        await bankDepositContract.returnDeposit(address);
     }
 
     return (
@@ -151,9 +152,6 @@ function App(props) {
                     </div>
 
                     <div className='child'>
-                        Интерфейс для сбора процентов
-                        PercentAmount &&
-                        Вывести сколько кто на сколько и сколько получит и через сколько
                         <div className='input-div'>
                             <label htmlFor='percentAddress' className='input-label'>
                                 Собрать с адреса:
@@ -169,15 +167,12 @@ function App(props) {
                         </button>
 
                     </div>
-                    <div>
-                        Интерфейс для ввода времени
-                        // Time
-                    </div>
-                    <div>
-                        Интерфейс где видно процентую ставку
-                        на какой адресс контракт
-                        сколько времени осталось
-                        и баланс кошелька
+                    <div className='child'>
+                        <p>{props.page.depositInfo[0].address}</p>
+                        <p>{props.page.depositInfo[0].amount}</p>
+                        <p>{props.page.depositInfo[0].time.toString()}</p>
+                        <p>{props.page.depositInfo[0].percent.toString()}</p>
+                        <p>{props.page.depositInfo[0].collect}</p>
                     </div>
                 </div>
             </div>

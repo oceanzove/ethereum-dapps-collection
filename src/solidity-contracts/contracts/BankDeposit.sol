@@ -10,7 +10,7 @@ contract BankDeposit {
     mapping(address => uint) public time;
     mapping(address => uint) public percentWithdraw;
     mapping(address => uint) public allPercentWithdraw;
-    uint public stepTime = 0.05 hours;
+    uint public stepTime = 0.01 hours;
 
     event Invest(address investor, uint256 amount);
     event Withdraw(address investor, uint256 amount);

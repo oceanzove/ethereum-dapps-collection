@@ -12,9 +12,9 @@ const UPDATE_PERCENT_ADDRESS = 'UPDATE_PERCENT_ADDRESS';
 const PERCENT_AMOUNT = 'PERCENT_AMOUNT';
 const COLLECT_PERCENT = 'COLLECT_PERCENT';
 
-
 const SET_BALANCE = 'SET_BALANCE';
-const SET_REMAINING_TIME = 'SET_REMAINING_TIME';
+const SET_DEPOSIT_INFO = 'SET_DEPOSIT_INFO';
+const SET_DEPOSIT_COLLECT = 'SET_DEPOSIT_COLLECT';
 
 const bankDepositContract = new BankDepositContract();
 await bankDepositContract.init();
@@ -24,7 +24,6 @@ const addresses = await bankDepositContract.accounts.map((address, index) => (
     </option>
 ));
 const balance = Number(await bankDepositContract.getContractBalance()) / 1000000000000000000;
-const remainingTime = await bankDepositContract.getRemainingTime();
 
 const initialState = {
     bankAddress: '',
@@ -34,11 +33,32 @@ const initialState = {
     percentAddress: '',
     balance: balance,
     addresses: addresses,
-    remainingTime: remainingTime,
+    depositInfo: [{address: '', amount: '', time: '', percent: '', collect: ''}],
 }
 
 const bankDepositReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_DEPOSIT_COLLECT:
+            return {
+                ...state,
+                depositInfo: state.depositInfo.map((deposit, index) => {
+                    if (index === 0) {
+                        return { ...deposit, collect: action.collect };
+                    }
+                    return deposit;
+                }),
+            }
+        case SET_DEPOSIT_INFO:
+            const info = {
+                address: action.address,
+                amount: action.amount,
+                time: action.time,
+                percent: action.percent,
+            }
+            return {
+                ...state,
+                depositInfo: [info]
+            }
         case UPDATE_BANK_ADDRESS:
             return {
                 ...state,
@@ -79,11 +99,6 @@ const bankDepositReducer = (state = initialState, action) => {
                 ...state,
                 balance: action.newValue,
             }
-        case SET_REMAINING_TIME:
-            return {
-                ...state,
-                remainingTime: action.newValue,
-            }
         default:
             return state;
     }
@@ -117,10 +132,11 @@ export const setBalance = (value) => (
     {type: SET_BALANCE, newValue: value}
 );
 
-export const setRemainingTime = (value) => (
-    {type: SET_REMAINING_TIME, newValue: value}
-);
-
 export const deposit = () => (
     {type: DEPOSIT}
 );
+
+export const setDepositInfo = (address, amount, time, percent) => (
+    {type: SET_DEPOSIT_INFO, address: address, amount: amount, time: time, percent: percent}
+);
+
