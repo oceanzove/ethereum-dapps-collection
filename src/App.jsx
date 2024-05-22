@@ -1,11 +1,8 @@
 import './App.css';
+import InsuranceContract from "./components/Contracts/InsuranceContract";
 
 function App(props) {
-
-  const onChangeTest = (e) => {
-    const value = e.target.value;
-    props.onTest(value);
-  };
+    const insuranceContract = new InsuranceContract();
 
   return (
       <div className="App">
@@ -13,24 +10,34 @@ function App(props) {
           <h2>Title ( Test )</h2>
         </div>
         <div className='container'>
-          <div className='wrapper'>
+            <div className='wrapper'>
 
-            <div className='child'>
-              <div className='input-div'>
-                <label htmlFor='test' className='input-label'>
-                  Test
-                </label>
-                <input type="text" id='test'
-                       value={props.page.test}
-                       onChange={onChangeTest}
-                />
-              </div>
-              <button
-                  disabled={!props.page.test}
-                  onClick={null} className="button">Test
-              </button>
+                <div className='child'>
+                    <div className='input-div'>
+                        <label htmlFor='test' className='input-label'>
+                            NewRecord
+                            нужно ввести: id name date price
+                        </label>
+                    </div>
+                </div>
+                <div className='child'>
+                    <div className='input-div'>
+                        <label htmlFor='test' className='input-label'>
+                            SignRecord
+                            нужно ввести id записи для подтвержднения от больницы
+                        </label>
+                    </div>
+                </div>
+                <div className='child'>
+                    <div className='input-div'>
+                        <label htmlFor='test' className='input-label'>
+                            SignRecord
+                            нужно ввести id записи для подтвержднения от страховой компании
+                            и ввести нужно количество денег
+                        </label>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
       </div>
   );

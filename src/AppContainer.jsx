@@ -1,8 +1,11 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    test
-} from "./redux/patternReducer";
+    newRecord,
+    updateNewRecordDate,
+    updateNewRecordId, updateNewRecordName, updateNewRecordPrice
+
+} from "./redux/Reducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -12,8 +15,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTest: (value) => {
-            dispatch(test(value));
+        onUpdateNewRecordId: (value) => {
+            dispatch(updateNewRecordId(value));
+        },
+        onUpdateNewRecordName: (value) => {
+            dispatch(updateNewRecordName(value));
+        },
+        onUpdateNewRecordDate: (value) => {
+            dispatch(updateNewRecordDate(value));
+        },
+        onUpdateNewRecordPrice: (value) => {
+            dispatch(updateNewRecordPrice(value));
+        },
+        onNewRecord: () => {
+            dispatch(newRecord())
         },
     };
 };

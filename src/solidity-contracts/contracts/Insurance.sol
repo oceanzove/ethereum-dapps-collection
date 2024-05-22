@@ -27,15 +27,19 @@ contract Insurance {
         _;
     }
 
-    constructor() public {
-
-    }
-
     mapping (uint256 => Record) public all_records;
     uint256[] public recordsArr;
 
     event recordCreated(uint256 id, string name, string date, uint256 price);
     event recordSigned(uint256 id, string name, string date, uint256 price);
+
+    function setInsurerAddress() public  {
+        insurer = msg.sender;
+    }
+
+    function setHospitalAddress() public  {
+        hospital = msg.sender;
+    }
 
     function newRecord (uint256 _id, string memory _name, string memory _date, uint256 _price) public {
         Record storage newRecord = all_records[_id];
