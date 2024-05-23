@@ -17,8 +17,7 @@ class InsuranceContract {
 
             this.insuranceContract = await this.getAddressContract('InsuranceContract');
 
-            await this.setHospitalAddress(this.accounts[0]);
-            await this.setInsurerAddress(this.accounts[1]);
+
         } catch (error) {
             console.error(error);
         }
@@ -55,18 +54,36 @@ class InsuranceContract {
         }
     }
 
-    async setInsurerAddress (insurerAddress) {
+    async setInsurerAddress () {
         try {
             await this.insuranceContract.methods.setInsurerAddress()
-                .send({from: insurerAddress, gas: '200000'})
+                .send({from: this.accounts[0], gas: '200000'})
         } catch (error) {
             console.log(error);
         }
     }
-    async setHospitalAddress (hospitalAddress) {
+    async setHospitalAddress () {
         try {
             await this.insuranceContract.methods.setHospitalAddress()
-                .send({from: hospitalAddress, gas: '200000'})
+                .send({from: this.accounts[1], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getLastId () {
+        try {
+            return await this.insuranceContract.methods.getLastId()
+                .call({from: this.accounts[2], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async newRecord (_id, _name, _date, _price) {
+        try {
+            await this.insuranceContract.methods.newRecord(_id, _name, _date, _price)
+                .send({from: this.accounts[2], gas: '200000'})
         } catch (error) {
             console.log(error);
         }

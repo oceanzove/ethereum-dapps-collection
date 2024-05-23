@@ -3,7 +3,7 @@ import App from "./App";
 import {
     newRecord, signRecordHospital, signRecordInsurer,
     updateNewRecordDate,
-    updateNewRecordId, updateNewRecordName, updateNewRecordPrice, updateRecordIdHospital, updateRecordIdInsurer
+    updateNewRecordName, updateNewRecordPrice, updateRecordIdHospital, updateRecordIdInsurer
 
 } from "./redux/Reducer";
 
@@ -15,9 +15,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onUpdateNewRecordId: (value) => {
-            dispatch(updateNewRecordId(value));
-        },
         onUpdateNewRecordName: (value) => {
             dispatch(updateNewRecordName(value));
         },

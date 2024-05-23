@@ -1,5 +1,4 @@
 
-const UPDATE_NEW_RECORD_ID = 'UPDATE_NEW_RECORD_ID';
 const UPDATE_NEW_RECORD_NAME = 'UPDATE_NEW_RECORD_NAME';
 const UPDATE_NEW_RECORD_DATE = 'UPDATE_NEW_RECORD_DATE';
 const UPDATE_NEW_RECORD_PRICE = 'UPDATE_NEW_RECORD_PRICE';
@@ -12,7 +11,6 @@ const UPDATE_RECORD_ID_INSURER = 'UPDATE_RECORD_ID_INSURER';
 const SIGN_RECORD_INSURER = 'SIGN_RECORD_INSURER';
 
 const initialState = {
-    recordId: '',
     recordName: '',
     recordDate: '',
     recordPrice: '',
@@ -22,11 +20,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_NEW_RECORD_ID:
-            return {
-                ...state,
-                recordId: action.newValue,
-            }
         case UPDATE_NEW_RECORD_NAME:
             return {
                 ...state,
@@ -77,10 +70,6 @@ const reducer = (state = initialState, action) => {
 }
 
 export default reducer;
-
-export const updateNewRecordId = (value) => (
-    {type: UPDATE_NEW_RECORD_ID, newValue: value}
-);
 
 export const updateNewRecordName = (value) => (
     {type: UPDATE_NEW_RECORD_NAME, newValue: value}

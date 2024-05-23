@@ -5,14 +5,6 @@ function App(props) {
     const insuranceContract = new InsuranceContract();
 
     /**
-     * Обновляет поле RecordId
-     */
-    const onChangeRecordId = (e) => {
-        const value = e.target.value;
-        props.onUpdateNewRecordId(value);
-    };
-
-    /**
      * Обновляет поле RecordName
      */
     const onChangeRecordName = (e) => {
@@ -36,6 +28,46 @@ function App(props) {
         props.onUpdateNewRecordPrice(value);
     };
 
+    /**
+     * Обновляет поле SignRecordIdHospital
+     */
+    const onChangeSignRecordIdHospital = (e) => {
+        const value = e.target.value;
+        props.onUpdateRecordIdHospital(value);
+    };
+    /**
+     * Обновляет поле SignRecordIdInsurer
+     */
+    const onChangeSignRecordIdInsurer = (e) => {
+        const value = e.target.value;
+        props.onUpdateRecordIdInsurer(value);
+    };
+
+    /**
+     * Создает новую запись для Hospital
+     * @return {Promise<void>}
+     */
+    const onNewRecordClick = async () => {
+        const id = Number(await insuranceContract.getLastId()) + 1;
+        console.log(id)
+        const name = props.page.recordName;
+        const date = props.page.recordDate;
+        const price = props.page.recordPrice;
+
+        await insuranceContract.newRecord(id, name, date, price);
+        props.onNewRecord();
+    }
+    /**
+     * Устанавливает адреса необходимые для работы контракта
+     * @return {Promise<void>}
+     */
+    const onSetInsurerAccount = async () => {
+        await insuranceContract.setInsurerAddress();
+        await insuranceContract.setHospitalAddress();
+    }
+
+
+
 
     return (
         <div className="App">
@@ -43,20 +75,15 @@ function App(props) {
                 <h2>Insurance</h2>
             </div>
             <div className='container'>
+                <button
+                    onClick={onSetInsurerAccount} className="button">Установить аккаунты
+                </button>
                 <div className='wrapper'>
-
                     <div className='child'>
                         <div className='input-div'>
                             <label htmlFor='test' className='input-label'>
                                 Новая запись
                             </label>
-                            <label htmlFor='recordId' className='input-label'>
-                                ID
-                            </label>
-                            <input type="text" id='recordId'
-                                   value={props.page.recordId}
-                                   onChange={onChangeRecordId}
-                            />
                             <label htmlFor='recordName' className='input-label'>
                                 Имя
                             </label>
@@ -81,12 +108,11 @@ function App(props) {
                         </div>
                         <button
                             disabled={
-                                !props.page.recordId
-                                || !props.page.recordName
+                                !props.page.recordName
                                 || !props.page.recordDate
                                 || !props.page.recordPrice
                             }
-                            onClick={null} className="button">Записать
+                            onClick={onNewRecordClick} className="button">Записать
                         </button>
                     </div>
                     <div className='child'>
@@ -98,12 +124,12 @@ function App(props) {
                                 ID
                             </label>
                             <input type="text" id='signRecordHospital'
-                                   value={null}
-                                   onChange={null}
+                                   value={props.page.signRecordIdHospital}
+                                   onChange={onChangeSignRecordIdHospital}
                             />
                         </div>
                         <button
-                            disabled={null}
+                            disabled={!props.page.signRecordIdHospital}
                             onClick={null} className="button">Подтвердить
                         </button>
                     </div>
@@ -116,12 +142,12 @@ function App(props) {
                                 ID
                             </label>
                             <input type="text" id='signRecordHospital'
-                                   value={null}
-                                   onChange={null}
+                                   value={props.page.signRecordIdInsurer}
+                                   onChange={onChangeSignRecordIdInsurer}
                             />
                         </div>
                         <button
-                            disabled={null}
+                            disabled={!props.page.signRecordIdInsurer}
                             onClick={null} className="button">Подтвердить
                         </button>
                     </div>
