@@ -1,9 +1,9 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    newRecord,
+    newRecord, signRecordHospital, signRecordInsurer,
     updateNewRecordDate,
-    updateNewRecordId, updateNewRecordName, updateNewRecordPrice
+    updateNewRecordId, updateNewRecordName, updateNewRecordPrice, updateRecordIdHospital, updateRecordIdInsurer
 
 } from "./redux/Reducer";
 
@@ -28,8 +28,20 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(updateNewRecordPrice(value));
         },
         onNewRecord: () => {
-            dispatch(newRecord())
+            dispatch(newRecord());
         },
+        onUpdateRecordIdHospital: (value) => {
+          dispatch(updateRecordIdHospital(value));
+        },
+        onSignRecordHospital: () => {
+          dispatch(signRecordHospital());
+        },
+        onUpdateRecordIdInsurer: (value) => {
+            dispatch(updateRecordIdInsurer(value));
+        },
+        onSignRecordInsurer: () => {
+            dispatch(signRecordInsurer());
+        }
     };
 };
 
