@@ -66,8 +66,28 @@ function App(props) {
         await insuranceContract.setHospitalAddress();
     }
 
+    /**
+     * Подтверждает запись от больницы
+     * @return {Promise<void>}
+     */
+    const onSubmitFromHospital = async () => {
+        const id = props.page.signRecordIdHospital;
+        await insuranceContract.onSubmitFromHospital(id);
+    }
+
+    /**
+     * Подтверждает запись от страховой компании
+     * @return {Promise<void>}
+     */
+    const onSubmitFromInsurer = async () => {
+        const id = props.page.signRecordIdHospital;
+        await insuranceContract.onSubmitFromInsurer(id);
+    }
 
 
+
+
+    console.log(props.page.records)
 
     return (
         <div className="App">
@@ -130,7 +150,7 @@ function App(props) {
                         </div>
                         <button
                             disabled={!props.page.signRecordIdHospital}
-                            onClick={null} className="button">Подтвердить
+                            onClick={onSubmitFromHospital} className="button">Подтвердить
                         </button>
                     </div>
                     <div className='child'>
@@ -148,7 +168,7 @@ function App(props) {
                         </div>
                         <button
                             disabled={!props.page.signRecordIdInsurer}
-                            onClick={null} className="button">Подтвердить
+                            onClick={onSubmitFromInsurer} className="button">Подтвердить
                         </button>
                     </div>
                 </div>

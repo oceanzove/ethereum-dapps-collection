@@ -89,6 +89,42 @@ class InsuranceContract {
         }
     }
 
+    async onSubmitFromHospital(_id) {
+        try {
+            await this.insuranceContract.methods.signRecord(_id)
+                .send({from: this.accounts[2], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async onSubmitFromInsurer(_id) {
+        try {
+            await this.insuranceContract.methods.signRecord(_id)
+                .send({from: this.accounts[2], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getAllRecordIds () {
+        try {
+            return await this.insuranceContract.methods.getAllRecordIds()
+                .call({from: this.accounts[2], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getRecordById (id) {
+        try {
+            return await this.insuranceContract.methods.getRecordById(id)
+                .call({from: this.accounts[2], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 export default InsuranceContract;

@@ -1,3 +1,4 @@
+import InsuranceContract from "../components/Contracts/InsuranceContract";
 
 const UPDATE_NEW_RECORD_NAME = 'UPDATE_NEW_RECORD_NAME';
 const UPDATE_NEW_RECORD_DATE = 'UPDATE_NEW_RECORD_DATE';
@@ -10,12 +11,26 @@ const SIGN_RECORD_HOSPITAL = 'SIGN_RECORD_HOSPITAL';
 const UPDATE_RECORD_ID_INSURER = 'UPDATE_RECORD_ID_INSURER';
 const SIGN_RECORD_INSURER = 'SIGN_RECORD_INSURER';
 
+
+const insuranceContract = new InsuranceContract();
+await insuranceContract.init();
+const ids = await insuranceContract.getAllRecordIds();
+const records = await Promise.all(ids.map(async (id) => {
+    const record = await insuranceContract.getRecordById(id);
+    return {
+        id: parseInt(record[1]),
+        name: record[2],
+        date: record[3],
+        price: parseInt(record[4]),
+    };
+}));
 const initialState = {
     recordName: '',
     recordDate: '',
     recordPrice: '',
     signRecordIdHospital: '',
     signRecordIdInsurer: '',
+    records: records
 }
 
 const reducer = (state = initialState, action) => {
