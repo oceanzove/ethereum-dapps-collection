@@ -22,6 +22,8 @@ const records = await Promise.all(ids.map(async (id) => {
         name: record[2],
         date: record[3],
         price: parseInt(record[4]),
+        isVale: record[5],
+        signatureCount: record[6],
     };
 }));
 const initialState = {

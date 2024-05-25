@@ -83,7 +83,7 @@ class InsuranceContract {
     async newRecord (_id, _name, _date, _price) {
         try {
             await this.insuranceContract.methods.newRecord(_id, _name, _date, _price)
-                .send({from: this.accounts[2], gas: '200000'})
+                .send({from: this.accounts[2], gas: '300000'})
         } catch (error) {
             console.log(error);
         }
@@ -92,7 +92,7 @@ class InsuranceContract {
     async onSubmitFromHospital(_id) {
         try {
             await this.insuranceContract.methods.signRecord(_id)
-                .send({from: this.accounts[2], gas: '200000'})
+                .send({from: this.accounts[0], gas: '200000'})
         } catch (error) {
             console.log(error);
         }
@@ -101,7 +101,7 @@ class InsuranceContract {
     async onSubmitFromInsurer(_id) {
         try {
             await this.insuranceContract.methods.signRecord(_id)
-                .send({from: this.accounts[2], gas: '200000'})
+                .send({from: this.accounts[1], gas: '200000'})
         } catch (error) {
             console.log(error);
         }

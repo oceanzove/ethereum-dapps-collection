@@ -60,11 +60,10 @@ contract Insurance {
         require(records.signatures[msg.sender] != 1);
         records.signatureCount++;
         emit recordSigned(records.id, records.name, records.date, records.price);
-        if (records.signatureCount == 2) {
-            hospital.transfer(address(this).balance);
+        if (records.signatureCount >= 2) {
+            insurer.transfer(address(this).balance);
         }
     }
-
     // Функция для получения последнего ID
     function getLastId() public view returns (uint256) {
         if (recordsArr.length == 0) {
