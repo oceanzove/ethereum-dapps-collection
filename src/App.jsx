@@ -57,14 +57,6 @@ function App(props) {
         await insuranceContract.newRecord(id, name, date, price);
         props.onNewRecord();
     }
-    /**
-     * Устанавливает адреса необходимые для работы контракта
-     * @return {Promise<void>}
-     */
-    const onSetInsurerAccount = async () => {
-        await insuranceContract.setInsurerAddress();
-        await insuranceContract.setHospitalAddress();
-    }
 
     /**
      * Подтверждает запись от больницы
@@ -73,6 +65,7 @@ function App(props) {
     const onSubmitFromHospital = async () => {
         const id = props.page.signRecordIdHospital;
         await insuranceContract.onSubmitFromHospital(id);
+        props.onSignRecordHospital();
     }
 
     /**
@@ -81,13 +74,10 @@ function App(props) {
      */
     const onSubmitFromInsurer = async () => {
         const id = props.page.signRecordIdHospital;
-        await insuranceContract.onSubmitFromInsurer(id);
+        const record = props.page.records.find(record => record.id === id);
+        await insuranceContract.onSubmitFromInsurer(id, record.price);
+        props.onSignRecordInsurer();
     }
-
-
-
-
-    console.log(props.page.records)
 
     return (
         <div className="App">
@@ -95,9 +85,6 @@ function App(props) {
                 <h2>Insurance</h2>
             </div>
             <div className='container'>
-                <button
-                    onClick={onSetInsurerAccount} className="button">Установить аккаунты
-                </button>
                 <div className='wrapper'>
                     <div className='child'>
                         <div className='input-div'>

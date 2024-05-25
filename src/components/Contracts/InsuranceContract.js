@@ -17,6 +17,8 @@ class InsuranceContract {
 
             this.insuranceContract = await this.getAddressContract('InsuranceContract');
 
+            await this.setInsurerAddress();
+            await this.setHospitalAddress();
 
         } catch (error) {
             console.error(error);
@@ -98,10 +100,10 @@ class InsuranceContract {
         }
     }
 
-    async onSubmitFromInsurer(_id) {
+    async onSubmitFromInsurer(_id, price) {
         try {
             await this.insuranceContract.methods.signRecord(_id)
-                .send({from: this.accounts[1], gas: '200000'})
+                .send({from: this.accounts[1], gas: '200000', value: this.web3.utils.toWei(price, 'ether')})
         } catch (error) {
             console.log(error);
         }
