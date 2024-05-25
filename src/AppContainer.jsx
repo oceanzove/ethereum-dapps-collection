@@ -24,8 +24,8 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateNewRecordPrice: (value) => {
             dispatch(updateNewRecordPrice(value));
         },
-        onNewRecord: () => {
-            dispatch(newRecord());
+        onNewRecord: (id, name, date, price) => {
+            dispatch(newRecord(id, name, date, price));
         },
         onUpdateRecordIdHospital: (value) => {
           dispatch(updateRecordIdHospital(value));
@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateRecordIdInsurer: (value) => {
             dispatch(updateRecordIdInsurer(value));
         },
-        onSignRecordInsurer: () => {
-            dispatch(signRecordInsurer());
+        onSignRecordInsurer: (id) => {
+            dispatch(signRecordInsurer(id));
         }
     };
 };

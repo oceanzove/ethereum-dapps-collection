@@ -61,7 +61,7 @@ contract Insurance {
         records.signatureCount++;
         emit recordSigned(records.id, records.name, records.date, records.price);
         if (records.signatureCount >= 2) {
-            insurer.transfer(address(this).balance);
+            hospital.transfer(address(this).balance);
         }
     }
     // Функция для получения последнего ID

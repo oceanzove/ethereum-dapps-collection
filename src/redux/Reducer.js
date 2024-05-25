@@ -22,17 +22,18 @@ const records = await Promise.all(ids.map(async (id) => {
         name: record[2],
         date: record[3],
         price: parseInt(record[4]),
-        isVale: record[5],
         signatureCount: record[6],
     };
 }));
+const filteredRecords = records.filter(record => record.signatureCount < 2);
+
 const initialState = {
     recordName: '',
     recordDate: '',
     recordPrice: '',
     signRecordIdHospital: '',
     signRecordIdInsurer: '',
-    records: records
+    records: filteredRecords
 }
 
 const reducer = (state = initialState, action) => {
@@ -53,12 +54,18 @@ const reducer = (state = initialState, action) => {
                 recordPrice: action.newValue,
             }
         case NEW_RECORD:
+            const record = {
+                id: action.id,
+                name: action.name,
+                date: action.date,
+                price: action.price,
+            }
             return {
                 ...state,
-                recordId: '',
                 recordName: '',
                 recordDate: '',
                 recordPrice: '',
+                records: [...state.records, record]
             }
         case UPDATE_RECORD_ID_HOSPITAL:
             return {
@@ -78,6 +85,7 @@ const reducer = (state = initialState, action) => {
         case SIGN_RECORD_INSURER: {
             return {
                 ...state,
+                records: state.records.filter(record => record.id !== Number(action.id)),
                 signRecordIdInsurer: ''
             }
         }
@@ -100,22 +108,22 @@ export const updateNewRecordPrice = (value) => (
     {type: UPDATE_NEW_RECORD_PRICE, newValue: value}
 );
 
-export const newRecord = () => (
-    {type: NEW_RECORD}
+export const newRecord = (id, name, date, price) => (
+    {type: NEW_RECORD, id: id, name: name, date: date, price: price}
 );
 
 export const updateRecordIdHospital = (value) => (
     {type: UPDATE_RECORD_ID_HOSPITAL, newValue: value}
 );
 
-export const signRecordHospital = (value) => (
-    {type: SIGN_RECORD_HOSPITAL, newValue: value}
+export const signRecordHospital = () => (
+    {type: SIGN_RECORD_HOSPITAL}
 );
 
 export const updateRecordIdInsurer = (value) => (
     {type: UPDATE_RECORD_ID_INSURER, newValue: value}
 );
 
-export const signRecordInsurer = (value) => (
-    {type: SIGN_RECORD_INSURER, newValue: value}
+export const signRecordInsurer = (id) => (
+    {type: SIGN_RECORD_INSURER, id: id}
 );

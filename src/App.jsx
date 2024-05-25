@@ -1,5 +1,6 @@
 import './App.css';
 import InsuranceContract from "./components/Contracts/InsuranceContract";
+import RecordItem from "./components/RecordItem/RecordItem";
 
 function App(props) {
     const insuranceContract = new InsuranceContract();
@@ -49,13 +50,12 @@ function App(props) {
      */
     const onNewRecordClick = async () => {
         const id = Number(await insuranceContract.getLastId()) + 1;
-        console.log(id)
         const name = props.page.recordName;
         const date = props.page.recordDate;
         const price = props.page.recordPrice;
 
         await insuranceContract.newRecord(id, name, date, price);
-        props.onNewRecord();
+        props.onNewRecord(id, name, date, price);
     }
 
     /**
@@ -73,12 +73,18 @@ function App(props) {
      * @return {Promise<void>}
      */
     const onSubmitFromInsurer = async () => {
-        const id = props.page.signRecordIdHospital;
-        const record = props.page.records.find(record => record.id === id);
+        await insuranceContract.init();
+        const id = props.page.signRecordIdInsurer;
+
+        const record = props.page.records.find(record => record.id === Number(id));
         await insuranceContract.onSubmitFromInsurer(id, record.price);
-        props.onSignRecordInsurer();
+        props.onSignRecordInsurer(id);
     }
 
+
+    const recordItems = props.page.records.map(
+        r => <RecordItem key={r.id} id={r.id} name={r.name} date={r.date} price={r.price}/>
+    )
     return (
         <div className="App">
             <div className="title">
@@ -86,6 +92,7 @@ function App(props) {
             </div>
             <div className='container'>
                 <div className='wrapper'>
+                    {/*Создание новой записи*/}
                     <div className='child'>
                         <div className='input-div'>
                             <label htmlFor='test' className='input-label'>
@@ -122,6 +129,7 @@ function App(props) {
                             onClick={onNewRecordClick} className="button">Записать
                         </button>
                     </div>
+                    {/*Подтверждение записи от больницы*/}
                     <div className='child'>
                         <div className='input-div'>
                             <label htmlFor='test' className='input-label'>
@@ -140,6 +148,7 @@ function App(props) {
                             onClick={onSubmitFromHospital} className="button">Подтвердить
                         </button>
                     </div>
+                    {/*Подтверждение записи от страховой компании*/}
                     <div className='child'>
                         <div className='input-div'>
                             <label htmlFor='test' className='input-label'>
@@ -158,7 +167,14 @@ function App(props) {
                             onClick={onSubmitFromInsurer} className="button">Подтвердить
                         </button>
                     </div>
+                    {/*Список записей*/}
+                    <div className='child'>
+                        <div className='items'>
+                            {recordItems}
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     );

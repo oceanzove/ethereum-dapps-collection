@@ -25,9 +25,10 @@
   }
 }
 
-.dragons {
+.items {
+
   overflow: auto;
-  max-height: 60vh;
+  max-height: 33vh;
 }
 
 .input-div {
