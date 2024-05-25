@@ -17,8 +17,12 @@ class InsuranceContract {
 
             this.insuranceContract = await this.getAddressContract('InsuranceContract');
 
-            await this.setInsurerAddress();
-            await this.setHospitalAddress();
+            if (await this.checkHospitalAddress() !== this.accounts[0]) {
+                await this.setHospitalAddress();
+            }
+            if (await this.checkInsurerAddress() !== this.accounts[1]) {
+                await this.setInsurerAddress();
+            }
 
         } catch (error) {
             console.error(error);
@@ -55,11 +59,27 @@ class InsuranceContract {
             console.log(error);
         }
     }
+    async checkHospitalAddress () {
+        try {
+            return  await this.insuranceContract.methods.hospital()
+                .call({from: this.accounts[0], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
+    async checkInsurerAddress () {
+        try {
+            return  await this.insuranceContract.methods.insurer()
+                .call({from: this.accounts[1], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
     async setInsurerAddress () {
         try {
             await this.insuranceContract.methods.setInsurerAddress()
-                .send({from: this.accounts[0], gas: '200000'})
+                .send({from: this.accounts[1], gas: '200000'})
         } catch (error) {
             console.log(error);
         }
@@ -67,7 +87,7 @@ class InsuranceContract {
     async setHospitalAddress () {
         try {
             await this.insuranceContract.methods.setHospitalAddress()
-                .send({from: this.accounts[1], gas: '200000'})
+                .send({from: this.accounts[0], gas: '200000'})
         } catch (error) {
             console.log(error);
         }
