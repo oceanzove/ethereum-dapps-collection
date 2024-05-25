@@ -118,7 +118,7 @@ class InsuranceContract {
 
     async getRecordById (id) {
         try {
-            return await this.insuranceContract.methods.getRecordById(id)
+            return await this.insuranceContract.methods.all_records(id)
                 .call({from: this.accounts[2], gas: '200000'})
         } catch (error) {
             console.log(error);

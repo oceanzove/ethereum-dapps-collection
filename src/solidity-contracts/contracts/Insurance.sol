@@ -76,11 +76,4 @@ contract Insurance {
     function getAllRecordIds() public view returns (uint256[] memory) {
         return recordsArr;
     }
-
-    // Функция для получения информации о записи по ID
-    function getRecordById(uint256 _id) public view returns (address, uint256, string memory, string memory, uint256, bool, uint256) {
-        Record storage rec = all_records[_id];
-        require(rec.isValue, "Record does not exist");
-        return (rec.addr, rec.id, rec.name, rec.date, rec.price, rec.isValue, rec.signatureCount);
-    }
 }
