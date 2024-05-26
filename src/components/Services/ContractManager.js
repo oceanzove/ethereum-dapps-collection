@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-import PatternContract from '../../solidity-contracts/build/contracts/Pattern.json';
+import PatternContract from '../../solidity-contracts/build/contracts/MyCoin.sol.json';
 
 
 class ContractManager {
