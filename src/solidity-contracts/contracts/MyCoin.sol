@@ -33,14 +33,12 @@ contract MyCoin {
     }
 
     function transfer(address _to, uint256 _value) public returns (bool) {
-        if (balance[msg.sender] > _value) {
-            address _from = msg.sender;
-            owner = _to;
-            emit Transfer(_from, _to, _value);
-            balance[_from] = balance[_from] - _value;
-            balance[_to] = balance[_to] + _value;
-            return true;
-        }
-        return false;
+        require(balance[msg.sender] >= _value, "Insufficient balance");
+
+        balance[msg.sender] -= _value;
+        balance[_to] += _value;
+
+        emit Transfer(msg.sender, _to, _value);
+        return true;
     }
 }
