@@ -64,6 +64,28 @@ function App(props) {
 
         await generateSeedContract.generateSeeds(seedAmount, truncatedWords);
         props.onGenerateSeed();
+
+        await updateWallets()
+    }
+
+    /**
+     * Создает сид из рандомных слов
+     * @return {Promise<void>}
+     */
+    const onRandomSeedClick = async () => {
+        const allWords = props.page.words;
+        const shuffled = allWords.slice();
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        const seedAmount = props.page.seedAmount;
+
+        await generateSeedContract.generateSeeds(seedAmount, shuffled.slice(0, 12));
+        props.onGenerateSeed();
+
+        await updateWallets()
     }
 
     /**
@@ -77,13 +99,22 @@ function App(props) {
 
         await generateSeedContract.sendEther(_from, _to, _amount);
         props.onSend()
+
+        await updateWallets()
+    }
+
+    const updateWallets = async () => {
+        const wallets = await generateSeedContract.wallets();
+        props.onUpdateWallets(wallets);
     }
 
     let wallets = props.page.wallets.map(
-        wallet => <WalletItem walletAddress={wallet.walletAddress} privateKey={wallet.privateKey} balance={wallet.balance}/>
+        wallet => <WalletItem
+            key={wallet.walletAddress}
+            walletAddress={wallet.walletAddress}
+            privateKey={wallet.privateKey}
+            balance={wallet.balance}/>
     )
-    console.log(wallets);
-
 
     return (
         <div className="App">
@@ -105,7 +136,10 @@ function App(props) {
                             onClick={onSeedClick}
                         >Сгенерировать сид из слов
                         </button>
-                        <button>Сгенерировать сид случайных слов</button>
+                        <button
+                            disabled={!props.page.seedAmount}
+                            onClick={onRandomSeedClick}
+                        >Сгенерировать сид случайных слов</button>
                     </div>
                 </div>
                 <div style={{marginBottom: '30px'}}>

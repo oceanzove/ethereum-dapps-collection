@@ -4,7 +4,7 @@ import {
     generateSeed, send,
     updateAmount,
     updateFromAddress,
-    updateSeed, updateSeedAmount, updateToAddress
+    updateSeed, updateSeedAmount, updateToAddress, updateWallets
 } from "./redux/reducer";
 
 const mapStateToProps = (state) => {
@@ -15,27 +15,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onUpdateSeed: (value) => {
-            dispatch(updateSeed(value));
-        },
-        onUpdateSeedAmount: (value) => {
-            dispatch(updateSeedAmount(value));
-        },
-        onGenerateSeed: () => {
-          dispatch(generateSeed());
-        },
-        onUpdateFromAddress: (value) => {
-            dispatch(updateFromAddress(value));
-        },
-        onUpdateToAddress: (value) => {
-            dispatch(updateToAddress(value));
-        },
-        onUpdateAmount: (value) => {
-            dispatch(updateAmount(value));
-        },
-        onSend: () => {
-            dispatch(send());
-        }
+        onUpdateSeed: (value) => dispatch(updateSeed(value)),
+        onUpdateSeedAmount: (value) => (dispatch(updateSeedAmount(value))),
+        onGenerateSeed: () => (dispatch(generateSeed())),
+        onUpdateFromAddress: (value) => (dispatch(updateFromAddress(value))),
+        onUpdateToAddress: (value) => (dispatch(updateToAddress(value))),
+        onUpdateAmount: (value) => (dispatch(updateAmount(value))),
+        onSend: () => (dispatch(send())),
+        onUpdateWallets: (wallets) => (dispatch(updateWallets(wallets))),
     };
 };
 

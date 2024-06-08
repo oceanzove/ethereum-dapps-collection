@@ -9,9 +9,27 @@ const UPDATE_TO_ADDRESS = 'UPDATE_TO_ADDRESS';
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT';
 const SEND = 'SEND';
 
+const UPDATE_WALLETS = 'UPDATE_WALLETS';
+
 const generateSeedContract = new GenerateSeedContract();
 const wallets = await generateSeedContract.wallets();
-console.log(wallets)
+
+const wordsArray = [
+    "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew",
+    "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry",
+    "strawberry", "tangerine", "ugli", "vanilla", "watermelon", "xigua", "yellowfruit", "zucchini",
+    "apricot", "blueberry", "cantaloupe", "dragonfruit", "eggplant", "fennel", "grapefruit", "huckleberry",
+    "imbe", "jackfruit", "kumquat", "lime", "mulberry", "naranjilla", "olive", "peach",
+    "plum", "pomegranate", "quandong", "rambutan", "salmonberry", "tamarillo", "ugni", "voavanga",
+    "waxapple", "ximenia", "youngberry", "zinfandel", "ackee", "bilberry", "cloudberry", "durian",
+    "entawak", "feijoa", "gooseberry", "hawthorn", "ilama", "jambolan", "kaffir", "loquat",
+    "mammee", "nutmeg", "orangeberry", "persimmon", "pomelo", "quenepa", "rosehip", "sapodilla",
+    "tamarind", "umbu", "velvetapple", "wolfberry", "ximenia", "yangmei", "zabergau", "acerola",
+    "breadfruit", "casaba", "damson", "elderberry", "fingerlime", "grumichama", "hackberry", "indianfig",
+    "jaboticaba", "kepel", "langsat", "mangosteen", "nance", "osageorange", "pandan", "quenepa",
+    "rowan", "soursop", "tangelo", "urava", "velvetapple", "wampee", "ximenia", "yumberry"
+];
+
 const initialState = {
     seed: '',
     seedAmount: '',
@@ -19,6 +37,7 @@ const initialState = {
     toAddress: '',
     amount: '',
     wallets: wallets,
+    words: wordsArray
 }
 
 
@@ -62,6 +81,11 @@ const reducer = (state = initialState, action) => {
                 toAddress: '',
                 amount: '',
             }
+        case UPDATE_WALLETS:
+            return {
+                ...state,
+                wallets: action.wallets,
+            }
         default:
             return state;
     }
@@ -95,3 +119,9 @@ export const updateAmount = (value) => (
 export const send = () => (
     {type: SEND}
 );
+
+export const updateWallets = (wallets) => (
+    {type: UPDATE_WALLETS, wallets: wallets}
+);
+
+

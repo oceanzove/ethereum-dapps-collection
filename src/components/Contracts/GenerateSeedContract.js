@@ -54,8 +54,8 @@ class GenerateSeedContract {
 
     async generateSeeds(_numberOfSeeds, _seeds) {
         try {
-            await this.generateSeedContract.methods.generateMultipleSeeds(_numberOfSeeds, _seeds)
-                .send({from: this.accounts[0], gas: '3000000'})
+             await this.generateSeedContract.methods.generateMultipleSeeds(_numberOfSeeds, _seeds)
+                .send({from: this.accounts[0], gas: '3000000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -63,9 +63,8 @@ class GenerateSeedContract {
 
     async sendEther(_from, _to, _amount) {
         try {
-            const response = await this.generateSeedContract.methods.sendEther(_from, _to, _amount)
-                .send({from: this.accounts[0], gas: '300000'})
-            console.log(response)
+            await this.generateSeedContract.methods.sendEther(_from, _to, _amount)
+                .send({from: this.accounts[0], gas: '300000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -75,7 +74,7 @@ class GenerateSeedContract {
         try {
             await this.init();
             return await this.generateSeedContract.methods.getWallets()
-                .call({from: this.accounts[0], gas: '200000'})
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
