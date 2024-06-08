@@ -17,8 +17,10 @@
     "web3": "^4.8.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "cd ./src/solidity-contracts && truffle migrate && cd ./../.. && react-scripts start",
+    "start-ganache": "npm i && ganache-cli",
+    "clear-linux": "rm -rf node_modules && npm cache clean --force",
+    "clear-windows": "rmdir /s /q node_modules && npm cache clean --force"
   },
   "eslintConfig": {
     "extends": [
