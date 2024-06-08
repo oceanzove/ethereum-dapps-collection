@@ -60,7 +60,7 @@ class MyCoinContract {
     async checkOwnerAddress () {
         try {
             return  await this.myCoinContract.methods.owner()
-                .call({from: this.accounts[0], gas: '200000'})
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000'  })
         } catch (error) {
             console.log(error);
         }
@@ -69,7 +69,7 @@ class MyCoinContract {
     async coin() {
         try {
             await this.myCoinContract.methods.coin()
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -78,7 +78,7 @@ class MyCoinContract {
     async totalSupple() {
         try {
             return await this.myCoinContract.methods.totalSupple()
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -87,7 +87,7 @@ class MyCoinContract {
     async balanceOf(_owner) {
         try {
             return await this.myCoinContract.methods.balanceOf(_owner)
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -96,7 +96,7 @@ class MyCoinContract {
     async transfer(_to, _value) {
         try {
             await this.myCoinContract.methods.transfer(_to, _value)
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }

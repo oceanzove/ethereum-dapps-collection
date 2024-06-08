@@ -49,9 +49,6 @@ function App(props) {
 
         await myCoinContract.transfer(address, amount);
         props.onTransfer();
-        const totalSupple = await myCoinContract.totalSupple();
-        console.log(totalSupple);
-
     };
   return (
       <div className="App">
