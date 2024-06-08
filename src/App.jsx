@@ -1,5 +1,6 @@
 import './App.css';
 import GenerateSeedContract from "./components/Contracts/GenerateSeedContract";
+import WalletItem from "./components/WalletItem/WalletItem";
 
 function App(props) {
     const generateSeedContract = new GenerateSeedContract();
@@ -61,8 +62,27 @@ function App(props) {
 
         const seedAmount = props.page.seedAmount;
 
-        await generateSeedContract.generateSeeds(seedAmount, truncatedWords)
+        await generateSeedContract.generateSeeds(seedAmount, truncatedWords);
+        props.onGenerateSeed();
     }
+
+    /**
+     * Трансфер с одного аккаунта на другой
+     * @return {Promise<void>}
+     */
+    const onTransfer = async () => {
+        const _from = props.page.fromAddress;
+        const _to = props.page.toAddress;
+        const _amount = props.page.amount;
+
+        await generateSeedContract.sendEther(_from, _to, _amount);
+        props.onSend()
+    }
+
+    let wallets = props.page.wallets.map(
+        wallet => <WalletItem walletAddress={wallet.walletAddress} privateKey={wallet.privateKey} balance={wallet.balance}/>
+    )
+    console.log(wallets);
 
 
     return (
@@ -90,7 +110,7 @@ function App(props) {
                 </div>
                 <div style={{marginBottom: '30px'}}>
                     <h2>Адрес, Ключи и Балансы этих сидов</h2>
-
+                    {wallets}
                     <h2>Отправить эфир</h2>
                 </div>
                 <div className="send-eth">
@@ -106,7 +126,7 @@ function App(props) {
                                 || !props.page.toAddress
                                 || !props.page.amount
                             }
-                            onClick={null}
+                            onClick={onTransfer}
                     >Отправить эфир
                     </button>
                 </div>

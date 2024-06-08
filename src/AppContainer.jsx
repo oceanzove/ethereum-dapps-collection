@@ -1,7 +1,8 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    updateAmount, updateAmountAddresses,
+    generateSeed, send,
+    updateAmount,
     updateFromAddress,
     updateSeed, updateSeedAmount, updateToAddress
 } from "./redux/reducer";
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateSeedAmount: (value) => {
             dispatch(updateSeedAmount(value));
         },
+        onGenerateSeed: () => {
+          dispatch(generateSeed());
+        },
         onUpdateFromAddress: (value) => {
             dispatch(updateFromAddress(value));
         },
@@ -28,6 +32,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onUpdateAmount: (value) => {
             dispatch(updateAmount(value));
+        },
+        onSend: () => {
+            dispatch(send());
         }
     };
 };

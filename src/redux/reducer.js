@@ -9,16 +9,18 @@ const UPDATE_TO_ADDRESS = 'UPDATE_TO_ADDRESS';
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT';
 const SEND = 'SEND';
 
+const generateSeedContract = new GenerateSeedContract();
+const wallets = await generateSeedContract.wallets();
+console.log(wallets)
 const initialState = {
     seed: '',
     seedAmount: '',
     fromAddress: '',
     toAddress: '',
     amount: '',
+    wallets: wallets,
 }
-const generateSeedContract = new GenerateSeedContract();
-const qwe = await generateSeedContract.wallets();
-console.log(qwe)
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -31,6 +33,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 seedAmount: action.newValue,
+            }
+        case GENERATE_SEED:
+            return {
+                ...state,
+                seed: '',
+                seedAmount: '',
             }
         case UPDATE_FROM_ADDRESS:
             return {
@@ -47,6 +55,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 amount: action.newValue,
             }
+        case SEND:
+            return {
+                ...state,
+                fromAddress: '',
+                toAddress: '',
+                amount: '',
+            }
         default:
             return state;
     }
@@ -61,6 +76,10 @@ export const updateSeed = (value) => (
 export const updateSeedAmount = (value) => (
     {type: UPDATE_SEED_AMOUNT, newValue: value}
 );
+
+export const generateSeed = () => (
+    {type: GENERATE_SEED}
+);
 export const updateFromAddress = (value) => (
     {type: UPDATE_FROM_ADDRESS, newValue: value}
 );
@@ -71,4 +90,8 @@ export const updateToAddress = (value) => (
 
 export const updateAmount = (value) => (
     {type: UPDATE_AMOUNT, newValue: value}
+);
+
+export const send = () => (
+    {type: SEND}
 );

@@ -34,7 +34,7 @@ h4 {
 
 /* Поля ввода */
 .seed {
-  width: 100%;
+  width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
