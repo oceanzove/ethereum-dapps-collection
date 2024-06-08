@@ -1,0 +1,103 @@
+/* Общий контейнер */
+.App {
+  font-family: Arial, sans-serif;
+}
+
+/* Контейнер внутри App */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Секция генерации сида */
+.generate-seed {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Сообщение */
+#message {
+  color: #333;
+  background-color: #e9e9e9;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Заголовки */
+h4 {
+  color: #333;
+  font-size: 16px;
+}
+
+/* Поля ввода */
+.seed {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+  &.number {
+    width: 50px;
+  }
+}
+
+.seedGenerate {
+  display: flex;
+  align-items: center;
+}
+
+.seed, .amount {
+  margin-right: 10px; /* Отступ между элементами */
+}
+
+/* Кнопки в секции генерации сида */
+.generate-seed-button button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.generate-seed-button button:hover {
+  background-color: #0056b3;
+}
+
+.generate-seed-button button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+.generate-seed-button button:disabled:hover {
+  background-color: #cccccc;
+}
+
+.generate-seed-button button:hover {
+  background-color: #0b7dda;
+}
+
+/* Заголовки и поля ввода в секции отправки эфира */
+.send-eth {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Кнопка отправки эфира */
+.send-eth-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-eth-button:hover {
+  background-color: #1e7e34;
+}
