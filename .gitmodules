@@ -1,0 +1,3 @@
+[submodule "ethereum-generateseed-dapp"]
+	path = ethereum-generateseed-dapp
+	url = https://github.com/oceanzove/ethereum-generateseed-dapp
