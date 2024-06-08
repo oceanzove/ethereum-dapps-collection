@@ -1,9 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
+pragma experimental ABIEncoderV2;
+
 contract GenerateSeed {
     address public owner;
     mapping(address => uint) public balances;
+    mapping(address => WalletInfo) public wallets;
+    address[] public walletAddresses;
+
+    struct WalletInfo {
+        address walletAddress;
+        bytes32 privateKey;
+        uint balance;
+    }
 
     constructor() public {
         owner = msg.sender;
@@ -11,25 +21,37 @@ contract GenerateSeed {
     }
 
     function sendEther(address payable _to, uint256 _amount) external {
-        require(msg.sender == owner, "You are not the owner");
-        require(address(this).balance >= _amount, "Insufficient balance");
+        require(balances[msg.sender] >= _amount, "Insufficient balance");
+
+        balances[msg.sender] -= _amount;
+        balances[_to] += _amount;
 
         _to.transfer(_amount);
     }
 
-    event SeedGenerated(string seed);
+    function generateMultipleSeeds(uint _numberOfSeeds, string[] calldata _seeds) external {
 
-    function generateSeed() external returns (string memory) {
-        string[12] memory wordList = ["word1", "word2", "word3", "word4", "word5", "word6", "word7", "word8", "word9", "word10", "word11", "word12"];
-        string[12] memory seed;
+        for (uint j = 0; j < _numberOfSeeds.length; j++) {
+            bytes32 seedHash = keccak256(abi.encode(_seeds[j]));
+            address wallet = address(uint160(uint(seedHash)));
 
-        for (uint i = 0; i < 12; i++) {
-            uint randomIndex = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, i))) % 12;
-            seed[i] = wordList[randomIndex];
+            // Сохраняем информацию о кошельке
+            wallets[wallet] = WalletInfo(wallet, seedHash, 100);
+            walletAddresses.push(wallet); // Добавляем адрес кошелька в массив
         }
+    }
 
-        string memory seedString = string(abi.encodePacked(seed[0], " ", seed[1], " ", seed[2], " ", seed[3], " ", seed[4], " ", seed[5], " ", seed[6], " ", seed[7], " ", seed[8], " ", seed[9], " ", seed[10], " ", seed[11]));
-        emit SeedGenerated(seedString);
-        return seedString;
+    // Метод для получения списка всех кошельков
+    function getWallets() external view returns (WalletInfo[] memory) {
+        WalletInfo[] memory allWallets = new WalletInfo[](walletAddresses.length);
+        for (uint i = 0; i < walletAddresses.length; i++) {
+            allWallets[i] = wallets[walletAddresses[i]];
+        }
+        return allWallets;
+    }
+
+    // Метод для получения информации о кошельке по адресу
+    function getWallet(address _walletAddress) external view returns (WalletInfo memory) {
+        return wallets[_walletAddress];
     }
 }

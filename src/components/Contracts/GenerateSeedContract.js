@@ -1,9 +1,9 @@
 import ContractManager from "../Services/ContractManager";
 
-class PatternContract {
+class GenerateSeedContract {
     constructor() {
         this.contractManager = null;
-        this.PatternContract = null;
+        this.generateSeedContract = null;
         this.accounts = null;
         this.web3 = null;
         this.init();
@@ -15,7 +15,7 @@ class PatternContract {
             this.web3 = await this.getWeb3();
             this.accounts = await this.getAccounts();
 
-            this.PatternContract = await this.getAddressContract('PatternContract')
+            this.generateSeedContract = await this.getAddressContract('GenerateSeedContract')
         } catch (error) {
             console.error(error);
         }
@@ -52,6 +52,24 @@ class PatternContract {
         }
     }
 
+    async generateSeeds(_numberOfSeeds, _seeds) {
+        try {
+            await this.generateSeedContract.methods.generateMultipleSeeds(_numberOfSeeds, _seeds)
+                .send({from: this.accounts[0], gas: '2200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async wallets() {
+        try {
+            await this.init();
+            return await this.generateSeedContract.methods.getWallets()
+                .call({from: this.accounts[0], gas: '200000'})
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
-export default PatternContract;
+export default GenerateSeedContract;

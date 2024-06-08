@@ -39,6 +39,19 @@ h4 {
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+
+  &.number {
+    width: 50px;
+  }
+}
+
+.seedGenerate {
+  display: flex;
+  align-items: center;
+}
+
+.seed, .amount {
+  margin-right: 10px; /* Отступ между элементами */
 }
 
 /* Кнопки в секции генерации сида */
@@ -54,6 +67,18 @@ h4 {
 
 .generate-seed-button button:hover {
   background-color: #0056b3;
+}
+
+.generate-seed-button button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+.generate-seed-button button:disabled:hover {
+  background-color: #cccccc;
+}
+
+.generate-seed-button button:hover {
+  background-color: #0b7dda;
 }
 
 /* Заголовки и поля ввода в секции отправки эфира */

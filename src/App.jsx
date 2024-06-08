@@ -1,42 +1,118 @@
 import './App.css';
+import GenerateSeedContract from "./components/Contracts/GenerateSeedContract";
 
 function App(props) {
+    const generateSeedContract = new GenerateSeedContract();
 
-  const onChangeTest = (e) => {
-    const value = e.target.value;
-    props.onTest(value);
-  };
+    /**
+     * Обновляет поле Seed
+     */
+    const onChangeSeed = (e) => {
+        const value = e.target.value;
+        props.onUpdateSeed(value);
+    };
 
-  return (
-      <div className="App">
-          <div className="container">
-              <div className="generate-seed">
-                  <div className="alert" id="message">
-                      Создайте свой существующий кошелек или используйте его.
-                  </div>
-                  <h4>Введите сид (12 слов)</h4>
-                  <input className="seed" type="text"/>
-                  <div className="generate-seed-button">
-                      <button>Сгенерировать детали</button>
-                      <button>Сгенерировать новый сид</button>
-                  </div>
-              </div>
-              <div style={{marginBottom: '30px'}}>
-                  <h2>Адрес, Ключи и Балансы этих сидов</h2>
-                  <h2>Отправить эфир</h2>
-              </div>
-              <div className="send-eth">
-                  <h4>С адреса</h4>
-                  <input className="seed" type="text"/>
-                  <h4>На адреса</h4>
-                  <input className="seed" type="text"/>
-                  <h4>Количество эфира</h4>
-                  <input className="seed" type="text"/>
-                  <button className="send-eth-button">Отправить эфир</button>
-              </div>
-          </div>
-      </div>
-  );
+    /**
+     * Обновляет поле SeedAmount
+     */
+    const onChangeSeedAmount = (e) => {
+        const value = e.target.value;
+        props.onUpdateSeedAmount(value);
+    };
+
+    /**
+     * Обновляет поле FromAddress
+     */
+    const onChangeFromAddress = (e) => {
+        const value = e.target.value;
+        props.onUpdateFromAddress(value);
+    };
+
+    /**
+     * Обновляет поле ToAddress
+     */
+    const onChangeToAddress = (e) => {
+        const value = e.target.value;
+        props.onUpdateToAddress(value);
+    };
+
+    /**
+     * Обновляет поле Amount
+     */
+    const onChangeAmount = (e) => {
+        const value = e.target.value;
+        props.onUpdateAmount(value);
+    };
+
+    const onDisabledSeedButton = () => {
+        const trimmedSeed = props.page.seed.trim().replace(/\s{2,}/g, ' ');
+        const words = trimmedSeed.split(' ');
+        return words.length === 12 || words.length > 12;
+    }
+
+    /**
+     * Создает сид
+     * @return {Promise<void>}
+     */
+    const onSeedClick = async () => {
+        const trimmedSeed = props.page.seed.trim().replace(/\s{2,}/g, ' ');
+        const words = trimmedSeed.split(' ');
+        const truncatedWords = words.length > 12 ? words.slice(0, 12) : words;
+
+        const seedAmount = props.page.seedAmount;
+
+        await generateSeedContract.generateSeeds(seedAmount, truncatedWords)
+    }
+
+
+    return (
+        <div className="App">
+            <div className="container">
+                <div className="generate-seed">
+                    <div className="alert" id="message">
+                        Создайте свой существующий кошелек или используйте его.
+                    </div>
+                    <h4>Введите сид (12 слов)</h4>
+                    <div className="seedGenerate">
+                        <input className="seed" type="text" value={props.page.seed} onChange={onChangeSeed}/>
+                        <input className="seed number" type='number' value={props.page.seedAmount}
+                               onChange={onChangeSeedAmount} min={1} max={12}
+                        />
+                    </div>
+                    <div className="generate-seed-button">
+                        <button
+                            disabled={!onDisabledSeedButton() || !props.page.seedAmount}
+                            onClick={onSeedClick}
+                        >Сгенерировать сид из слов
+                        </button>
+                        <button>Сгенерировать сид случайных слов</button>
+                    </div>
+                </div>
+                <div style={{marginBottom: '30px'}}>
+                    <h2>Адрес, Ключи и Балансы этих сидов</h2>
+
+                    <h2>Отправить эфир</h2>
+                </div>
+                <div className="send-eth">
+                    <h4>С адреса</h4>
+                    <input className="seed" type="text" value={props.page.fromAddress} onChange={onChangeFromAddress}/>
+                    <h4>На адреса</h4>
+                    <input className="seed" type="text" value={props.page.toAddress} onChange={onChangeToAddress}/>
+                    <h4>Количество эфира</h4>
+                    <input className="seed" type="text" value={props.page.amount} onChange={onChangeAmount}/>
+                    <button className="send-eth-button"
+                            disabled={
+                                !props.page.fromAddress
+                                || !props.page.toAddress
+                                || !props.page.amount
+                            }
+                            onClick={null}
+                    >Отправить эфир
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;

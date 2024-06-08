@@ -1,8 +1,10 @@
 import {connect} from "react-redux";
 import App from "./App";
 import {
-    test
-} from "./redux/patternReducer";
+    updateAmount, updateAmountAddresses,
+    updateFromAddress,
+    updateSeed, updateSeedAmount, updateToAddress
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -12,9 +14,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTest: (value) => {
-            dispatch(test(value));
+        onUpdateSeed: (value) => {
+            dispatch(updateSeed(value));
         },
+        onUpdateSeedAmount: (value) => {
+            dispatch(updateSeedAmount(value));
+        },
+        onUpdateFromAddress: (value) => {
+            dispatch(updateFromAddress(value));
+        },
+        onUpdateToAddress: (value) => {
+            dispatch(updateToAddress(value));
+        },
+        onUpdateAmount: (value) => {
+            dispatch(updateAmount(value));
+        }
     };
 };
 
