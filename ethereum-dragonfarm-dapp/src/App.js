@@ -21,7 +21,7 @@ function App(props) {
     }
 
     const onAddDragonClick = async () => {
-        const name = props.dragonFarmPage.setName;
+        const name = props.page.setName;
         const dna = await dragonFarmContract.generateDna(name);
         await dragonFarmContract.addDragon(name, dna)
 
@@ -30,14 +30,12 @@ function App(props) {
     }
 
     const onGetDragonInfo = async () => {
-        const index = props.dragonFarmPage.getIndex;
+        const index = props.page.getIndex;
         const dragon = await dragonFarmContract.getDragon(index);
         props.onSetGetDragonInfo(dragon.name, dragon.dna);
-
-        console.log(props.dragonFarmPage.getInfo[0].name);
     }
 
-    let dragonElements = props.dragonFarmPage.dragons.map(
+    let dragonElements = props.page.dragons.map(
         d => <DragonItem key={d.index} index={d.index} name={d.name} dna={d.dna}/>
     )
 
@@ -55,12 +53,12 @@ function App(props) {
                                     Добавить дракона
                                 </label>
                                 <input type="text" id='dragon-add'
-                                       value={props.dragonFarmPage.setName}
+                                       value={props.page.setName}
                                        onChange={onChangeDragonAdd}
                                 />
                             </div>
                             <button
-                                disabled={!props.dragonFarmPage.setName}
+                                disabled={!props.page.setName}
                                 onClick={onAddDragonClick} className="button">Добавить
                             </button>
                             <div className='input-div'>
@@ -68,21 +66,21 @@ function App(props) {
                                     Получить дракона по индексу
                                 </label>
                                 <input type="text" id='dargon-get'
-                                       value={props.dragonFarmPage.getIndex}
+                                       value={props.page.getIndex}
                                        onChange={onChangeDragonGet}
                                 />
                             </div>
                             <button
-                                disabled={!props.dragonFarmPage.getIndex}
+                                disabled={!props.page.getIndex}
                                 onClick={onGetDragonInfo} className="button">Получить
                             </button>
                             <div className='input-div'>
                                 <label htmlFor='name' className='input-label'>Имя</label>
-                                <output id='name'>{props.dragonFarmPage.getInfo[0].name}</output>
+                                <output id='name'>{props.page.getInfo[0].name}</output>
                             </div>
                             <div className='input-div'>
                                 <label htmlFor='dna' className='input-label'>ДНК</label>
-                                <output id='dna'>{props.dragonFarmPage.getInfo[0].dna.toString()}</output>
+                                <output id='dna'>{props.page.getInfo[0].dna.toString()}</output>
                             </div>
                         </div>
                     ) : (

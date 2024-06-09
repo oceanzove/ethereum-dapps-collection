@@ -23,7 +23,7 @@ const initialState = {
     dragons: dragons
 }
 
-const dragonFarmReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_ADD_NAME:
             return {
@@ -60,7 +60,7 @@ const dragonFarmReducer = (state = initialState, action) => {
     }
 }
 
-export default dragonFarmReducer;
+export default reducer;
 
 export const updateAddName = (value) => (
     {type: UPDATE_ADD_NAME, newValue: value}

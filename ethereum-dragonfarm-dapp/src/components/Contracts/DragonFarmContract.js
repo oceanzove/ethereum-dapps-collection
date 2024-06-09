@@ -45,7 +45,7 @@ class DragonFarmContract {
         try {
             await this.init()
             return await this.dargonFarmContract.methods.GetAllDragons()
-                .call();
+                .call({from: this.accounts[0], gas: "2000000", gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -55,7 +55,6 @@ class DragonFarmContract {
         try {
             await this.init();
             const allDragons = await this.getAllDragons();
-            console.log(allDragons)
             return allDragons[index];
         } catch (error) {
             console.log(error);
@@ -66,7 +65,7 @@ class DragonFarmContract {
         try {
             await this.init();
             return await this.dargonFarmContract.methods.GenerateRandomDna(_str)
-                .call();
+                .call({from: this.accounts[0], gas: "2000000", gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +75,7 @@ class DragonFarmContract {
         try {
             await this.init();
             return await this.dargonFarmContract.methods.getLastDragonIndex()
-                .call();
+                .call({from: this.accounts[0], gas: "2000000", gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -86,7 +85,7 @@ class DragonFarmContract {
         try {
             await this.init();
             await this.dargonFarmContract.methods.AddDragon(_name, _dna)
-                .send({from: this.accounts[0], gas: "2000000"});
+                .send({from: this.accounts[0], gas: "2000000", gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }

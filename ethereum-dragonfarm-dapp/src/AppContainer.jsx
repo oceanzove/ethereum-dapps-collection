@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
 import App from "./App";
-import {addDragon, setGetDragonInfo, updateAddName, updateGetIndex} from "./redux/dragonFarmReducer";
+import {addDragon, setGetDragonInfo, updateAddName, updateGetIndex} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
-        dragonFarmPage: state.dragonFarmPage
+        page: state.page
     };
 };
 
