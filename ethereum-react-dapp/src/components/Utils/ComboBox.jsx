@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from './ComboBox.moduel.css'
 
 const ComboBox = ({ options, onSelect }) => {
     const [selectedOption, setSelectedOption] = useState(null);
