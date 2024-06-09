@@ -47,7 +47,8 @@ const NewNote = (props) => {
             const number = props.newNotePage.numberUser;
             const userAddress = props.newNotePage.addressUser;
             const accounts = await web3Instance.eth.getAccounts();
-            await newNoteContract.methods.setUser(name, number, userAddress).send({from: accounts[0], gas: 200000});
+            await newNoteContract.methods.setUser(name, number, userAddress)
+                .send({from: accounts[0], gas: 200000, gasPrice: '1000000'});
             props.setUser();
         } catch (error) {
             console.error(error);
@@ -58,7 +59,6 @@ const NewNote = (props) => {
         try {
             const name = props.newNotePage.nameSearchUser;
             const user = await newNoteContract.methods.getUser(name).call();
-            console.log(user)
             props.getUser(user);
         } catch (error) {
             console.error(error);

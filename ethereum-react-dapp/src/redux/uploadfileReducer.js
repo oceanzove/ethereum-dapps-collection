@@ -41,7 +41,7 @@ const uploadFileReducer = (state = initialState, action) => {
             let newFile = {fileOwner: action.fileOwner, fileName: action.fileName, fileHash: action.fileHash, uploadTime: action.uploadTime}
             return {
                 ...state,
-                uploadFiles: [...state.uploadFiles, newFile],
+                uploadFiles: [newFile],
                 newOwnerText: '',
                 newFileName: '',
                 newFileHash: '',

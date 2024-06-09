@@ -43,7 +43,8 @@ const Note = (props) => {
             const newNumber = props.notePage.numberNote;
             const newAddress = props.notePage.addressNote;
             const accounts = await web3Instance.eth.getAccounts();
-            await noteContract.methods.set(newName, newNumber, newAddress).send({from: accounts[0], gas: 200000});
+            await noteContract.methods.set(newName, newNumber, newAddress)
+                .send({from: accounts[0], gas: 200000, gasPrice: '1000000'});
             props.setNote();
         } catch (error) {
             console.error(error);

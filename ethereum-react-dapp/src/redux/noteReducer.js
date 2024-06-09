@@ -38,7 +38,6 @@ const noteReducer = (state = initialState, action) => {
                 addressNote: '',
             }
         case GET_NOTE:
-            console.log(action.newNote);
             return {
                 ...state,
                 note: [action.newNote]

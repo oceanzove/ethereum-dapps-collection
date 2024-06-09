@@ -42,7 +42,9 @@ const UploadFile = (props) => {
                 fileReader.onloadend = async () => {
                     const arrayBuffer = fileReader.result;
                     const fileBytes = new Uint8Array(arrayBuffer);
-                    const fileHash = await fileStorageContract.methods.getFileHash(fileBytes).call();
+                    const accounts = await web3Instance.eth.getAccounts();
+                    const fileHash = await fileStorageContract.methods.getFileHash(fileBytes)
+                        .call({ from: accounts[0], gas: '2000000', gasPrice: '1000000' });
                     resolve(fileHash);
                 };
                 fileReader.readAsArrayBuffer(file);
@@ -60,8 +62,8 @@ const UploadFile = (props) => {
             const fileName = props.uploadFilePage.newFileName;
             const uploadTime = Date.now();
             const accounts = await web3Instance.eth.getAccounts();
-            const gasLimit = 2000000; // Установите желаемое значение газа
-            const {transactionHash} = await fileStorageContract.methods.uploadFile(fileHash, ownerName, fileName, uploadTime).send({ from: accounts[0], gas: gasLimit });
+            const {transactionHash} = await fileStorageContract.methods.uploadFile(fileHash, ownerName, fileName, uploadTime)
+                .send({ from: accounts[0], gas: '2000000', gasPrice: '1000000' });
             props.updateTransactionHash(transactionHash);
             props.uploadFile(ownerName, fileName, fileHash, uploadTime);
 
