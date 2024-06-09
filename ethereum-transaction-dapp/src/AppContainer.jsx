@@ -4,7 +4,7 @@ import {
     coin, send,
     setBalance,
     updateFromAddress, updateFromAmount, updateGetBalanceAddress, updateToAddress, updateToAmount
-} from "./redux/transactionReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {

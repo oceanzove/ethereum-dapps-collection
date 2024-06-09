@@ -54,7 +54,7 @@ class TransactionContract {
     async coin(receiver, amount) {
         try {
             await this.transactionContract.methods.coin(receiver, amount)
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -63,7 +63,7 @@ class TransactionContract {
     async send(receiver, amount) {
         try {
             await this.transactionContract.methods.send(receiver, amount)
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -72,7 +72,7 @@ class TransactionContract {
     async balance(address) {
         try {
             return await this.transactionContract.methods.balances(address)
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }

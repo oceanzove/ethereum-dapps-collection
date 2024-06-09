@@ -26,7 +26,7 @@ const initialState = {
     balance: '',
     addresses: addresses,
 }
-const transactionReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_FROM_ADDRESS:
             return {
@@ -73,7 +73,7 @@ const transactionReducer = (state = initialState, action) => {
     }
 }
 
-export default transactionReducer;
+export default reducer;
 
 export const updateFromAddress = (value) => (
     {type: UPDATE_FROM_ADDRESS, newValue: value}

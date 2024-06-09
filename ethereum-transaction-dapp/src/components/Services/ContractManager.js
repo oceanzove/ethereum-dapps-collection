@@ -11,7 +11,7 @@ class ContractManager {
 
     async init() {
         try {
-            this.web3 = new Web3('http://localhost:7545');
+            this.web3 = new Web3('http://localhost:8545');
 
             this.contracts.TransactionContract = await this.initContract(TransactionContract);
 
