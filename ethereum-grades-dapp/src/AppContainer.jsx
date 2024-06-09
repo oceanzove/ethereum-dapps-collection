@@ -6,11 +6,11 @@ import {
     updateSetGrade,
     updateSetTitle
 
-} from "./redux/gradesReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
-        gradesPage: state.gradesPage
+        page: state.page
     };
 };
 

@@ -12,15 +12,15 @@ function App(props) {
     }
     
     const onSetGradeClicked = async () => {
-        const title = props.gradesPage.setTitle;
-        const grade = props.gradesPage.setGrade;
+        const title = props.page.setTitle;
+        const grade = props.page.setGrade;
 
         await gradesContract.setGrade(title, grade);
         props.onSetGrade();
     }
 
     const onGetResultsClicked = async () => {
-        const title = props.gradesPage.getTitle;
+        const title = props.page.getTitle;
 
         const response = await gradesContract.getResults(title);
         props.onGetResults(response.amount, response.average, response.sum );
@@ -58,7 +58,7 @@ function App(props) {
                                     Название
                                 </label>
                                 <input type="text" id='title-set'
-                                       value={props.gradesPage.setTitle}
+                                       value={props.page.setTitle}
                                        onChange={onChangeSetTitle}
                                 />
                             </div>
@@ -67,14 +67,14 @@ function App(props) {
                                     Оценка
                                 </label>
                                 <input type="number" id='grade-set'
-                                       value={props.gradesPage.setGrade}
+                                       value={props.page.setGrade}
                                        onChange={onChangeSetGrade}
                                        min="1" max="5"
                                 />
                             </div>
                             <button
                                 disabled={
-                                    !props.gradesPage.setTitle || !props.gradesPage.setGrade
+                                    !props.page.setTitle || !props.page.setGrade
                                 }
                                 onClick={onSetGradeClicked} className="button">Поставить
                             </button>
@@ -86,27 +86,27 @@ function App(props) {
                                     Название
                                 </label>
                                 <input type="text" id='title-get'
-                                       value={props.gradesPage.getTitle}
+                                       value={props.page.getTitle}
                                        onChange={onChangeGetTitle}
                                 />
                             </div>
                             <button
                                 disabled={
-                                    !props.gradesPage.getTitle
+                                    !props.page.getTitle
                                 }
                                 onClick={onGetResultsClicked} className="button">Результат
                             </button>
                             <div className='input-div'>
                                 <label htmlFor='amount' className='input-label'>Количество оценок</label>
-                                <output id='amount'>{props.gradesPage.result[0].amount.toString()}</output>
+                                <output id='amount'>{props.page.result[0].amount.toString()}</output>
                             </div>
                             <div className='input-div'>
                                 <label htmlFor='average' className='input-label'>Средний балл</label>
-                                <output id='average'>{props.gradesPage.result[0].average.toString()}</output>
+                                <output id='average'>{props.page.result[0].average.toString()}</output>
                             </div>
                             <div className='input-div'>
                                 <label htmlFor='sum' className='input-label'>Сумма</label>
-                                <output id='sum'>{props.gradesPage.result[0].sum.toString()}</output>
+                                <output id='sum'>{props.page.result[0].sum.toString()}</output>
                             </div>
                         </div>
                     )}

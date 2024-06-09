@@ -1,9 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import gradesReducer from "./gradesReducer";
+import reducer from "./reducer";
 
 
 let reducers = combineReducers({
-    gradesPage : gradesReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

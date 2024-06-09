@@ -44,7 +44,7 @@ class GradesContract {
     async setGrade(title, grade) {
         try {
             await this.gradesContract.methods.setGrade(title, grade)
-                .send({from: this.accounts[0], gas: 200000})
+                .send({from: this.accounts[0], gas: 200000, gasPrice: '1000000'})
         } catch (error) {
             console.log(error);
         }
@@ -52,7 +52,7 @@ class GradesContract {
     async getResults(title) {
         try {
             return await this.gradesContract.methods.results(title)
-                .call({from: this.accounts[0]})
+                .call({from: this.accounts[0], gas: 200000, gasPrice: '1000000'})
         } catch (error) {
             console.log(error)
         }

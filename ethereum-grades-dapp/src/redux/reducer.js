@@ -12,7 +12,7 @@ const initialState = {
     result: [{amount: '', average: '', sum: ''}],
 }
 
-const gradesReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_SET_TITLE:
             return {
@@ -50,7 +50,7 @@ const gradesReducer = (state = initialState, action) => {
     }
 }
 
-export default gradesReducer;
+export default reducer;
 
 export const updateSetTitle = (value) => (
     {type: UPDATE_SET_TITLE, newValue: value}
