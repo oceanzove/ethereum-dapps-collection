@@ -1,0 +1,25 @@
+.app-wrapper {
+  display: grid;
+
+  margin: 10vw 10vw 0 10vw;
+
+  grid-template-areas: "navbar content" ;
+  grid-template-rows: 1fr;
+  grid-template-columns: 0.4fr 1fr;
+}
+
+.app-wrapper-nav {
+  grid-area: navbar;
+  margin: 0 10px;
+}
+
+.app-wrapper-content {
+  grid-area: content;
+  background: #F2F2F2;
+
+  border-radius: 20px;
+
+  padding: 20px;
+}
+
+

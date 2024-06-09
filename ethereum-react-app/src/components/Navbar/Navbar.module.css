@@ -1,0 +1,41 @@
+.nav {
+    background-color: #F2F2F2;
+    border-radius: 20px;
+
+    height: 500px;
+    padding: 20px;
+
+}
+
+.dropdownMenu {
+    list-style-type: none;
+
+    .open {
+        color: #7ca6d3;
+    }
+
+    div.active{
+        color: #0b7dda;
+    }
+
+    div {
+        padding: 2px;
+    }
+}
+
+.item {
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+
+
+    a.active {
+        color: #0b7dda;
+    }
+
+}
+
+
