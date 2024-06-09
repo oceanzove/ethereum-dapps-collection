@@ -86,15 +86,9 @@ if [ "$choice" -ge 0 ] 2>/dev/null && [ "$choice" -lt "${#directories[@]}" ]; th
             start /wait cmd /k "npm run start-ganache"
             # После завершения работы открываем еще один терминал и выполняем npm start
             start /wait cmd /k "npm start"
-    elif [ "${machine}" = "Linux" ]; then
-        # Открываем новый терминал и выполняем npm ganache
-        gnome-terminal -- bash -c "npm run ganache; exec bash"
-        # После завершения работы открываем еще один терминал и выполняем npm start
-        gnome-terminal -- bash -c "sleep 5; npm start; exec bash"
     elif [ "${machine}" = "Mac" ]; then
         # Для macOS используем osascript
-        osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run start-ganache"'
-        osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm start"'
+        osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run start-ganache && npm start"'
     fi
 else
     echo "Неверный выбор!"
