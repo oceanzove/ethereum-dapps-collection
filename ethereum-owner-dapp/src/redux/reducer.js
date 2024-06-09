@@ -19,7 +19,7 @@ const initialState = {
     getUserAddress: '',
 }
 
-const ownerReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_SET_USER_NAME:
             return {
@@ -73,7 +73,7 @@ const ownerReducer = (state = initialState, action) => {
     }
 }
 
-export default ownerReducer;
+export default reducer;
 
 export const updateSetUserName = (value) => (
     {type: UPDATE_SET_USER_NAME, newValue: value}

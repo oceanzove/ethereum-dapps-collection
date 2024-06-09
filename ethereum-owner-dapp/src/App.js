@@ -11,10 +11,10 @@ function App(props) {
     }
 
     const onSetUserClicked = async () => {
-        const name = props.ownerPage.setUserName;
-        const number = props.ownerPage.setUserNumber;
-        const age = Number(props.ownerPage.setUserAge);
-        const address = props.ownerPage.setUserAddress;
+        const name = props.page.setUserName;
+        const number = props.page.setUserNumber;
+        const age = Number(props.page.setUserAge);
+        const address = props.page.setUserAddress;
 
         // Вызываем метод setUser контракта и передаем значения
         const response = await ownerContract.setUser(name, number, age, address);
@@ -26,8 +26,8 @@ function App(props) {
 
     const onGetUserClicked = async () => {
         // Получаем значения полей из формы получения
-        const name = props.ownerPage.getUserName;
-        const address = props.ownerPage.getUserAddress;
+        const name = props.page.getUserName;
+        const address = props.page.getUserAddress;
 
         // Вызываем метод getUser контракта и передаем значения
         const response = await ownerContract.getUser(name, address);
@@ -98,7 +98,7 @@ function App(props) {
                                     Имя
                                 </label>
                                 <input type="text" id='name-set'
-                                       value={props.ownerPage.setUserName}
+                                       value={props.page.setUserName}
                                        onChange={onChangeSetName}
                                 />
                             </div>
@@ -107,7 +107,7 @@ function App(props) {
                                     Номер
                                 </label>
                                 <input type="text" id='number-set'
-                                       value={props.ownerPage.setUserNumber}
+                                       value={props.page.setUserNumber}
                                        onChange={onChangeSetNumber}
                                 />
                             </div>
@@ -116,7 +116,7 @@ function App(props) {
                                     Возраст
                                 </label>
                                 <input type="text" id='age-set'
-                                       value={props.ownerPage.setUserAge}
+                                       value={props.page.setUserAge}
                                        onChange={onChangeSetAge}
                                 />
                             </div>
@@ -125,16 +125,16 @@ function App(props) {
                                     Адресс
                                 </label>
                                 <input type="text" id="address-set"
-                                       value={props.ownerPage.setUserAddress}
+                                       value={props.page.setUserAddress}
                                        onChange={onChangeSetAddress}
                                 />
                             </div>
                             <button
                                 disabled={
-                                    !props.ownerPage.setUserName
-                                    || !props.ownerPage.setUserNumber
-                                    || !props.ownerPage.setUserAge
-                                    || !props.ownerPage.setUserAddress
+                                    !props.page.setUserName
+                                    || !props.page.setUserNumber
+                                    || !props.page.setUserAge
+                                    || !props.page.setUserAddress
                                 }
                                 onClick={onSetUserClicked} className="button">Установить
                             </button>
@@ -146,7 +146,7 @@ function App(props) {
                                     Имя
                                 </label>
                                 <input type="text" id='name-get'
-                                       value={props.ownerPage.getUserName}
+                                       value={props.page.getUserName}
                                        onChange={onChangeGetName}
                                 />
                             </div>
@@ -155,7 +155,7 @@ function App(props) {
                                     Адресс
                                 </label>
                                 <input type="text" id="address-get"
-                                       value={props.ownerPage.getUserAddress}
+                                       value={props.page.getUserAddress}
                                        onChange={onChangeGetAddress}
                                 />
                             </div>
@@ -163,18 +163,18 @@ function App(props) {
                                 <label htmlFor='number-get' className='input-label'>
                                     Номер
                                 </label>
-                                <output id='number-get'>{props.ownerPage.getUserNumber}</output>
+                                <output id='number-get'>{props.page.getUserNumber}</output>
                             </div>
                             <div className='input-div'>
                                 <label htmlFor='age-get' className='input-label'>
                                     Возраст
                                 </label>
-                                <output id='age-get'>{props.ownerPage.getUserAge}</output>
+                                <output id='age-get'>{props.page.getUserAge}</output>
                             </div>
                             <button
                                 disabled={
-                                    !props.ownerPage.getUserName
-                                    || !props.ownerPage.getUserAddress
+                                    !props.page.getUserName
+                                    || !props.page.getUserAddress
                                 }
                                 onClick={onGetUserClicked} className="button">Получить
                             </button>

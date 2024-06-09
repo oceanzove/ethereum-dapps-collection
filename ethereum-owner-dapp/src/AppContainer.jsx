@@ -7,11 +7,11 @@ import {
     updateSetUserAge,
     updateSetUserName,
     updateSetUserNumber
-} from "./redux/ownerReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
-        ownerPage: state.ownerPage
+        page: state.page
     };
 };
 
