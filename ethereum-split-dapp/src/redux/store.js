@@ -1,9 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import splitReducer from "./splitReducer";
+import reducer from "./reducer";
 
 
 let reducers = combineReducers({
-    page : splitReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

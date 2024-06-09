@@ -11,7 +11,7 @@ import {
     updateToAddress2,
     updateToAddress3,
     updateToAmount
-} from "./redux/splitReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {

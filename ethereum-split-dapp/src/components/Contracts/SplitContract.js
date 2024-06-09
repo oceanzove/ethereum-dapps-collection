@@ -55,7 +55,7 @@ class SplitContract {
     async coin(receiver, amount) {
         try {
             await this.splitContract.methods.coin(receiver, amount)
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -64,7 +64,7 @@ class SplitContract {
     async send(receiver1, receiver2, receiver3, amount) {
         try {
             await this.splitContract.methods.send(receiver1, receiver2, receiver3, amount)
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +73,7 @@ class SplitContract {
     async balance(address) {
         try {
             return await this.splitContract.methods.balances(address)
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }

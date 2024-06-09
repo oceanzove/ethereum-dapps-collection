@@ -30,7 +30,7 @@ const initialState = {
     balance: '',
     addresses: addresses,
 }
-const splitReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_FROM_ADDRESS:
             return {
@@ -87,7 +87,7 @@ const splitReducer = (state = initialState, action) => {
     }
 }
 
-export default splitReducer;
+export default reducer;
 
 export const updateFromAddress = (value) => (
     {type: UPDATE_FROM_ADDRESS, newValue: value}
