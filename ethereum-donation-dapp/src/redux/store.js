@@ -1,9 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import donationReducer from "./donationReducer";
+import reducer from "./reducer";
 
 
 let reducers = combineReducers({
-    page : donationReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

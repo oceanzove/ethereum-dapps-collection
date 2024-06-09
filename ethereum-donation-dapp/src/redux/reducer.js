@@ -26,7 +26,7 @@ const initialState = {
     balance: balance,
 }
 
-const donationReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_DONAT_ADDRESS:
             return {
@@ -60,7 +60,7 @@ const donationReducer = (state = initialState, action) => {
     }
 }
 
-export default donationReducer;
+export default reducer;
 
 export const updateDonatAddress = (value) => (
     {type: UPDATE_DONAT_ADDRESS, newValue: value}

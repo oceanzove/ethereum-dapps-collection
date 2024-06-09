@@ -3,7 +3,7 @@ import App from "./App";
 import {
     donat, setBalance, transferBalance,
     updateDonatAddress, updateDonatAmount
-} from "./redux/donationReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {

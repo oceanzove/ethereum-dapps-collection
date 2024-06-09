@@ -55,7 +55,7 @@ class DonationContract {
     async gatherDonation(address, value) {
         try {
             await this.donationContract.methods.gatherDonation()
-                .send({from: address, gas: '200000', value: this.web3.utils.toWei(value, 'ether')})
+                .send({from: address, gas: '200000', value: this.web3.utils.toWei(value, 'ether'), gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -64,7 +64,7 @@ class DonationContract {
     async transferToOwner() {
         try {
             await this.donationContract.methods.transferToOwner()
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +73,7 @@ class DonationContract {
     async getDonators() {
         try {
             return await this.donationContract.methods.getDonators()
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -82,7 +82,7 @@ class DonationContract {
     async getContractBalance() {
         try {
             return await this.donationContract.methods.getContractBalance()
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
