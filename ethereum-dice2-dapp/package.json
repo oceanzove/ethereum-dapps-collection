@@ -18,8 +18,9 @@
   },
   "scripts": {
     "start": "cd ./src/solidity-contracts && truffle migrate && cd ./../.. && react-scripts start",
-    "start-ganache": "npm i && ganache-cli",
-    "clear-linux": "rm -rf node_modules && npm cache clean --force",
+    "start-ganache-mac": "npm i && open -a Terminal \"$(which ganache-cli)\"",
+    "start-ganache-winodws": "npm i && start cmd /k ganache-cli",
+    "clear-mac": "rm -rf node_modules && npm cache clean --force",
     "clear-windows": "rmdir /s /q node_modules && npm cache clean --force"
   },
   "eslintConfig": {

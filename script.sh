@@ -28,7 +28,7 @@ colorize() {
         green)  tput setaf 2;;
         *)      tput sgr0;;
     esac
-    echo -n "$text"
+    printf '%s' "$text"
     tput sgr0
 }
 
@@ -56,11 +56,11 @@ directories=(
 )
 
 # Отображаем папки с цветами
-echo -n "Легенда: "
+printf '%s' "Легенда: "
 colorize $"green" $"■"
-echo -n " - запуск возможен"
+printf '%s' " - запуск возможен"
 colorize $"red" $" ■"
-echo -n " - запуск невозможен"
+printf '%s' " - запуск невозможен"
 echo ""
 for i in "${!directories[@]}"; do
     case "${directories[$i]}" in
@@ -87,9 +87,32 @@ if [ "$choice" -ge 0 ] 2>/dev/null && [ "$choice" -lt "${#directories[@]}" ]; th
             # После завершения работы открываем еще один терминал и выполняем npm start
             start /wait cmd /k "npm start"
     elif [ "${machine}" = "Mac" ]; then
-        # Для macOS используем osascript
-        osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run start-ganache && npm start"'
+        osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run start-ganache-mac && while ! nc -z localhost 8545; do sleep 1; done && npm start"'
     fi
+
+    # Цикл ожидания команды от пользователя
+        while true; do
+            echo "Введите '0' для завершения работы скрипта:"
+            read user_input
+            if [ "$user_input" = "0" ]; then
+                echo "Выключение серверов на портах 8545 и 3000..."
+                if [ "${machine}" = "Linux" ] || [ "${machine}" = "Mac" ]; then
+                    kill $(lsof -t -i:8545) 2>/dev/null
+                    kill $(lsof -t -i:3000) 2>/dev/null
+                    osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run clear-mac; exit"'
+                elif [ "${machine}" = "MinGw" ]; then
+                    # Для Windows используем netstat и taskkill
+                    for port in 8545 3000; do
+                        pid=$(netstat -ano | findstr ":$port" | awk '{print $5}')
+                        if [ -n "$pid" ]; then
+                            taskkill /PID $pid /F
+                        fi
+                    done
+                fi
+                echo "Выключение..."
+                break
+            fi
+        done
 else
     echo "Неверный выбор!"
 fi
