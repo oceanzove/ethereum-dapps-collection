@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10vw;
+}
+
+.title {
+    text-align: center;
+    width: 100%;
+    color: #3772da;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .input-label {
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 200px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    output {
+        width: 100%;
+        display: inline-block;
+        height: 33px; /* Высота */
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+}
+
+.button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+.button:disabled:hover {
+    background-color: #cccccc;
+}
+
+.button:hover {
+    background-color: #0b7dda;
+}
