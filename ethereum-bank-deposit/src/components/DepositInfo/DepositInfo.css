@@ -1,0 +1,19 @@
+
+.infoTitle {
+    text-align: center;
+    width: 100%;
+    color: #7ca6d3;
+}
+
+.infoDiv {
+    font-size: 12px;
+
+    run {
+        display: block;
+        font-weight: bold;
+        font-size: 16px;
+    }
+}
+
+
+
