@@ -55,7 +55,7 @@ class BankDepositContract {
     async getContractBalance() {
         try {
             return await this.bankDepositContract.methods.getContractBalance()
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -64,7 +64,7 @@ class BankDepositContract {
     async bankAccount(address, amount) {
         try {
             await this.bankDepositContract.methods.bankAccount()
-                .send({from: address, gas: '2000000', value: this.web3.utils.toWei(amount, 'ether')});
+                .send({from: address, gas: '2000000', value: this.web3.utils.toWei(amount, 'ether'), gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -73,7 +73,7 @@ class BankDepositContract {
     async getRemainingTime(address) {
         try {
             return await this.bankDepositContract.methods.getRemainingTime()
-                .call({from: address, gas: '200000'});
+                .call({from: address, gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -82,7 +82,7 @@ class BankDepositContract {
     async deposit(address, amount) {
         try {
             await this.bankDepositContract.methods.deposit()
-                .send({from: address, gas: '200000', value: this.web3.utils.toWei(amount, 'ether')})
+                .send({from: address, gas: '200000', value: this.web3.utils.toWei(amount, 'ether'), gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -91,7 +91,7 @@ class BankDepositContract {
     async collectPercent(address) {
         try {
             await this.bankDepositContract.methods.collectPercent()
-                .send({from: address, gas: '200000'})
+                .send({from: address, gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -100,7 +100,7 @@ class BankDepositContract {
     async returnDeposit(address) {
         try {
             await this.bankDepositContract.methods.returnDeposit()
-                .send({from: address, gas: '200000'})
+                .send({from: address, gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -111,7 +111,7 @@ class BankDepositContract {
     async percentRate(address) {
         try {
             return await this.bankDepositContract.methods.percentRate()
-                .call({from: address, gas: '200000'})
+                .call({from: address, gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -120,7 +120,7 @@ class BankDepositContract {
     async payoutAmount(address) {
         try {
             return await this.bankDepositContract.methods.payoutAmount()
-                .call({from: address, gas: '200000'})
+                .call({from: address, gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
