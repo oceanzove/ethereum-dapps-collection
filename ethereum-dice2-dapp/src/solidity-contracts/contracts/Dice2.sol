@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Dice2 {
@@ -29,18 +30,18 @@ contract Dice2 {
         // Определение победителя
         address payable winner;
         if (rolled[0][0] + rolled[0][1] > rolled[1][0] + rolled[1][1]) {
-            winner = payable(address(uint160(address(bets[0].player))));
+            winner = address(uint160(bets[0].player));
         } else if (rolled[0][0] + rolled[0][1] < rolled[1][0] + rolled[1][1]) {
-            winner = payable(address(uint160(bets[1].player)));
+            winner = address(uint160(bets[1].player));
         } else {
             // Ничья - возврат ставок
             for (uint i = 0; i < bets.length; i++) {
-                address payable playerAddress = payable(address(uint160(bets[i].player)));
+                address payable playerAddress = address(uint160(bets[i].player));
                 playerAddress.transfer(bets[i].amount);
             }
             totalPot = 0;
             delete bets;
-            return (rolled, payable(address(0)));
+            return (rolled, address(0));
         }
 
         // Отправка выигрыша победителю

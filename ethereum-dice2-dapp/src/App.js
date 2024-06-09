@@ -60,6 +60,7 @@ function App() {
 
     const onRollClick = async () => {
         const response = await diceContract.getDiceRoll();
+        console.log(response)
         rollAllPlayer1(response[0].map(Number));
         rollAllPlayer2(response[1].map(Number));
     }
