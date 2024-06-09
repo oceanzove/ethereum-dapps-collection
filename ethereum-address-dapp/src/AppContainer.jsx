@@ -4,11 +4,11 @@ import {
     addAddress, setGetIndexAddress,
     updateGetAddress,
     updateSetAddress
-} from "./redux/addressReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
-        addressPage: state.addressPage
+        page: state.page
     };
 };
 

@@ -22,7 +22,7 @@ const initialState = {
     addresses: addresses
 }
 
-const addressReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_SET_ADDRESS:
             return {
@@ -54,7 +54,7 @@ const addressReducer = (state = initialState, action) => {
     }
 }
 
-export default addressReducer;
+export default reducer;
 
 export const updateSetAddress = (value) => (
     {type: UPDATE_SET_ADDRESS, newValue: value}

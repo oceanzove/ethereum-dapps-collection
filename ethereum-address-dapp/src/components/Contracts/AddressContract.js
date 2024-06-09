@@ -45,7 +45,7 @@ class AddressContract {
     async set(address) {
         try {
             await this.addressContract.methods.set(address)
-                .send({from: address})
+                .send({from: address, gas: '200000', gasPrice: '1000000'})
         } catch (error) {
             console.log(error);
         }
@@ -54,7 +54,16 @@ class AddressContract {
     async getIndex(address) {
         try {
             return await this.addressContract.methods.get(address)
-                .call();
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000'});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getAddress(index) {
+        try {
+            return await this.addressContract.methods.getAddress(index)
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000'});
         } catch (error) {
             console.log(error);
         }
@@ -64,7 +73,7 @@ class AddressContract {
         try {
            await this.init()
            return await this.addressContract.methods.getAll()
-               .call();
+               .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000'});
         } catch (error) {
             console.log(error);
         }

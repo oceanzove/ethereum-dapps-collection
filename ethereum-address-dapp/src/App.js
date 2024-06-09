@@ -13,7 +13,7 @@ function App(props) {
     }
 
     const onSetAddressClicked = async () => {
-        const address = props.addressPage.setAddress;
+        const address = props.page.setAddress;
 
         await addressContract.set(address);
         const index = await addressContract.getIndex(address);
@@ -22,13 +22,13 @@ function App(props) {
     }
 
     const onGetAddressClicked = async () => {
-        const address = props.addressPage.getAddress;
+        const index = props.page.getAddress;
 
-        const index = await addressContract.getIndex(address);
-        props.onSetGetIndexAddress(index);
+        const address = await addressContract.getAddress(index);
+        props.onSetGetIndexAddress(address);
     }
 
-    let addressElements = props.addressPage.addresses.map(
+    let addressElements = props.page.addresses.map(
         a => <AddressItem key={a.index} index={a.index} address={a.address}/>
     )
 
@@ -54,12 +54,12 @@ function App(props) {
                                     Добавить адрес
                                 </label>
                                 <input type="text" id='address-set'
-                                       value={props.addressPage.setAddress}
+                                       value={props.page.setAddress}
                                        onChange={onChangeSetAddress}
                                 />
                             </div>
                             <button
-                                disabled={!props.addressPage.setAddress}
+                                disabled={!props.page.setAddress}
                                 onClick={onSetAddressClicked} className="button">Добавить
                             </button>
                             <div className='input-div'>
@@ -67,17 +67,17 @@ function App(props) {
                                     Получить индекс адреса
                                 </label>
                                 <input type="text" id='address-get'
-                                       value={props.addressPage.getAddress}
+                                       value={props.page.getAddress}
                                        onChange={onChangeGetAddress}
                                 />
                             </div>
                             <button
-                                disabled={!props.addressPage.getAddress}
+                                disabled={!props.page.getAddress}
                                 onClick={onGetAddressClicked} className="button">Получить
                             </button>
                             <div className='input-div'>
-                                <label htmlFor='index' className='input-label'>Количество оценок</label>
-                                <output id='index'>{props.addressPage.getIndexAddress.toString()}</output>
+                                <label htmlFor='index' className='input-label'>Адрес</label>
+                                <output id='index'>{props.page.getIndexAddress}</output>
                             </div>
                         </div>
                     ) : (

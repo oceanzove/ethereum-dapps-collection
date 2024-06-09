@@ -1,9 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import addressReducer from "./addressReducer";
+import reducer from "./reducer";
 
 
 let reducers = combineReducers({
-    addressPage : addressReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

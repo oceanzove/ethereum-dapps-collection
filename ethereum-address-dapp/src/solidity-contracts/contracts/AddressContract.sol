@@ -19,6 +19,9 @@ contract AddressContract {
     return 0;
   }
 
+  function getAddress(uint index) public view returns (address) {
+    return addresses[index];
+  }
   function getAll() public view returns (address[] memory) {
     address[] memory all = new address[](count);
     for (uint i = 0; i < count; i++) {
