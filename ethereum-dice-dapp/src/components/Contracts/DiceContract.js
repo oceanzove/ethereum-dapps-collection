@@ -48,7 +48,8 @@ class DiceContract {
                 randomNumbers.push(Math.floor(Math.random() * 9999999));
             }
             console.log(randomNumbers);
-            return  await this.diceContract.methods.rollDices(randomNumbers).call({});
+            return  await this.diceContract.methods.rollDices(randomNumbers)
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000'});
         } catch (error) {
             console.log(error);
         }
