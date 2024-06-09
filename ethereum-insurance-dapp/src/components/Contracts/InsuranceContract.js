@@ -62,7 +62,7 @@ class InsuranceContract {
     async checkHospitalAddress () {
         try {
             return  await this.insuranceContract.methods.hospital()
-                .call({from: this.accounts[0], gas: '200000'})
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -71,7 +71,7 @@ class InsuranceContract {
     async checkInsurerAddress () {
         try {
             return  await this.insuranceContract.methods.insurer()
-                .call({from: this.accounts[1], gas: '200000'})
+                .call({from: this.accounts[1], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -79,7 +79,7 @@ class InsuranceContract {
     async setInsurerAddress () {
         try {
             await this.insuranceContract.methods.setInsurerAddress()
-                .send({from: this.accounts[1], gas: '200000'})
+                .send({from: this.accounts[1], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -87,7 +87,7 @@ class InsuranceContract {
     async setHospitalAddress () {
         try {
             await this.insuranceContract.methods.setHospitalAddress()
-                .send({from: this.accounts[0], gas: '200000'})
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -96,7 +96,7 @@ class InsuranceContract {
     async getLastId () {
         try {
             return await this.insuranceContract.methods.getLastId()
-                .call({from: this.accounts[2], gas: '200000'})
+                .call({from: this.accounts[2], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -105,7 +105,7 @@ class InsuranceContract {
     async newRecord (_id, _name, _date, _price) {
         try {
             await this.insuranceContract.methods.newRecord(_id, _name, _date, _price)
-                .send({from: this.accounts[2], gas: '300000'})
+                .send({from: this.accounts[2], gas: '300000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -114,7 +114,7 @@ class InsuranceContract {
     async onSubmitFromHospital(_id) {
         try {
             await this.insuranceContract.methods.signRecord(_id)
-                .send({from: this.accounts[0], gas: '200000'})
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -123,7 +123,7 @@ class InsuranceContract {
     async onSubmitFromInsurer(_id, price) {
         try {
             await this.insuranceContract.methods.signRecord(_id)
-                .send({from: this.accounts[1], gas: '200000', value: this.web3.utils.toWei(price, 'ether')})
+                .send({from: this.accounts[1], gas: '200000', value: this.web3.utils.toWei(price, 'ether'), gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -132,7 +132,7 @@ class InsuranceContract {
     async getAllRecordIds () {
         try {
             return await this.insuranceContract.methods.getAllRecordIds()
-                .call({from: this.accounts[2], gas: '200000'})
+                .call({from: this.accounts[2], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }
@@ -141,7 +141,7 @@ class InsuranceContract {
     async getRecordById (id) {
         try {
             return await this.insuranceContract.methods.all_records(id)
-                .call({from: this.accounts[2], gas: '200000'})
+                .call({from: this.accounts[2], gas: '200000', gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }

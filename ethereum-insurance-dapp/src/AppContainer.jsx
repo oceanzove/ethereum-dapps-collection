@@ -5,7 +5,7 @@ import {
     updateNewRecordDate,
     updateNewRecordName, updateNewRecordPrice, updateRecordIdHospital, updateRecordIdInsurer
 
-} from "./redux/Reducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
