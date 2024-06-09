@@ -25,7 +25,7 @@ let initialState = {
     candidates: voters
 }
 
-const voterReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_CANDIDATE_NAME:
             return {
@@ -73,7 +73,7 @@ const voterReducer = (state = initialState, action) => {
     }
 }
 
-export default voterReducer;
+export default reducer;
 
 export const updateCandidateName = (value) => (
     {type: UPDATE_CANDIDATE_NAME, newValue: value}

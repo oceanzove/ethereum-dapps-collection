@@ -6,17 +6,16 @@ function App(props) {
     const voterContract = new VoterContract();
 
     const onAddCandidateClicked = async () => {
-        const name = props.voterPage.newCandidateName;
+        const name = props.page.newCandidateName;
         await voterContract.addCandidate(name);
         const candidate = await voterContract.getLastCandidate();
         props.onAddNewCandidate(candidate);
     }
 
     const onVoteClicked = async () => {
-        const index = props.voterPage.voterCandidate;
-        const address = props.voterPage.voterAddress;
+        const index = props.page.voterCandidate;
+        const address = props.page.voterAddress;
         const response = await voterContract.vote(index, address);
-        console.log(response);
         if (response === false) {
             setInvalidAddress();
         } else {
@@ -38,7 +37,7 @@ function App(props) {
         props.onUpdateVoterCandidate(value)
     }
 
-    let candidateElements = props.voterPage.candidates.map(
+    let candidateElements = props.page.candidates.map(
         v => <Tr key={v.id} id={v.id} name={v.name} totalVotes={v.totalVotes}/>
     )
 
@@ -89,7 +88,7 @@ function App(props) {
                             Адрес избирателя
                         </label>
                         <input type="text" id='address-voter'
-                               value={props.voterPage.voterAddress}
+                               value={props.page.voterAddress}
                                onChange={onChangeVoterAddress}
                         />
                     </div>
@@ -98,13 +97,13 @@ function App(props) {
                             Индекс кандидата
                         </label>
                         <input type="number" id='index-voter'
-                               value={props.voterPage.voterCandidate}
+                               value={props.page.voterCandidate}
                                onChange={onChangeVoterCandidate}
                                min='0'
                         />
                     </div>
                     <button
-                        disabled={!props.voterPage.voterAddress || !props.voterPage.voterCandidate}
+                        disabled={!props.page.voterAddress || !props.page.voterCandidate}
                         onClick={onVoteClicked} className="button">Проголосовать
                     </button>
                 </div>
@@ -117,12 +116,12 @@ function App(props) {
                             Имя нового кандидата
                         </label>
                         <input type="text" id='address-voter'
-                               value={props.voterPage.newCandidateName}
+                               value={props.page.newCandidateName}
                                onChange={onChangeCandidateName}
                         />
                     </div>
                     <button
-                        disabled={!props.voterPage.newCandidateName}
+                        disabled={!props.page.newCandidateName}
                         onClick={onAddCandidateClicked} className="button">Добавить
                     </button>
                 </div>

@@ -1,9 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import voterReducer from "./voterReducer";
+import reducer from "./reducer";
 
 
 let reducers = combineReducers({
-    voterPage : voterReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

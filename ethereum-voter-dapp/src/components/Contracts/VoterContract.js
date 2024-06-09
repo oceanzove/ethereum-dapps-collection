@@ -46,7 +46,7 @@ class VoterContract {
         try {
             await this.init()
             await this.voterContract.methods.addCandidate(name)
-                .send({from: this.accounts[0], gas: '100000'})
+                .send({from: this.accounts[0], gas: '100000', gasPrice: '1000000'})
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +76,7 @@ class VoterContract {
         try {
             await this.init();
             return await this.voterContract.methods.vote(index)
-                .send({from: address})
+                .send({from: address, gas: '200000', gasPrice: '1000000'})
         } catch (error) {
             console.log(error);
             return false;

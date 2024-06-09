@@ -20,7 +20,7 @@
   "scripts": {
     "start": "cd ./src/solidity-contracts && truffle migrate && cd ./../.. && react-scripts start",
     "start-ganache": "npm i && ganache-cli",
-    "clear-linux": "rm -rf node_modules && sudo npm cache clean --force",
+    "clear-linux": "rm -rf node_modules && npm cache clean --force",
     "clear-windows": "rmdir /s /q node_modules && npm cache clean --force"
   },
   "eslintConfig": {

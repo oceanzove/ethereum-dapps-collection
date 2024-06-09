@@ -6,12 +6,12 @@ import {
     updateVoterAddress,
     updateVoterCandidate,
     voteCandidate
-} from "./redux/voterReducer";
+} from "./redux/reducer";
 
 
 const mapStateToProps = (state) => {
     return {
-        voterPage: state.voterPage
+        page: state.page
     };
 };
 
