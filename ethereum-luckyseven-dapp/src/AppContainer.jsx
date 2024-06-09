@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
 import App from "./App";
-import {updateSet} from "./redux/luckysevenReducer";
+import {updateSet} from "./redux/reducer";
 
 
 const mapStateToProps = (state) => {
     return {
-        luckysevenPage: state.luckysevenPage
+        page: state.page
     };
 };
 

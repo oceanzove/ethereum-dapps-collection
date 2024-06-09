@@ -5,7 +5,7 @@ let initialState = {
     set: ''
 }
 
-const luckysevenReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_SET:
             return {
@@ -17,7 +17,7 @@ const luckysevenReducer = (state = initialState, action) => {
     }
 }
 
-export default luckysevenReducer;
+export default reducer;
 
 export const updateSet = (value) => (
     {type: UPDATE_SET, newValue: value}

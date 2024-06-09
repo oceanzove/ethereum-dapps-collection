@@ -45,7 +45,7 @@ class LuckySevenContract {
         try {
             await this.init()
             return await this.luckySevenContract.methods.Random(x)
-                .call({from: this.accounts[0], gas: '200000'})
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '10000000'})
         } catch (error) {
             console.log(error);
         }

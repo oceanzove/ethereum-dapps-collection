@@ -1,10 +1,10 @@
 import {combineReducers, createStore} from "redux";
-import luckysevenReducer from "./luckysevenReducer";
+import reducer from "./reducer";
 
 
 
 let reducers = combineReducers({
-    luckysevenPage : luckysevenReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

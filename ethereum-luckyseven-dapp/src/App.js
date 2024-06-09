@@ -14,7 +14,7 @@ function App(props) {
   }
 
   const onTryLuckyClicker = async () => {
-      const x = props.luckysevenPage.set;
+      const x = props.page.set;
       const result = await luckysevenContract.Random(x);
       if (result === "Winner") {
           shootConfetti();
@@ -56,11 +56,11 @@ function App(props) {
                       Испытай удачу
                   </label>
                   <input type="number" id='lucky'
-                         value={props.luckysevenPage.set}
+                         value={props.page.set}
                          onChange={onChangeSet}
                   />
                   <button
-                      disabled={!props.luckysevenPage.set}
+                      disabled={!props.page.set}
                       onClick={onTryLuckyClicker} className="button">Испытать
                   </button>
               </div>
