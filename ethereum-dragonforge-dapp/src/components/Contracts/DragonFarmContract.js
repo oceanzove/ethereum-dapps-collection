@@ -56,7 +56,7 @@ class DragonFarmContract {
         try {
             await this.init();
             return await this.dargonFarmContract.methods.getDragonByIndex(index)
-                .call();
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000'});
         } catch (error) {
             return {id: '-1', name: 'undefined', dna: 0}
         }
@@ -66,7 +66,7 @@ class DragonFarmContract {
         try {
             await this.init();
             return await this.dargonFarmContract.methods.GenerateRandomDna(_str)
-                .call();
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000'});
         } catch (error) {
             console.log(error);
         }
@@ -76,7 +76,7 @@ class DragonFarmContract {
         try {
             await this.init();
             await this.dargonFarmContract.methods.AddDragon(_name, _dna)
-                .send({from: this.accounts[0], gas: "2000000"});
+                .send({from: this.accounts[0], gas: "2000000", gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -87,7 +87,7 @@ class DragonFarmContract {
         try {
             await this.init();
             await this.dargonFarmContract.methods.Reforge(name, id, food)
-                .send({from: this.accounts[0], gas: "200000", value: this.web3.utils.toWei('10', 'ether') })
+                .send({from: this.accounts[0], gas: "200000", value: this.web3.utils.toWei('10', 'ether'), gasPrice: '1000000000' })
         } catch (error) {
             console.log(error);
         }

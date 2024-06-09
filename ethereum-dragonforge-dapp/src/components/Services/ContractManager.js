@@ -12,7 +12,7 @@ class ContractManager {
 
     async init() {
         try {
-            this.web3 = new Web3('http://localhost:7545');
+            this.web3 = new Web3('http://localhost:8545');
 
             this.contracts.DragonFarmContract = await this.initContract(DragonFarmContract);
             this.contracts.DragonForgeContract = await this.initContract(DragonForgeContract);

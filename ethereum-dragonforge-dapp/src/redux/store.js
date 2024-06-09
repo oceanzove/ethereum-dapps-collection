@@ -1,9 +1,9 @@
 import {combineReducers, createStore} from "redux";
-import dragonFarmReducer from "./dragonFarmReducer";
+import reducer from "./reducer";
 
 
 let reducers = combineReducers({
-    dragonFarmPage : dragonFarmReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

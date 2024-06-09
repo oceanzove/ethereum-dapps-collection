@@ -6,11 +6,11 @@ import {
     updateAddName,
     updateGetIndex, updateReforgeDragonFood, updateReforgeDragonId,
     updateReforgeDragonName
-} from "./redux/dragonFarmReducer";
+} from "./redux/reducer";
 
 const mapStateToProps = (state) => {
     return {
-        dragonFarmPage: state.dragonFarmPage
+        page: state.page
     };
 };
 

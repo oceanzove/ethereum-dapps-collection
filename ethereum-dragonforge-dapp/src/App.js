@@ -36,7 +36,7 @@ function App(props) {
      * Метод для добавления дракона, в блокчейн
      */
     const onAddDragonClick = async () => {
-        const name = props.dragonFarmPage.addDragonName;
+        const name = props.page.addDragonName;
         const dna = await dragonFarmContract.generateDna(name);
         await dragonFarmContract.addDragon(name, dna)
 
@@ -47,7 +47,7 @@ function App(props) {
      * Метод для получения дракона из блокчейна по индексу
      */
     const onGetDragonInfo = async () => {
-        const index = props.dragonFarmPage.getDragonIndex;
+        const index = props.page.getDragonIndex;
         const dragon = await dragonFarmContract.getDragon(index);
         props.onSetGetDragonInfo(dragon.id, dragon.name, dragon.dna);
     };
@@ -56,9 +56,9 @@ function App(props) {
      * Метод для reforge'а дракона и добавления его в блокчейн
      */
     const onReforgeDragonClick = async () => {
-        const name = props.dragonFarmPage.reforgeDragonName;
-        const id = props.dragonFarmPage.reforgeDragonId;
-        const food = props.dragonFarmPage.reforgeDragonFood;
+        const name = props.page.reforgeDragonName;
+        const id = props.page.reforgeDragonId;
+        const food = props.page.reforgeDragonFood;
         await dragonFarmContract.reforge(name, id, food);
 
         props.onReforgeDragon();
@@ -80,12 +80,12 @@ function App(props) {
                                 Добавить дракона
                             </label>
                             <input type="text" id='dragon-add'
-                                   value={props.dragonFarmPage.addDragonName}
+                                   value={props.page.addDragonName}
                                    onChange={onChangeDragonAdd}
                             />
                         </div>
                         <button
-                            disabled={!props.dragonFarmPage.addDragonName}
+                            disabled={!props.page.addDragonName}
                             onClick={onAddDragonClick} className="button">Добавить
                         </button>
                     </div>
@@ -97,25 +97,25 @@ function App(props) {
                                 Получить дракона по индексу
                             </label>
                             <input type="number" id='dargon-get'
-                                   value={props.dragonFarmPage.getDragonIndex}
+                                   value={props.page.getDragonIndex}
                                    onChange={onChangeDragonGet}
                             />
                         </div>
                         <button
-                            disabled={!props.dragonFarmPage.getDragonIndex}
+                            disabled={!props.page.getDragonIndex}
                             onClick={onGetDragonInfo} className="button">Получить
                         </button>
                         <div className='input-div'>
                             <label htmlFor='id' className='input-label'>ID</label>
-                            <output id='id'>{props.dragonFarmPage.getInfo[0].id.toString()}</output>
+                            <output id='id'>{props.page.getInfo[0].id.toString()}</output>
                         </div>
                         <div className='input-div'>
                             <label htmlFor='name' className='input-label'>Имя</label>
-                            <output id='name'>{props.dragonFarmPage.getInfo[0].name}</output>
+                            <output id='name'>{props.page.getInfo[0].name}</output>
                         </div>
                         <div className='input-div'>
                             <label htmlFor='dna' className='input-label'>ДНК</label>
-                            <output id='dna'>{props.dragonFarmPage.getInfo[0].dna.toString()}</output>
+                            <output id='dna'>{props.page.getInfo[0].dna.toString()}</output>
                         </div>
                     </div>
 
@@ -126,7 +126,7 @@ function App(props) {
                                 Имя
                             </label>
                             <input type="text" id='dragon-reforge-name'
-                                   value={props.dragonFarmPage.reforgeDragonName}
+                                   value={props.page.reforgeDragonName}
                                    onChange={onChangeReforgeDragonName}
                             />
                         </div>
@@ -135,7 +135,7 @@ function App(props) {
                                 ID
                             </label>
                             <input type="number" id='dragon-reforge-id'
-                                   value={props.dragonFarmPage.reforgeDragonId}
+                                   value={props.page.reforgeDragonId}
                                    onChange={onChangeReforgeDragonId}
                             />
                         </div>
@@ -144,15 +144,15 @@ function App(props) {
                                 Еда
                             </label>
                             <input type="number" id='dragon-reforge-food'
-                                   value={props.dragonFarmPage.reforgeDragonFood}
+                                   value={props.page.reforgeDragonFood}
                                    onChange={onChangeReforgeDragonFood}
                             />
                         </div>
                         <button
                             disabled={
-                                !props.dragonFarmPage.reforgeDragonName
-                                || !props.dragonFarmPage.reforgeDragonId
-                                || !props.dragonFarmPage.reforgeDragonFood
+                                !props.page.reforgeDragonName
+                                || !props.page.reforgeDragonId
+                                || !props.page.reforgeDragonFood
                             }
                             onClick={onReforgeDragonClick} className="button">Переделать
                         </button>
