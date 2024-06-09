@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
 import App from "./App";
-import {boughtTicket, updateResult, updateTicket} from "./redux/rLotteryReducer";
+import {boughtTicket, updateResult, updateTicket} from "./redux/reducer";
 
 
 const mapStateToProps = (state) => {
     return {
-        rLotteryPage: state.rLotteryPage
+        page: state.page
     };
 };
 

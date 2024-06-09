@@ -45,7 +45,7 @@ class RLotteryContract {
         try {
             await this.init()
             return await this.rLotteryContract.methods.getTickets(num)
-                .send({from: this.accounts[0], gas: '200000'});
+                .send({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
         } catch (error) {
             console.log(error);
         }
@@ -55,7 +55,7 @@ class RLotteryContract {
         try {
             await this.init();
             const response = await this.rLotteryContract.methods.Winner()
-                .call({from: this.accounts[0], gas: '200000'});
+                .call({from: this.accounts[0], gas: '200000', gasPrice: '1000000000' });
             console.log(response)
             return response;
         } catch (error) {

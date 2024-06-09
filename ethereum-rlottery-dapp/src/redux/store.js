@@ -1,10 +1,10 @@
 import {combineReducers, createStore} from "redux";
-import rLotteryReducer from "./rLotteryReducer";
+import reducer from "./reducer";
 
 
 
 let reducers = combineReducers({
-    rLotteryPage : rLotteryReducer
+    page : reducer
 })
 
 let store  = createStore(reducers)

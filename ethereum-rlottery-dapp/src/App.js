@@ -9,7 +9,7 @@ function App(props) {
         confetti();
     };
     const onBuyTicketClicked = async () => {
-        const num = props.rLotteryPage.ticket;
+        const num = props.page.ticket;
         await rLotteryContract.getTickets(num);
         props.onBoughtTicket();
     }
@@ -41,18 +41,18 @@ function App(props) {
                         Купить билет (1 - 10)
                     </label>
                     <input type="number" id='ticket'
-                           value={props.rLotteryPage.ticket}
+                           value={props.page.ticket}
                            onChange={onChangeTicket}
                     />
                     <button
-                        disabled={!props.rLotteryPage.ticket}
+                        disabled={!props.page.ticket}
                         onClick={onBuyTicketClicked} className="button">Купить
                     </button>
 
                 </div>
                 <div className='input-div'>
                     <output id='winner'>
-                        {props.rLotteryPage.result}
+                        {props.page.result}
                     </output>
                     <button
                         onClick={onWinCheckClicked} className="button">Крутить
