@@ -37,7 +37,7 @@ directories=(
 "ethereum-address-dapp"
 "ethereum-bank-deposit"
 "ethereum-dice-dapp"
-"ethereum-dice-dapp2"
+"ethereum-dice2-dapp"
 "ethereum-donation-dapp"
 "ethereum-dragonfarm-dapp"
 "ethereum-dragonforge-dapp"
@@ -55,7 +55,6 @@ directories=(
 "ethreum-genereateseed-dapp"
 )
 
-# Отображаем папки с цветами
 printf '%s' "Легенда: "
 colorize $"green" $"■"
 printf '%s' " - запуск возможен"
@@ -71,26 +70,23 @@ for i in "${!directories[@]}"; do
     echo ""
 done
 
-# Выбор папки
 echo "Выберите папку по номеру:"
 read choice
 
 if [ "$choice" -ge 0 ] 2>/dev/null && [ "$choice" -lt "${#directories[@]}" ]; then
     selected_dir="${directories[$choice]}"
     echo "Вы выбрали ${selected_dir}"
-    # Выполняем инструкции в выбранной папке
     cd "$selected_dir" || exit
     echo "Текущая директория: $(pwd)"
      if [ "${machine}" = "MinGw" ]; then
-            # Открываем новый терминал и выполняем npm ganache
-            start /wait cmd /k "npm run start-ganache"
-            # После завершения работы открываем еще один терминал и выполняем npm start
-            start /wait cmd /k "npm start"
+        start "new terminal" sh -c "cd '$(pwd)'; npm run start-ganache-windows; sleep 10"
+        while ! netstat -an | grep ':8545.*LISTEN'; do
+            sleep 1
+        done
+        start "new terminal" sh -c "cd '$(pwd)'; npm run start"
     elif [ "${machine}" = "Mac" ]; then
         osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run start-ganache-mac && while ! nc -z localhost 8545; do sleep 1; done && npm start"'
     fi
-
-    # Цикл ожидания команды от пользователя
         while true; do
             echo "Введите '0' для завершения работы скрипта:"
             read user_input
@@ -100,15 +96,14 @@ if [ "$choice" -ge 0 ] 2>/dev/null && [ "$choice" -lt "${#directories[@]}" ]; th
                     kill $(lsof -t -i:8545) 2>/dev/null
                     kill $(lsof -t -i:3000) 2>/dev/null
                     osascript -e 'tell application "Terminal" to do script "cd '$(pwd)' && npm run clear-mac; exit"'
-                elif [ "${machine}" = "MinGw" ]; then
-                    # Для Windows используем netstat и taskkill
-                    for port in 8545 3000; do
-                        pid=$(netstat -ano | findstr ":$port" | awk '{print $5}')
-                        if [ -n "$pid" ]; then
-                            taskkill /PID $pid /F
-                        fi
-                    done
-                fi
+               elif [ "${machine}" = "MinGw" ]; then
+                  pid=$(netstat -aon | grep LISTENING | grep ":3000" | awk '{print $NF}')
+                  pid2=$(netstat -aon | grep LISTENING | grep ":8545" | awk '{print $NF}')
+
+                  taskkill -F //PID $pid
+                  taskkill -F //PID $pid2
+                  start "clear cache" sh -c "cd '$(PWD)'; npm run clear-windows; exit"
+               fi
                 echo "Выключение..."
                 break
             fi
