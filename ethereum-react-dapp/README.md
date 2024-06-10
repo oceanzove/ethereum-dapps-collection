@@ -8,6 +8,17 @@
 ``` 
   npm start
 ```
+
+# Очистка памяти:
+## для Windows
+```
+ npm clear-windows
+```
+## для MacOS
+```
+ npm clear-mac
+```
+
 #  Вид приложения для контракта  UploadFiles
 
  <img alt="Скриншот приложения" src="./media/screenshot-pz12.png"/>

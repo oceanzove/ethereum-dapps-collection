@@ -7,5 +7,16 @@
 ``` 
   npm start
 ```
+
+# Очистка памяти:
+## для Windows
+```
+ npm clear-windows
+```
+## для MacOS
+```
+ npm clear-mac
+```
+
 #  Вид приложения
  <img alt="Скриншот приложения" src="./media/screenshot.jpg"/>
