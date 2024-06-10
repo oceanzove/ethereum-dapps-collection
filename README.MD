@@ -14,6 +14,19 @@
 
 ### Для Windows
 
+Для запуска на виндовс вам потребуется GitBush.
+<a href="https://gitforwindows.org/">
+<img alt="GitBush" width="22px" src="https://gitforwindows.org/img/git_logo.png" />
+</a> 
+\
+Открываем GitBush и переходем в папку с проектов командой
+```
+    cd ./path/to/project/ethereum-dapps-collection/
+```
+Остаётся только ввести ещё одну команду
+```
+    ./script.sh
+```
 ### Для Mac
 
 ## Инструкция по ручному запуску

@@ -20,5 +20,5 @@
 
 
 #  Вид приложения
- <img alt="Скриншот приложения" src="./media/screenshot.jpg"/>
+ <img alt="Скриншот приложения" src="./media/screenshot.png"/>
 
